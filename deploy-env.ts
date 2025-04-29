@@ -4,6 +4,26 @@ import path from 'path';
 
 const tempDir = '.vercel_env_temp'; // Temporary directory to store variable files
 
+// Get Vercel credentials from environment
+const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
+const VERCEL_PROJECT_ID = process.env.VERCEL_PROJECT_ID;
+const VERCEL_ORG_ID = process.env.VERCEL_ORG_ID;
+
+// Validate Vercel credentials
+if (!VERCEL_TOKEN || !VERCEL_PROJECT_ID || !VERCEL_ORG_ID) {
+  console.error('Error: Required Vercel credentials are missing');
+  process.exit(1);
+}
+
+// Debug information
+console.log(`Using Project ID: ${VERCEL_PROJECT_ID}`);
+console.log(`Using Organization ID: ${VERCEL_ORG_ID}`);
+console.log(`Token available: ${VERCEL_TOKEN ? 'Yes' : 'No'}`);
+
+// We need to set the VERCEL_TOKEN environment variable for CLI to use it
+process.env.VERCEL_PROJECT_ID = VERCEL_PROJECT_ID;
+process.env.VERCEL_ORG_ID = VERCEL_ORG_ID;
+
 // Ensure the directory exists
 execSync(`mkdir -p ${tempDir}`);
 
@@ -28,22 +48,39 @@ envVarKeys.forEach((key) => {
 
     console.log(`Checking if ${key} exists...`);
     try {
-      const existingVars = execSync(`vercel env ls production`, {
+      // Using execSync with options object to pass environment variables
+      const existingVarsResult = execSync('npx vercel env ls production', {
         encoding: 'utf-8',
+        env: {
+          ...process.env,
+          VERCEL_TOKEN,
+        },
       });
-      if (existingVars.includes(key)) {
+
+      if (existingVarsResult.includes(key)) {
         console.log(`Removing existing ${key}...`);
-        execSync(`vercel env rm ${key} production -y`, { stdio: 'inherit' });
+        execSync(`npx vercel env rm ${key} production -y`, {
+          stdio: 'inherit',
+          env: {
+            ...process.env,
+            VERCEL_TOKEN,
+          },
+        });
       } else {
         console.log(`${key} does not exist, skipping removal.`);
       }
     } catch (error) {
       console.log(`Skipping removal of ${key}, possibly no existing value.`);
+      console.error(error);
     }
 
     console.log(`Setting ${key}...`);
-    execSync(`vercel env add ${key} production < ${tempFilePath}`, {
+    execSync(`npx vercel env add ${key} production < ${tempFilePath}`, {
       stdio: 'inherit',
+      env: {
+        ...process.env,
+        VERCEL_TOKEN,
+      },
     });
 
     execSync(`rm -f ${tempFilePath}`); // Clean up temp file
