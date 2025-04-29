@@ -1,20 +1,26 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { execSync } from 'child_process';
 import path from 'path';
 
-const envFile = '.env.vercel'; // Change if needed
 const tempDir = '.vercel_env_temp'; // Temporary directory to store variable files
 
 // Ensure the directory exists
 execSync(`mkdir -p ${tempDir}`);
 
-const envVars = readFileSync(envFile, 'utf-8')
-  .split('\n')
-  .filter((line) => line.trim() && !line.startsWith('#'));
+// List of environment variables to set
+const envVarKeys = [
+  'POSTGRES_URL',
+  'STRIPE_SECRET_KEY',
+  'STRIPE_WEBHOOK_SECRET',
+  'AUTH_SECRET',
+  'BASE_URL',
+  'POSTHOG_API_KEY',
+  'POSTHOG_HOST',
+];
 
-envVars.forEach((line) => {
-  const [key, ...value] = line.split('=');
-  const val = value.join('=').trim();
+// Process each environment variable
+envVarKeys.forEach((key) => {
+  const val = process.env[key];
 
   if (key && val) {
     const tempFilePath = path.join(tempDir, key);
@@ -41,6 +47,8 @@ envVars.forEach((line) => {
     });
 
     execSync(`rm -f ${tempFilePath}`); // Clean up temp file
+  } else {
+    console.log(`Warning: Environment variable ${key} is not set or empty`);
   }
 });
 
