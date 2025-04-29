@@ -53,12 +53,8 @@ jobs:
       # Set environment variables in Vercel using GitHub secrets
       - name: Set Vercel Environment Variables
         run: |
-          # Ensure Vercel CLI is authenticated
-          echo "Configuring Vercel CLI..."
-          npx vercel login --token $VERCEL_TOKEN
-          npx vercel link --token $VERCEL_TOKEN --project $VERCEL_PROJECT_ID
-          
-          # Run the deploy-env script
+          # Ensure Vercel CLI is authenticated - no need to login when using token
+          echo "Running deploy-env script to set Vercel environment variables..."
           pnpm run deploy-env
         env:
           # Vercel authentication
