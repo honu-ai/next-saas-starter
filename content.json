@@ -59,6 +59,35 @@
         ],
         "llmInstructions": "This is the problem section that highlights challenges users face. The icon should be a valid icon from the lucide icon library."
     },
+    "solution": {
+        "badge": "THE SOLUTION",
+        "title": "The All-in-One SEO Content Platform",
+        "subtitle": "RankWell brings together every step of the content creation process into a single, streamlined workflow.",
+        "cta": "Start Creating Rankable Content Now",
+        "steps": [
+            {
+                "number": 1,
+                "title": "Identify Trending Topics",
+                "description": "Our AI scans the web to identify trending topics in your industry and analyzes search patterns to uncover high-potential keywords with lower competition."
+            },
+            {
+                "number": 2,
+                "title": "Generate SEO-Optimized Content",
+                "description": "RankWell's AI generates comprehensive, factually accurate blog posts built around your target keywords, following proven SEO frameworks."
+            },
+            {
+                "number": 3,
+                "title": "Optimize & Analyze",
+                "description": "Get real-time SEO scores and actionable recommendations to improve your content's ranking potential before you publish."
+            },
+            {
+                "number": 4,
+                "title": "Publish & Track",
+                "description": "Push content directly to WordPress, HubSpot, or export to your CMS. Then track performance to continuously improve your strategy."
+            }
+        ],
+        "llmInstructions": "This is the solution section that presents the product as the answer to the problems described in the previous section."
+    },
     "pricing": {
         "title": "Choose Your Perfect Plan",
         "subtitle": "Start with a free trial. No credit card required.",

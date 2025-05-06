@@ -5,6 +5,7 @@ import HeroSection from '@/components/hero-section';
 import FeatureCard from '@/components/feature-card';
 import content from '../../content.json';
 import ProblemSection from '@/components/problem-section';
+import SolutionSection from '@/components/solution-section';
 export default async function HomePage() {
   return (
     <main>
@@ -26,8 +27,17 @@ export default async function HomePage() {
           cards={content.problem.cards.map((card) => ({
             title: card.title,
             description: card.description,
-            icon: card.icon,
+            icon: card.icon as keyof typeof icons,
           }))}
+        />
+      </section>
+      <section>
+        <SolutionSection
+          badge={content.solution.badge}
+          title={content.solution.title}
+          subtitle={content.solution.subtitle}
+          cta={content.solution.cta}
+          steps={content.solution.steps}
         />
       </section>
       <section className='py-16'>

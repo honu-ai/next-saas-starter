@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heroDescription,
 }) => {
   return (
-    <section className='via-primary/5 to-primary/10 bg-gradient-to-br from-white px-4 py-12 lg:py-20'>
+    <section className='via-primary/5 to-primary/10 dark:from-background/10 bg-gradient-to-br from-white px-4 py-12 lg:py-20'>
       <div className='mx-auto max-w-7xl'>
         <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
           <div className='order-2 lg:order-1'>
