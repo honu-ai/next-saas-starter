@@ -4,7 +4,7 @@ import { Terminal } from './terminal';
 import HeroSection from '@/components/hero-section';
 import FeatureCard from '@/components/feature-card';
 import content from '../../content.json';
-
+import ProblemSection from '@/components/problem-section';
 export default async function HomePage() {
   return (
     <main>
@@ -15,6 +15,19 @@ export default async function HomePage() {
           heroText={content.hero.heroText}
           heroDescriptionHeading={content.hero.heroDescriptionHeading}
           heroDescription={content.hero.heroDescription}
+        />
+      </section>
+      <section>
+        <ProblemSection
+          title={content.problem.title}
+          subtitle={content.problem.subtitle}
+          result={content.problem.result}
+          resultSubtitle={content.problem.resultSubtitle}
+          cards={content.problem.cards.map((card) => ({
+            title: card.title,
+            description: card.description,
+            icon: card.icon,
+          }))}
         />
       </section>
       <section className='py-16'>

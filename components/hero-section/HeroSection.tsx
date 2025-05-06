@@ -1,7 +1,8 @@
-'use client';
-
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 import AnimatedText from '../ui/animated-text';
 
 export type HeroSectionProps = {
@@ -20,68 +21,51 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heroDescription,
 }) => {
   return (
-    <>
-      <div className='relative z-10'>
-        <main className='container mx-auto px-4 py-12'>
-          <div className='bg-foreground relative mx-auto mt-8 max-w-6xl rounded-3xl shadow-2xl'>
-            <div className='grid gap-8 md:grid-cols-2'>
-              <div className='space-y-6 p-4'>
-                <AnimatedText
-                  text={heroText}
-                  tag='h1'
-                  className='text-background text-5xl leading-tight font-bold md:text-6xl lg:text-7xl'
-                />
+    <section className='via-primary/5 to-primary/10 bg-gradient-to-br from-white px-4 py-12 lg:py-20'>
+      <div className='mx-auto max-w-7xl'>
+        <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
+          <div className='order-2 lg:order-1'>
+            <AnimatedText
+              text={heroText}
+              tag='h1'
+              className='text-primary mb-6 text-4xl leading-tight font-bold md:text-5xl lg:text-6xl'
+            />
+            <div className='mb-8 max-w-xl'>
+              <h2 className='mb-2 text-xl font-bold uppercase'>
+                {heroDescriptionHeading}
+              </h2>
+              <p className='text-muted-foreground text-lg md:text-xl'>
+                {heroDescription}
+              </p>
+            </div>
 
-                <div className='bg-accent-foreground text-background max-w-md space-y-4 rounded-xl p-6'>
-                  <h2 className='text-xl font-bold uppercase'>
-                    {heroDescriptionHeading}
-                  </h2>
-                  <p className='text-background/80 text-sm'>
-                    {heroDescription}
-                  </p>
-                  <Link
-                    href={href}
-                    className='group bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-full px-8 py-3 text-lg font-bold shadow transition-all'
-                  >
-                    {ctaText}
-                    <span className='bg-background group-hover:bg-background text-foreground ml-2 rounded-full p-1'>
-                      <svg
-                        width='24'
-                        height='24'
-                        viewBox='0 0 24 24'
-                        fill='none'
-                        xmlns='http://www.w3.org/2000/svg'
-                      >
-                        <path
-                          d='M5 12H19M19 12L12 5M19 12L12 19'
-                          stroke='currentColor'
-                          strokeWidth='2'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                    </span>
-                  </Link>
-                </div>
-              </div>
-              {/* <HeroVisual /> */}
-              <div className='relative flex items-center justify-center'>
-                {/* Character placeholder */}
-                <Image
-                  sizes='100vw'
-                  src='/blog-posting-agent.png?height=500&width=400'
-                  width={400}
-                  height={500}
-                  alt='Virtual Assistant Character'
-                  style={{ width: '100%', height: 'auto' }}
-                  className='relative z-10'
-                />
-              </div>
+            <div className='mb-6 flex flex-col gap-4 sm:flex-row'>
+              <Link href={href}>
+                <Button
+                  variant='default'
+                  className='flex items-center gap-2 rounded-md px-6 py-6 text-lg text-white'
+                >
+                  {ctaText}
+                  <ArrowRight className='h-5 w-5' />
+                </Button>
+              </Link>
             </div>
           </div>
-        </main>
+          <div className='order-1 flex justify-center lg:order-2'>
+            <div className='relative w-full max-w-md'>
+              <Image
+                src='/lovable-uploads/e4fb8e09-e132-40be-8a39-2db72e3a9be5.png'
+                alt='Hero image'
+                width={500}
+                height={400}
+                className='w-full rounded-lg shadow-xl'
+              />
+              <div className='bg-primary/20 absolute -right-0 -bottom-0 -z-10 h-full w-full rounded-lg'></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 

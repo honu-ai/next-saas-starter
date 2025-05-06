@@ -35,6 +35,30 @@
         ],
         "llmInstructions": "This is the features section for the website. The cards should be a list of 3 cards with the title, description, and icon. The icon should be a valid icon from the lucide icon library."
     },
+    "problem": {
+        "title": "The Content Creation <span class=\"text-primary\">Dilemma</span>",
+        "subtitle": "Content marketing isn't working like it used to. The landscape has changed, but many teams haven't adapted.",
+        "result": "The result?",
+        "resultSubtitle": "Wasted budget, missed opportunities, and stalled growth.",
+        "cards": [
+            {
+                "title": "Only 5.7% of Content Ranks",
+                "description": "Most blog posts never reach the first page of Google, making the vast majority of your content investment a wasted effort.",
+                "icon": "TrendingDown"
+            },
+            {
+                "title": "Time-Intensive Process",
+                "description": "The average blog post takes 4+ hours to create, and even longer when you factor in SEO research and optimization.",
+                "icon": "Clock"
+            },
+            {
+                "title": "Disconnected Workflows",
+                "description": "Most teams use 4+ different tools for ideation, writing, SEO, and publishing, creating inefficient workflows and lost insights.",
+                "icon": "Frown"
+            }
+        ],
+        "llmInstructions": "This is the problem section that highlights challenges users face. The icon should be a valid icon from the lucide icon library."
+    },
     "pricing": {
         "title": "Choose Your Perfect Plan",
         "subtitle": "Start with a free trial. No credit card required.",
