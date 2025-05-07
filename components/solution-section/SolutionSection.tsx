@@ -37,9 +37,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium'>
             {badge}
           </span>
-          <h2 className='font-poppins text-primary-background mt-4 mb-6 text-3xl font-bold md:text-4xl'>
-            <span className='text-primary'>{title}</span>
-          </h2>
+          <h2
+            className='text-primary-background mt-4 mb-6 text-3xl font-bold md:text-4xl'
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
           <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
             {subtitle}
           </p>
@@ -55,7 +56,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 <div className='bg-primary text-primary-foreground absolute -top-3 -left-3 rounded px-3 py-1 text-sm font-medium'>
                   {step.number}
                 </div>
-                <h3 className='font-poppins text-primary-background mb-3 text-xl font-semibold'>
+                <h3 className='text-primary-background mb-3 text-xl font-semibold'>
                   {step.title}
                 </h3>
                 <p className='text-muted-foreground mb-4'>{step.description}</p>
@@ -72,7 +73,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 <div className='bg-primary text-primary-foreground absolute -top-3 -left-3 rounded px-3 py-1 text-sm font-medium'>
                   {step.number}
                 </div>
-                <h3 className='font-poppins text-primary-background mb-3 text-xl font-semibold'>
+                <h3 className='text-primary-background mb-3 text-xl font-semibold'>
                   {step.title}
                 </h3>
                 <p className='text-muted-foreground mb-4'>{step.description}</p>

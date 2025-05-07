@@ -35,6 +35,48 @@
         ],
         "llmInstructions": "This is the features section for the website. The cards should be a list of 3 cards with the title, description, and icon. The icon should be a valid icon from the lucide icon library."
     },
+    "benefits": {
+        "badge": "KEY BENEFITS",
+        "title": "Transform Your Content <span class=\"text-primary\">Strategy</span>",
+        "description": "RankWell delivers measurable improvements to your content marketing efforts from day one.",
+        "cards": [
+            {
+                "icon": "Clock",
+                "title": "Save Valuable Time",
+                "description": "Reduce content creation time by up to 75% with our AI-powered platform that handles research, writing, and optimization.",
+                "benefits": [
+                    "Generate first draft in minutes, not hours",
+                    "Automate tedious SEO research",
+                    "Streamline your publishing workflow"
+                ]
+            },
+            {
+                "icon": "TrendingUp",
+                "title": "Double Your SEO Results",
+                "description": "RankWell-generated content is 2x more likely to rank on Google's first page compared to traditionally created content.",
+                "benefits": [
+                    "Built-in SEO optimization tools",
+                    "Content structured for featured snippets",
+                    "Real-time keyword competition analysis"
+                ]
+            },
+            {
+                "icon": "Rocket",
+                "title": "Scale Your Content Output",
+                "description": "Produce more high-quality content consistently without increasing headcount or budget.",
+                "benefits": [
+                    "Create multiple posts simultaneously",
+                    "Maintain consistent brand voice",
+                    "Expand to new topics with confidence"
+                ]
+            }
+        ],
+        "bottomSection": {
+            "title": "One platform for your entire content workflow",
+            "description": "Stop juggling between keyword research tools, AI writers, SEO plugins, and analytics platforms. RankWell brings everything together in one seamless experience."
+        },
+        "llmInstructions": "This is the benefits section that highlights the advantages of using the product."
+    },
     "problem": {
         "title": "The Content Creation <span class=\"text-primary\">Dilemma</span>",
         "subtitle": "Content marketing isn't working like it used to. The landscape has changed, but many teams haven't adapted.",
@@ -61,7 +103,7 @@
     },
     "solution": {
         "badge": "THE SOLUTION",
-        "title": "The All-in-One SEO Content Platform",
+        "title": "The All-in-One <span class=\"text-primary\">SEO Content Platform</span>",
         "subtitle": "RankWell brings together every step of the content creation process into a single, streamlined workflow.",
         "cta": "Start Creating Rankable Content Now",
         "steps": [
