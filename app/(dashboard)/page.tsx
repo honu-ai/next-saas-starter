@@ -8,7 +8,7 @@ import ProblemSection from '@/components/problem-section';
 import SolutionSection from '@/components/solution-section';
 import BenefitsSection from '@/components/benefits-section';
 import FaqSection from '@/components/faq-section';
-
+import CtaSection from '@/components/cta-section';
 export default async function HomePage() {
   return (
     <main>
@@ -54,6 +54,14 @@ export default async function HomePage() {
       </section>
       <section>
         <FaqSection faqs={content.faq.items} />
+      </section>
+      <section>
+        <CtaSection
+          title={content.cta.title}
+          description={content.cta.description}
+          primaryButtonText={content.cta.primaryButtonText}
+          secondaryButtonText={content.cta.secondaryButtonText}
+        />
       </section>
     </main>
   );
