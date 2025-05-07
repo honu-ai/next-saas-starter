@@ -7,6 +7,8 @@ import content from '../../content.json';
 import ProblemSection from '@/components/problem-section';
 import SolutionSection from '@/components/solution-section';
 import BenefitsSection from '@/components/benefits-section';
+import FaqSection from '@/components/faq-section';
+
 export default async function HomePage() {
   return (
     <main>
@@ -49,6 +51,9 @@ export default async function HomePage() {
           cards={content.benefits.cards}
           bottomSection={content.benefits.bottomSection}
         />
+      </section>
+      <section>
+        <FaqSection faqs={content.faq.items} />
       </section>
     </main>
   );
