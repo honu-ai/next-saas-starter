@@ -9,10 +9,12 @@ import SolutionSection from '@/components/solution-section';
 import BenefitsSection from '@/components/benefits-section';
 import FaqSection from '@/components/faq-section';
 import CtaSection from '@/components/cta-section';
+import Footer from '@/components/footer';
+
 export default async function HomePage() {
   return (
     <main>
-      <section>
+      <section id='hero'>
         <HeroSection
           href={content.hero.href}
           ctaText={content.hero.ctaText}
@@ -21,7 +23,7 @@ export default async function HomePage() {
           heroDescription={content.hero.heroDescription}
         />
       </section>
-      <section>
+      <section id='problem'>
         <ProblemSection
           title={content.problem.title}
           subtitle={content.problem.subtitle}
@@ -34,7 +36,7 @@ export default async function HomePage() {
           }))}
         />
       </section>
-      <section>
+      <section id='solution'>
         <SolutionSection
           badge={content.solution.badge}
           title={content.solution.title}
@@ -43,7 +45,7 @@ export default async function HomePage() {
           steps={content.solution.steps}
         />
       </section>
-      <section>
+      <section id='benefits'>
         <BenefitsSection
           badge={content.benefits.badge}
           title={content.benefits.title}
@@ -52,15 +54,21 @@ export default async function HomePage() {
           bottomSection={content.benefits.bottomSection}
         />
       </section>
-      <section>
+      <section id='faq'>
         <FaqSection faqs={content.faq.items} />
       </section>
-      <section>
+      <section id='cta'>
         <CtaSection
           title={content.cta.title}
           description={content.cta.description}
           primaryButtonText={content.cta.primaryButtonText}
           secondaryButtonText={content.cta.secondaryButtonText}
+        />
+      </section>
+      <section>
+        <Footer
+          companyName={content.footer.companyName}
+          description={content.footer.description}
         />
       </section>
     </main>
