@@ -1,14 +1,16 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import { UserProvider } from '@/lib/auth';
 import { getUser } from '@/lib/db/queries';
 import Script from 'next/script';
 
 import ThemeProvider from '@/components/theme-provider';
 import PostHogProvider from '@/components/posthog-provider';
+import DynamicFavicon from '@/components/dynamic-favicon';
+import Logo from '@/components/logo';
 import { getBootstrapData } from '@/lib/posthog';
-import { Suspense } from 'react';
+
 // Uncomment to enable Formbricks integration
 // import FormbricksProvider from '@/components/formbricks-provider';
 
@@ -23,7 +25,11 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-const manrope = Manrope({ subsets: ['latin'] });
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default async function RootLayout({
   children,
@@ -35,8 +41,11 @@ export default async function RootLayout({
   const bootstrap = await getBootstrapData();
 
   return (
-    <html lang='en' className={`${manrope.className}`} suppressHydrationWarning>
+    <html lang='en' className={`${roboto.className}`} suppressHydrationWarning>
       <head>
+        {/* Fallback favicon */}
+        <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
+        <DynamicFavicon fontFamily='Roboto' />
         {/* Google tag (gtag.js) */}
         <Script
           async

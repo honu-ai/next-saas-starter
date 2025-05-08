@@ -29,7 +29,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
 
   return (
     <section
-      className='to-primary/10 dark:from-background/10 bg-gradient-to-b from-white px-4 py-16'
+      className='to-primary/2 dark:from-background/5 bg-gradient-to-b from-white px-4 py-16'
       id='how-it-works'
     >
       <div className='mx-auto max-w-7xl'>
@@ -83,7 +83,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         </div>
 
         <div className='text-center'>
-          <Button className='bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-6 py-6 text-lg'>
+          <Button variant='default' className='rounded-md px-6 py-6 text-lg'>
             {cta}
           </Button>
         </div>

@@ -2,7 +2,16 @@
     "metadata": {
         "title": "Honu SaaS Starter",
         "description": "Get started quickly with Next.js, Postgres, and Stripe.",
-        "llmInstructions": "This is the metadata for the website"
+        "brandName": "Honu",
+        "llmInstructions": "This is the metadata for the website",
+        "fontFamily": "Roboto",
+        "colors": {
+            "primary": "#60ACFF",
+            "success": "#1FCCB1",
+            "warning": "#FFBF45",
+            "destructive": "#F35B5A",
+            "neutral": "#8F95B2"
+        }
     },
     "hero": {
         "href": "/sign-up",
@@ -150,7 +159,7 @@
         "llmInstructions": "This is the call-to-action section that encourages users to sign up or learn more."
     },
     "footer": {
-        "companyName": "RankWell",
+        "companyName": "Honu",
         "description": "AI-powered blog content generation platform optimized for SEO success. Create content that ranks.",
         "llmInstructions": "This is the footer section that contains company information, navigation links, and legal links."
     }

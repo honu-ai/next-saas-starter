@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import Logo from '@/components/logo';
 
 export type NavbarProps = {
   links: { name: string; path: string }[];
@@ -40,13 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
     >
       <div className='container mx-auto flex h-17 items-center justify-between px-4'>
         {/* Logo */}
-        <Link href='/' className='relative z-10 flex items-center'>
-          <span className='text-2xl font-bold'>
-            <span className='text-foreground'>Leon</span>
-            <span className='text-primary'>Ai</span>
-            <span className='text-foreground'>rdo</span>
-          </span>
-        </Link>
+        <Logo />
 
         {/* Desktop Navigation */}
         <nav className='hidden items-center space-x-1 md:flex'>

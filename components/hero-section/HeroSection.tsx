@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heroDescription,
 }) => {
   return (
-    <section className='via-primary/5 to-primary/10 dark:from-background/10 bg-gradient-to-br from-white px-4 py-12 lg:py-20'>
+    <section className='via-primary/2 to-primary/5 dark:from-background/8 bg-gradient-to-br from-white px-4 py-12 lg:py-20'>
       <div className='mx-auto max-w-7xl'>
         <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
           <div className='order-2 lg:order-1'>
@@ -43,7 +43,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <Link href={href}>
                 <Button
                   variant='default'
-                  className='flex items-center gap-2 rounded-md px-6 py-6 text-lg text-white'
+                  className='text-l flex items-center gap-2 rounded-md px-6 py-6'
                 >
                   {ctaText}
                   <ArrowRight className='h-5 w-5' />
@@ -54,7 +54,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <div className='order-1 flex justify-center lg:order-2'>
             <div className='relative w-full max-w-md'>
               <Image
-                src='/lovable-uploads/e4fb8e09-e132-40be-8a39-2db72e3a9be5.png'
+                src='/hero-image.png'
                 alt='Hero image'
                 width={500}
                 height={400}
