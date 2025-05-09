@@ -4,6 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import AnimatedText from '../ui/animated-text';
 
+// Add interface to extend Window interface with dataLayer
+declare global {
+  interface Window {
+    dataLayer?: any[];
+  }
+}
+
 export type HeroSectionProps = {
   href: string;
   ctaText: string;
@@ -19,6 +26,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heroDescriptionHeading,
   heroDescription,
 }) => {
+  const handleSignUpClick = () => {
+    // Push event to Google Tag Manager dataLayer
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
+        event: 'signup_button_click',
+        buttonLocation: 'hero_section',
+      });
+    }
+  };
+
   return (
     <>
       <div className='relative z-10'>
@@ -41,6 +58,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   </p>
                   <Link
                     href={href}
+                    onClick={handleSignUpClick}
                     className='group bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-full px-8 py-3 text-lg font-bold shadow transition-all'
                   >
                     {ctaText}
