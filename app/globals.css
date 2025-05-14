@@ -40,18 +40,20 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --font-inter: Inter;
 }
 
 :root {
-  --primary: oklch(62% 0.624 211deg);
-  --primary-foreground: oklch(14.5% 0 0deg);
-  --success: oklch(59% 0.678 171deg);
+  --primary: oklch(47% 0.451 173deg);
+  --primary-foreground: oklch(98.5% 0 0deg);
+  --success: oklch(77% 0.498 43deg);
   --success-foreground: oklch(14.5% 0 0deg);
-  --warning: oklch(77% 0.729 39deg);
+  --warning: oklch(56% 0.588 12deg);
   --warning-foreground: oklch(14.5% 0 0deg);
-  --destructive: oklch(53% 0.6 0deg);
+  --destructive: oklch(56% 0.588 12deg);
   --destructive-foreground: oklch(14.5% 0 0deg);
-  --neutral: oklch(59% 0.137 230deg);
+  --neutral: oklch(96% 0.000 0deg);
   --neutral-foreground: oklch(14.5% 0 0deg);
   --secondary: oklch(97% 0 0deg);
   --secondary-foreground: oklch(20.5% 0 0deg);
@@ -67,7 +69,7 @@
   --popover-foreground: oklch(14.5% 0 0deg);
   --border: oklch(92.2% 0 0deg);
   --input: oklch(92.2% 0 0deg);
-  --chart-1: oklch(62% 0.624 211deg);
+  --chart-1: oklch(47% 0.451 173deg);
   --chart-2: oklch(60% 0.118 184.704deg);
   --chart-3: oklch(39.8% 0.07 227.392deg);
   --chart-4: oklch(82.8% 0.189 84.429deg);
@@ -79,21 +81,21 @@
   --sidebar-accent: oklch(97% 0 0deg);
   --sidebar-accent-foreground: oklch(20.5% 0 0deg);
   --sidebar-border: oklch(92.2% 0 0deg);
-  --sidebar-ring: oklch(62% 0.624 211deg);
+  --sidebar-ring: oklch(47% 0.451 173deg);
   --ring: oklch(70.8% 0 0deg);
   --radius: 0.625rem;
 }
 
 .dark {
-  --primary: oklch(50% 0.502 211deg);
+  --primary: oklch(38% 0.361 173deg);
   --primary-foreground: oklch(98.5% 0 0deg);
-  --success: oklch(47% 0.545 171deg);
+  --success: oklch(61% 0.400 42deg);
   --success-foreground: oklch(98.5% 0 0deg);
-  --warning: oklch(61% 0.584 39deg);
-  --warning-foreground: oklch(14.5% 0 0deg);
-  --destructive: oklch(43% 0.478 0deg);
+  --warning: oklch(45% 0.471 12deg);
+  --warning-foreground: oklch(98.5% 0 0deg);
+  --destructive: oklch(45% 0.471 12deg);
   --destructive-foreground: oklch(98.5% 0 0deg);
-  --neutral: oklch(47% 0.11 229deg);
+  --neutral: oklch(76% 0.000 0deg);
   --neutral-foreground: oklch(98.5% 0 0deg);
   --secondary: oklch(26.9% 0 0deg);
   --secondary-foreground: oklch(98.5% 0 0deg);

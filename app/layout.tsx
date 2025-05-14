@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Roboto } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { UserProvider } from '@/lib/auth';
 import { getUser } from '@/lib/db/queries';
 import Script from 'next/script';
@@ -25,10 +25,9 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-const roboto = Roboto({
-  weight: ['400', '500', '700'],
+const inter = Inter({
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
-  display: 'swap',
 });
 
 export default async function RootLayout({
@@ -41,11 +40,11 @@ export default async function RootLayout({
   const bootstrap = await getBootstrapData();
 
   return (
-    <html lang='en' className={`${roboto.className}`} suppressHydrationWarning>
+    <html lang='en' className={`${inter.className}`} suppressHydrationWarning>
       <head>
         {/* Fallback favicon */}
         <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
-        <DynamicFavicon fontFamily='Roboto' />
+        <DynamicFavicon fontFamily='Inter' />
         {/* Google tag (gtag.js) */}
         <Script
           async

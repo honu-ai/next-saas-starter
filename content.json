@@ -1,166 +1,166 @@
 {
-    "metadata": {
-        "title": "Honu SaaS Starter",
-        "description": "Get started quickly with Next.js, Postgres, and Stripe.",
-        "brandName": "Honu",
-        "llmInstructions": "This is the metadata for the website",
-        "fontFamily": "Roboto",
-        "colors": {
-            "primary": "#60ACFF",
-            "success": "#1FCCB1",
-            "warning": "#FFBF45",
-            "destructive": "#F35B5A",
-            "neutral": "#8F95B2"
-        }
-    },
-    "hero": {
-        "href": "/sign-up",
-        "ctaText": "Get Started",
-        "heroText": "YOUR FRIENDLY AI ASSISTANT",
-        "heroDescriptionHeading": "WE BELIEVE IN MAKING TECHNOLOGY FEEL LIKE A FRIENDLY COMPANION",
-        "heroDescription": "Our AI virtual agent app is designed to be your digital sidekick, offering a seamless and friendly experience for all your tasks.",
-        "llmInstructions": "This is the hero section for the website."
-    },
-    "benefits": {
-        "badge": "KEY BENEFITS",
-        "title": "Transform Your Content <span class=\"text-primary\">Strategy</span>",
-        "description": "RankWell delivers measurable improvements to your content marketing efforts from day one.",
-        "cards": [
-            {
-                "icon": "Clock",
-                "title": "Save Valuable Time",
-                "description": "Reduce content creation time by up to 75% with our AI-powered platform that handles research, writing, and optimization.",
-                "benefits": [
-                    "Generate first draft in minutes, not hours",
-                    "Automate tedious SEO research",
-                    "Streamline your publishing workflow"
-                ]
-            },
-            {
-                "icon": "TrendingUp",
-                "title": "Double Your SEO Results",
-                "description": "RankWell-generated content is 2x more likely to rank on Google's first page compared to traditionally created content.",
-                "benefits": [
-                    "Built-in SEO optimization tools",
-                    "Content structured for featured snippets",
-                    "Real-time keyword competition analysis"
-                ]
-            },
-            {
-                "icon": "Rocket",
-                "title": "Scale Your Content Output",
-                "description": "Produce more high-quality content consistently without increasing headcount or budget.",
-                "benefits": [
-                    "Create multiple posts simultaneously",
-                    "Maintain consistent brand voice",
-                    "Expand to new topics with confidence"
-                ]
-            }
-        ],
-        "bottomSection": {
-            "title": "One platform for your entire content workflow",
-            "description": "Stop juggling between keyword research tools, AI writers, SEO plugins, and analytics platforms. RankWell brings everything together in one seamless experience."
-        },
-        "llmInstructions": "This is the benefits section that highlights the advantages of using the product."
-    },
-    "problem": {
-        "title": "The Content Creation <span class=\"text-primary\">Dilemma</span>",
-        "subtitle": "Content marketing isn't working like it used to. The landscape has changed, but many teams haven't adapted.",
-        "result": "The result?",
-        "resultSubtitle": "Wasted budget, missed opportunities, and stalled growth.",
-        "cards": [
-            {
-                "title": "Only 5.7% of Content Ranks",
-                "description": "Most blog posts never reach the first page of Google, making the vast majority of your content investment a wasted effort.",
-                "icon": "TrendingDown"
-            },
-            {
-                "title": "Time-Intensive Process",
-                "description": "The average blog post takes 4+ hours to create, and even longer when you factor in SEO research and optimization.",
-                "icon": "Clock"
-            },
-            {
-                "title": "Disconnected Workflows",
-                "description": "Most teams use 4+ different tools for ideation, writing, SEO, and publishing, creating inefficient workflows and lost insights.",
-                "icon": "Frown"
-            }
-        ],
-        "llmInstructions": "This is the problem section that highlights challenges users face. The icon should be a valid icon from the lucide icon library."
-    },
-    "solution": {
-        "badge": "THE SOLUTION",
-        "title": "The All-in-One <span class=\"text-primary\">SEO Content Platform</span>",
-        "subtitle": "RankWell brings together every step of the content creation process into a single, streamlined workflow.",
-        "cta": "Start Creating Rankable Content Now",
-        "steps": [
-            {
-                "number": 1,
-                "title": "Identify Trending Topics",
-                "description": "Our AI scans the web to identify trending topics in your industry and analyzes search patterns to uncover high-potential keywords with lower competition."
-            },
-            {
-                "number": 2,
-                "title": "Generate SEO-Optimized Content",
-                "description": "RankWell's AI generates comprehensive, factually accurate blog posts built around your target keywords, following proven SEO frameworks."
-            },
-            {
-                "number": 3,
-                "title": "Optimize & Analyze",
-                "description": "Get real-time SEO scores and actionable recommendations to improve your content's ranking potential before you publish."
-            },
-            {
-                "number": 4,
-                "title": "Publish & Track",
-                "description": "Push content directly to WordPress, HubSpot, or export to your CMS. Then track performance to continuously improve your strategy."
-            }
-        ],
-        "llmInstructions": "This is the solution section that presents the product as the answer to the problems described in the previous section."
-    },
-    "faq": {
-        "badge": "FAQs",
-        "title": "Frequently Asked <span class=\"text-primary\">Questions</span>",
-        "subtitle": "Everything you need to know about RankWell's AI-powered content platform.",
-        "contactText": "Still have questions? We're here to help.",
-        "contactLinkText": "Contact our support team",
-        "contactLink": "#contact",
-        "items": [
-            {
-                "question": "How does RankWell's AI generate content that actually ranks?",
-                "answer": "RankWell's AI is trained on millions of high-performing blog posts and continuously analyzes Google's ranking factors. It combines this knowledge with real-time trend data and SEO best practices to create content that's specifically structured to rank well. We focus not just on keyword density, but also semantic relevance, content structure, readability, and other factors that impact search rankings."
-            },
-            {
-                "question": "Is the content original and free from plagiarism?",
-                "answer": "Absolutely. All content generated by RankWell is 100% original and passes plagiarism checks. Our AI creates unique content for each request, and we have built-in safeguards to ensure originality. We also provide built-in plagiarism checking tools so you can verify the uniqueness before publishing."
-            },
-            {
-                "question": "Can I customize the content to match my brand voice?",
-                "answer": "Yes. RankWell allows you to define your brand voice parameters, including tone, style, and language preferences. The Growth and Pro plans also include the ability to train the AI on your existing content to more closely match your specific voice and terminology."
-            },
-            {
-                "question": "How accurate is the factual information in the generated content?",
-                "answer": "RankWell prioritizes factual accuracy by cross-referencing information from multiple trusted sources. For specific statistics or technical information, the platform will suggest including citations to authoritative sources. You always have the ability to review and edit any information before publishing."
-            },
-            {
-                "question": "Can RankWell integrate with my existing content management system?",
-                "answer": "Yes. RankWell offers direct integration with popular CMS platforms including WordPress, HubSpot, Shopify, and more. For other platforms, you can easily export content in multiple formats including HTML, Markdown, and plain text. The Pro plan includes API access for custom integrations."
-            },
-            {
-                "question": "What happens after my 14-day free trial ends?",
-                "answer": "At the end of your 14-day trial, you can choose to subscribe to any of our plans to continue using RankWell. We'll send you a reminder before your trial expires, but we don't automatically enroll you in a paid plan - that choice is entirely yours. If you decide not to continue, you can export any content you've already created."
-            }
-        ],
-        "llmInstructions": "This is the FAQ section that answers common questions about the product."
-    },
-    "cta": {
-        "title": "Ready to Transform Your Digital <span class=\"text-primary\">Experience</span>",
-        "description": "Join thousands of satisfied users who are enhancing their productivity with our AI assistant. Start your free trial today and see the difference.",
-        "primaryButtonText": "Start Free Trial",
-        "secondaryButtonText": "Book a Demo",
-        "llmInstructions": "This is the call-to-action section that encourages users to sign up or learn more."
-    },
-    "footer": {
-        "companyName": "Honu",
-        "description": "AI-powered blog content generation platform optimized for SEO success. Create content that ranks.",
-        "llmInstructions": "This is the footer section that contains company information, navigation links, and legal links."
+  "metadata": {
+    "title": "CurrentSage AI: Real-Time, SEO-Optimised Blog Content",
+    "description": "CurrentSage AI empowers agencies and e-commerce businesses to create high-ranking, timely blog content using predictive AI SEO and automated real-time data integration. Streamline workflows with deep CMS sync.",
+    "brandName": "CurrentSage AI",
+    "llmInstructions": "This is the metadata for the website.",
+    "fontFamily": "Inter",
+    "colors": {
+      "primary": "#2A9D8F",
+      "success": "#E9C46A",
+      "warning": "#E76F51",
+      "destructive": "#E76F51",
+      "neutral": "#F4F4F4"
     }
+  },
+  "hero": {
+    "href": "https://currentsage.ai",
+    "ctaText": "Generate Your First Post Free",
+    "heroText": "AI Blog Content That Ranks & Resonates, Powered by Real-Time Data.",
+    "heroDescriptionHeading": "Your Expert AI Content Partner",
+    "heroDescription": "CurrentSage AI empowers digital marketing agencies and e-commerce businesses to create high-quality, SEO-optimised blog posts by integrating real-time trends, consumer behavior, and local events. Streamline your workflow and accelerate organic growth.",
+    "llmInstructions": "This is the hero section for the website."
+  },
+  "benefits": {
+    "badge": "Unlock Your Content Potential",
+    "title": "Go Beyond Basic AI: Content That's Smart, Timely, and Optimized",
+    "description": "CurrentSage AI isn't just another AI writer. We're built to give you a competitive edge with content that leverages dynamic market insights and predictive SEO.",
+    "cards": [
+      {
+        "icon": "Clock",
+        "title": "Real-Time Relevance Engine",
+        "description": "Automatically integrate current trends, consumer behavior, and local/global events into your content.",
+        "benefits": [
+          "Capitalize on emerging opportunities",
+          "Create timely, engaging articles",
+          "Stay ahead of the curve"
+        ]
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Predictive AI SEO Optimization",
+        "description": "Leverage AI that analyzes SERP data and search intent to guide content structure and keywords for higher ranking potential.",
+        "benefits": [
+          "Improve organic search performance",
+          "Target high-value keywords effectively",
+          "Reduce manual SEO effort"
+        ]
+      },
+      {
+        "icon": "LayoutDashboard",
+        "title": "Seamless Workflow & CMS Sync",
+        "description": "Push content directly to your CMS (like WordPress) with two-way sync, drastically reducing publishing friction.",
+        "benefits": [
+          "Streamline content production",
+          "Save hours on publishing",
+          "Integrate with your existing tools"
+        ]
+      }
+    ],
+    "bottomSection": {
+      "title": "Ready to transform your content strategy?",
+      "description": "Experience the power of real-time, optimized content generation. Get started today."
+    },
+    "llmInstructions": "This is the benefits section that highlights the advantages of using the product."
+  },
+  "problem": {
+    "title": "The Content Creation Challenge",
+    "subtitle": "Struggling to consistently produce high-quality, SEO-optimised blog content that actually performs?",
+    "result": "The Result: Missed Opportunities & Stagnant Growth",
+    "resultSubtitle": "Without a reliable content engine, businesses lose out on organic traffic, customer engagement, and establishing online authority.",
+    "cards": [
+      {
+        "title": "Time & Resource Drain",
+        "description": "Content creation is time-consuming, requiring significant effort for research, writing, and optimization.",
+        "icon": "Timer"
+      },
+      {
+        "title": "Lack of Specialized Expertise",
+        "description": "Effective content demands SEO knowledge, dynamic strategy, and data analysis skills often missing in-house.",
+        "icon": "LightbulbOff"
+      },
+      {
+        "title": "Difficulty Leveraging Real-Time Data",
+        "description": "Translating trends, consumer behavior, and events into timely, relevant articles is complex and slow.",
+        "icon": "Database"
+      }
+    ],
+    "llmInstructions": "This is the problem section that highlights challenges users face. The icon should be a valid icon from the lucide icon library."
+  },
+  "solution": {
+    "badge": "Our Solution",
+    "title": "Your AI Partner for High-Impact Content",
+    "subtitle": "CurrentSage AI simplifies and supercharges your blog content creation process, turning challenges into opportunities.",
+    "cta": "Generate Your First Post Free",
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Your Focus",
+        "description": "Simply tell CurrentSage AI your topic, target keywords, and audience."
+      },
+      {
+        "number": 2,
+        "title": "Generate & Enhance",
+        "description": "Our AI drafts your post, integrating real-time insights and applying predictive SEO guidance."
+      },
+      {
+        "number": 3,
+        "title": "Review & Customize",
+        "description": "Easily review the draft, incorporate suggested real-time events, and refine to match your brand voice."
+      },
+      {
+        "number": 4,
+        "title": "Sync & Publish",
+        "description": "Push your finished, optimized post directly to your CMS (like WordPress) with one click."
+      }
+    ],
+    "llmInstructions": "This is the solution section that presents the product as the answer to the problems described in the previous section."
+  },
+  "faq": {
+    "badge": "FAQs",
+    "title": "Got Questions? We've Got Answers.",
+    "subtitle": "Find out more about how CurrentSage AI can transform your content strategy.",
+    "contactText": "Still have questions?",
+    "contactLinkText": "Contact Us",
+    "contactLink": "/contact",
+    "items": [
+      {
+        "question": "What makes CurrentSage AI different from other AI writers?",
+        "answer": "CurrentSage AI uniquely integrates automated real-time local/global event data and offers predictive AI SEO, going beyond basic content generation to create timely, highly optimized articles. We also provide deep, two-way CMS integration."
+      },
+      {
+        "question": "Who is CurrentSage AI for?",
+        "answer": "Our primary users are digital marketing agencies (10-50 employees) and mid-size e-commerce businesses ($1M-$5M revenue) who need to scale high-quality, SEO-optimized blog content efficiently."
+      },
+      {
+        "question": "How does the pricing work?",
+        "answer": "We use a transparent, value-driven pay-as-you-go model. You pay $22.99 for each AI-generated blog post. There are no monthly subscriptions required for core generation."
+      },
+      {
+        "question": "Can I integrate CurrentSage AI with my website?",
+        "answer": "Yes, we offer deep, two-way integration with popular CMS platforms like WordPress, allowing you to push drafts directly and streamline your publishing workflow."
+      },
+      {
+        "question": "How does the real-time data integration work?",
+        "answer": "Our Live Event Engine and data streams automatically identify relevant trends, consumer behavior signals, and local/global events based on your topic and target location, suggesting ways to incorporate them into your content for maximum relevance."
+      },
+      {
+        "question": "Is the content truly SEO-optimized?",
+        "answer": "Absolutely. Our predictive AI SEO analyzes top-ranking content and search intent to provide actionable guidance on structure, keywords, and on-page factors, aiming to improve your content's ranking potential."
+      }
+    ],
+    "llmInstructions": "This is the FAQ section that answers common questions about the product."
+  },
+  "cta": {
+    "title": "Ready to Generate High-Ranking, Relevant Content?",
+    "description": "Stop struggling with content creation. Start leveraging real-time insights and predictive SEO to accelerate your organic growth.",
+    "primaryButtonText": "Generate Your First Post Free",
+    "secondaryButtonText": "Learn More",
+    "llmInstructions": "This is the call-to-action section that encourages users to sign up or learn more."
+  },
+  "footer": {
+    "companyName": "CurrentSage AI",
+    "description": "Your expert AI content partner for real-time, SEO-optimised blog posts.",
+    "llmInstructions": "This is the footer section that contains company information, navigation links, and legal links."
+  }
 }
