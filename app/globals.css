@@ -40,10 +40,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-
-  --font-inter: Inter;
-
-  --font-manrope: Manrope;
+  --font-inter: inter;
+  --font-manrope: manrope;
 }
 
 :root {
@@ -55,7 +53,7 @@
   --warning-foreground: oklch(14.5% 0 0deg);
   --destructive: oklch(56% 0.588 12deg);
   --destructive-foreground: oklch(14.5% 0 0deg);
-  --neutral: oklch(96% 0.000 0deg);
+  --neutral: oklch(96% 0 0deg);
   --neutral-foreground: oklch(14.5% 0 0deg);
   --secondary: oklch(97% 0 0deg);
   --secondary-foreground: oklch(20.5% 0 0deg);
@@ -91,13 +89,13 @@
 .dark {
   --primary: oklch(38% 0.361 173deg);
   --primary-foreground: oklch(98.5% 0 0deg);
-  --success: oklch(61% 0.400 42deg);
+  --success: oklch(61% 0.4 42deg);
   --success-foreground: oklch(98.5% 0 0deg);
   --warning: oklch(45% 0.471 12deg);
   --warning-foreground: oklch(98.5% 0 0deg);
   --destructive: oklch(45% 0.471 12deg);
   --destructive-foreground: oklch(98.5% 0 0deg);
-  --neutral: oklch(76% 0.000 0deg);
+  --neutral: oklch(76% 0 0deg);
   --neutral-foreground: oklch(98.5% 0 0deg);
   --secondary: oklch(26.9% 0 0deg);
   --secondary-foreground: oklch(98.5% 0 0deg);

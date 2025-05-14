@@ -24,9 +24,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   cta,
   steps,
 }) => {
-  const firstHalf = steps.slice(0, 2);
-  const secondHalf = steps.slice(2, 4);
-
   return (
     <section
       className='to-primary/2 dark:from-background/5 bg-gradient-to-b from-white px-4 py-16'
@@ -46,40 +43,21 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           </p>
         </div>
 
-        <div className='mb-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
-          <div>
-            {firstHalf.map((step) => (
-              <div
-                key={step.number}
-                className={`relative ${step.number < steps.length ? 'mb-6' : ''} bg-card rounded-lg p-6 shadow-lg`}
-              >
-                <div className='bg-primary text-primary-foreground absolute -top-3 -left-3 rounded px-3 py-1 text-sm font-medium'>
-                  {step.number}
-                </div>
-                <h3 className='text-primary-background mb-3 text-xl font-semibold'>
-                  {step.title}
-                </h3>
-                <p className='text-muted-foreground mb-4'>{step.description}</p>
+        <div className='mb-16 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:grid-rows-2'>
+          {steps.map((step) => (
+            <div
+              key={step.number}
+              className='bg-card relative flex h-full flex-col rounded-lg p-6 shadow-lg'
+            >
+              <div className='bg-primary text-primary-foreground absolute -top-3 -left-3 rounded px-3 py-1 text-sm font-medium'>
+                {step.number}
               </div>
-            ))}
-          </div>
-
-          <div>
-            {secondHalf.map((step) => (
-              <div
-                key={step.number}
-                className={`relative ${step.number < steps.length ? 'mb-6' : ''} bg-card rounded-lg p-6 shadow-lg`}
-              >
-                <div className='bg-primary text-primary-foreground absolute -top-3 -left-3 rounded px-3 py-1 text-sm font-medium'>
-                  {step.number}
-                </div>
-                <h3 className='text-primary-background mb-3 text-xl font-semibold'>
-                  {step.title}
-                </h3>
-                <p className='text-muted-foreground mb-4'>{step.description}</p>
-              </div>
-            ))}
-          </div>
+              <h3 className='text-primary-background mb-3 text-xl font-semibold'>
+                {step.title}
+              </h3>
+              <p className='text-muted-foreground'>{step.description}</p>
+            </div>
+          ))}
         </div>
 
         <div className='text-center'>

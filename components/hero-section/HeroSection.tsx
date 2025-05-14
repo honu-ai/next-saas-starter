@@ -1,9 +1,9 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import AnimatedText from '../ui/animated-text';
 
 // Add interface to extend Window interface with dataLayer
 declare global {
@@ -18,6 +18,8 @@ export type HeroSectionProps = {
   heroText: string;
   heroDescriptionHeading: string;
   heroDescription: string;
+  secondaryCtaText?: string;
+  secondaryHref?: string;
 };
 
 const HeroSection: React.FC<HeroSectionProps> = ({
@@ -26,6 +28,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heroText,
   heroDescriptionHeading,
   heroDescription,
+  secondaryCtaText = 'SIGN UP FOR FREE',
+  secondaryHref,
 }) => {
   const handleSignUpClick = () => {
     // Push event to Google Tag Manager dataLayer
@@ -38,47 +42,63 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className='via-primary/2 to-primary/5 dark:from-background/8 bg-gradient-to-br from-white px-4 py-12 lg:py-20'>
-      <div className='mx-auto max-w-7xl'>
-        <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
-          <div className='order-2 lg:order-1'>
-            <AnimatedText
-              text={heroText}
-              tag='h1'
-              className='text-primary mb-6 text-4xl leading-tight font-bold md:text-5xl lg:text-6xl'
-            />
-            <div className='mb-8 max-w-xl'>
-              <h2 className='mb-2 text-xl font-bold uppercase'>
-                {heroDescriptionHeading}
-              </h2>
-              <p className='text-muted-foreground text-lg md:text-xl'>
-                {heroDescription}
-              </p>
-            </div>
+    <section className='dark:bg-background relative overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-28'>
+      {/* Grid background */}
+      <div className='absolute inset-0 z-0 h-full w-full'>
+        {/* Grid background with higher contrast */}
+        <div
+          className='absolute inset-0 h-full w-full'
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(99, 102, 241, 0.08) 1px, transparent 1px), 
+              linear-gradient(to bottom, rgba(99, 102, 241, 0.08) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        ></div>
 
-            <div className='mb-6 flex flex-col gap-4 sm:flex-row'>
-              <Link href={href}>
+        {/* Accent sections */}
+        <div className='absolute top-0 left-0 h-full w-1/6 bg-blue-50/30 dark:bg-blue-900/5'></div>
+        <div className='absolute right-0 bottom-0 h-full w-1/6 bg-blue-50/30 dark:bg-blue-900/5'></div>
+      </div>
+
+      {/* Content */}
+      <div className='relative z-10 container mx-auto max-w-5xl px-4'>
+        <div className='text-center'>
+          <p className='text-primary bg-primary/10 border-primary/15 m-auto mb-4 w-fit rounded-full border px-3 py-1.5 text-xs font-bold tracking-wide sm:px-4 sm:py-2 sm:text-sm'>
+            {heroDescriptionHeading.toUpperCase()}
+          </p>
+          <h1 className='text-bg dark:text-foreground mx-auto mb-6 max-w-4xl text-3xl leading-tight font-bold sm:mb-8 md:text-5xl lg:text-6xl xl:text-7xl'>
+            {heroText}
+          </h1>
+          <p className='text-muted-foreground mx-auto mb-8 max-w-3xl text-base sm:mb-12 sm:text-lg md:text-xl'>
+            {heroDescription}
+          </p>
+
+          <div className='flex flex-col justify-center gap-4 sm:flex-row sm:gap-6'>
+            <Link href={href}>
+              <Button
+                variant='default'
+                size='lg'
+                className='border-primary/30 w-full rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:w-auto sm:px-8 sm:py-6 sm:text-base'
+                onClick={handleSignUpClick}
+              >
+                {ctaText}{' '}
+                <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4 sm:h-5 sm:w-5' />
+              </Button>
+            </Link>
+
+            {secondaryHref && (
+              <Link href={secondaryHref}>
                 <Button
-                  variant='default'
-                  className='text-l flex items-center gap-2 rounded-md px-6 py-6'
+                  variant='outline'
+                  size='lg'
+                  className='bg-background/80 hover:bg-background w-full rounded-full border-2 px-6 py-5 text-sm font-medium shadow-md backdrop-blur-sm transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg sm:w-auto sm:px-8 sm:py-6 sm:text-base'
                 >
-                  {ctaText}
-                  <ArrowRight className='h-5 w-5' />
+                  {secondaryCtaText}
                 </Button>
               </Link>
-            </div>
-          </div>
-          <div className='order-1 flex justify-center lg:order-2'>
-            <div className='relative w-full max-w-md'>
-              <Image
-                src='/hero-image.png'
-                alt='Hero image'
-                width={500}
-                height={400}
-                className='w-full rounded-lg shadow-xl'
-              />
-              <div className='bg-primary/20 absolute -right-0 -bottom-0 -z-10 h-full w-full rounded-lg'></div>
-            </div>
+            )}
           </div>
         </div>
       </div>
