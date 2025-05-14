@@ -2,7 +2,7 @@ import React from 'react';
 
 type FooterLinkItem = {
   label: string;
-  href: string;
+  path: string;
 };
 
 export type FooterProps = {
@@ -14,14 +14,14 @@ const Footer: React.FC<FooterProps> = ({ companyName, description }) => {
   const currentYear = new Date().getFullYear();
 
   const links = [
-    { label: 'Features', href: '#benefits' },
-    { label: 'How it works', href: '#solution' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Features', path: '#benefits' },
+    { label: 'How it works', path: '#solution' },
+    { label: 'FAQ', path: '#faq' },
   ];
 
   const legalLinks = [
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Privacy Policy', path: '/privacy' },
+    { label: 'Terms of Service', path: '/terms' },
   ];
 
   return (
@@ -47,7 +47,7 @@ const Footer: React.FC<FooterProps> = ({ companyName, description }) => {
                   {links.map((link, index) => (
                     <li key={index}>
                       <a
-                        href={link.href}
+                        href={link.path}
                         className='hover:text-primary transition-colors'
                       >
                         {link.label}
@@ -68,7 +68,7 @@ const Footer: React.FC<FooterProps> = ({ companyName, description }) => {
             {legalLinks.map((link, index) => (
               <a
                 key={index}
-                href={link.href}
+                href={link.path}
                 className='hover:text-primary text-sm'
               >
                 {link.label}

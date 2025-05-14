@@ -44,12 +44,12 @@ const CtaSection: React.FC<CtaSectionProps> = ({
               {primaryButtonText}
               <ArrowRight className='h-5 w-5' />
             </Button>
-            <Button
+            {/* <Button
               variant='outline'
               className='w-full rounded-md px-6 py-6 text-lg sm:w-auto'
             >
               {secondaryButtonText}
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

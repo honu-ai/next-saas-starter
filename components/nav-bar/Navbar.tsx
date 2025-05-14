@@ -9,7 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Logo from '@/components/logo';
 
 export type NavbarProps = {
-  links: { name: string; path: string }[];
+  links: { label: string; path: string }[];
   children?: React.ReactNode;
 };
 
@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isDashboard = pathname?.startsWith('/dashboard') ?? false;
+  // const isDashboard = pathname?.startsWith('/dashboard') ?? false;
 
   // Handle scroll event to change navbar appearance
   useEffect(() => {
@@ -47,10 +47,10 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
         <nav className='hidden items-center space-x-1 md:flex'>
           <ul className='flex space-x-1'>
             {links.map((item) => (
-              <li key={item.name}>
+              <li key={item.label}>
                 {pathname === item.path ? (
                   <span className='text-primary after:bg-primary relative rounded-md px-4 py-2 text-sm font-medium transition duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-[calc(100%-1rem)] after:-translate-x-1/2'>
-                    {item.name}
+                    {item.label}
                   </span>
                 ) : (
                   <Link
@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
                     className='text-foreground/80 hover:text-foreground after:bg-primary relative rounded-md px-4 py-2 text-sm font-medium transition duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-[calc(100%-1rem)]'
                     passHref
                   >
-                    {item.name}
+                    {item.label}
                   </Link>
                 )}
               </li>
@@ -98,10 +98,10 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
         <nav className='container mx-auto px-4 py-6'>
           <ul className='space-y-4'>
             {links.map((item) => (
-              <li key={item.name}>
+              <li key={item.label}>
                 {pathname === item.path ? (
                   <span className='text-primary after:bg-primary relative block w-full rounded-md px-4 py-3 text-lg font-medium transition duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-[calc(100%-2rem)] after:-translate-x-1/2'>
-                    {item.name}
+                    {item.label}
                   </span>
                 ) : (
                   <button
@@ -111,7 +111,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
                       router.push(item.path);
                     }}
                   >
-                    {item.name}
+                    {item.label}
                   </button>
                 )}
               </li>

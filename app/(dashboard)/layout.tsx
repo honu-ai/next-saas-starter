@@ -25,11 +25,12 @@ function Header() {
       <div className='mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
         <Navbar
           links={[
-            { name: 'Blog', path: '/blog' },
-            { name: 'Prices', path: '/pricing' },
+            { label: 'Features', path: '#benefits' },
+            { label: 'How it works', path: '#solution' },
+            { label: 'FAQ', path: '#faq' },
           ]}
         >
-          {user ? (
+          {/* {user ? (
             <UserAvatarMenu user={user} handleSignOut={handleSignOut} />
           ) : (
             <div className='flex items-center space-x-3'>
@@ -46,7 +47,7 @@ function Header() {
                 <Link href='/sign-up'>Sign Up</Link>
               </Button>
             </div>
-          )}
+          )} */}
         </Navbar>
       </div>
     </header>
