@@ -8,7 +8,6 @@ import Script from 'next/script';
 import ThemeProvider from '@/components/theme-provider';
 import PostHogProvider from '@/components/posthog-provider';
 import DynamicFavicon from '@/components/dynamic-favicon';
-import Logo from '@/components/logo';
 import { getBootstrapData } from '@/lib/posthog';
 
 // Uncomment to enable Formbricks integration
