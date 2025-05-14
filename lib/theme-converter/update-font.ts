@@ -54,12 +54,10 @@ const fontConfigurations: Record<string, FontConfig> = {
   Inter: {
     weights: ['400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   Manrope: {
     weights: ['400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   'Open Sans': {
     weights: ['400', '600', '700'],
@@ -95,7 +93,6 @@ const fontConfigurations: Record<string, FontConfig> = {
   Raleway: {
     weights: ['300', '400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   Ubuntu: {
     weights: ['300', '400', '500', '700'],
@@ -105,12 +102,10 @@ const fontConfigurations: Record<string, FontConfig> = {
   Nunito: {
     weights: ['300', '400', '600', '700', '800'],
     subsets: ['latin'],
-    variable: true,
   },
   Rubik: {
     weights: ['300', '400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   // Serif fonts
   Merriweather: {
@@ -121,12 +116,10 @@ const fontConfigurations: Record<string, FontConfig> = {
   'Playfair Display': {
     weights: ['400', '500', '600', '700', '800', '900'],
     subsets: ['latin'],
-    variable: true,
   },
   Lora: {
     weights: ['400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   'Source Serif 4': {
     weights: ['300', '400', '500', '600', '700'],
@@ -137,12 +130,10 @@ const fontConfigurations: Record<string, FontConfig> = {
   Outfit: {
     weights: ['300', '400', '500', '600', '700', '800'],
     subsets: ['latin'],
-    variable: true,
   },
   Oswald: {
     weights: ['300', '400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   'Abril Fatface': {
     weights: ['400'],
@@ -168,7 +159,6 @@ const fontConfigurations: Record<string, FontConfig> = {
   'JetBrains Mono': {
     weights: ['300', '400', '500', '600', '700', '800'],
     subsets: ['latin'],
-    variable: true,
   },
   'Space Mono': {
     weights: ['400', '700'],
@@ -179,12 +169,10 @@ const fontConfigurations: Record<string, FontConfig> = {
   Caveat: {
     weights: ['400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   'Dancing Script': {
     weights: ['400', '500', '600', '700'],
     subsets: ['latin'],
-    variable: true,
   },
   'Indie Flower': {
     weights: ['400'],
@@ -236,6 +224,9 @@ const fontVarName = fontFamily
   .replace(/\s+/g, '')
   .replace(/^(.)/, (match: string) => match.toLowerCase());
 
+// Create a different name for the import to avoid naming conflicts
+const fontImportName = `${fontVarName}Font`;
+
 // Create font configuration string
 const weightsArray = JSON.stringify(fontConfig.weights);
 const subsetsArray = JSON.stringify(fontConfig.subsets);
@@ -251,15 +242,17 @@ if (fontConfig.variable) {
 
 fontConfigString += ` }`;
 
-// Update the font import
+// Update the font import - make the regex more robust to handle various import formats
 const fontImportRegex =
-  /import\s+{\s*[A-Za-z]+(?:\s+as\s+[A-Za-z]+)?\s*}\s+from\s+['"]next\/font\/google['"];/;
-const newFontImport = `import { ${fontFamily.includes(' ') ? `${fontFamily.replace(/\s+/g, '_')} as ${fontVarName}` : fontFamily} } from 'next/font/google';`;
+  /import\s+{\s*([A-Za-z0-9_]+)(?:\s+as\s+([A-Za-z0-9_]+))?\s*}\s+from\s+['"]next\/font\/google['"];/;
+
+// Always use the alias for consistency, regardless of whether the font has spaces
+const newFontImport = `import { ${fontFamily.replace(/\s+/g, '_')} as ${fontImportName} } from 'next/font/google';`;
 
 // Update font instance declaration
 const fontInstanceRegex =
-  /const\s+[a-zA-Z]+\s+=\s+[A-Za-z]+\(\s*{[\s\S]*?}\s*\);/;
-const newFontInstance = `const ${fontVarName} = ${fontFamily.includes(' ') ? fontVarName : fontFamily}(${fontConfigString});`;
+  /const\s+[a-zA-Z]+\s+=\s+[A-Za-z0-9_]+\(\s*{[\s\S]*?}\s*\);/;
+const newFontInstance = `const ${fontVarName} = ${fontImportName}(${fontConfigString});`;
 
 // Update font usage in className
 const classNameRegex = /className={\s*`\${[a-zA-Z]+\.className}`\s*}/;

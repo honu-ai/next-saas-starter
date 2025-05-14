@@ -4,7 +4,7 @@
     "description": "CurrentSage AI empowers agencies and e-commerce businesses to create high-ranking, timely blog content using predictive AI SEO and automated real-time data integration. Streamline workflows with deep CMS sync.",
     "brandName": "CurrentSage AI",
     "llmInstructions": "This is the metadata for the website.",
-    "fontFamily": "Inter",
+    "fontFamily": "Poppins",
     "colors": {
       "primary": "#2A9D8F",
       "success": "#E9C46A",

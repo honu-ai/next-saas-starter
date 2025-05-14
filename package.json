@@ -21,7 +21,7 @@
     "deploy-env": "npx tsx deploy-env.ts",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "update-font": "npx tsx scripts/update-font.ts",
+    "update-font": "npx tsx lib/theme-converter/update-font.ts",
     "convert-theme": "npx tsx lib/theme-converter/theme-converter.ts"
   },
   "dependencies": {

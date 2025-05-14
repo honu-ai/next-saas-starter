@@ -42,6 +42,8 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   --font-inter: Inter;
+
+  --font-manrope: Manrope;
 }
 
 :root {
