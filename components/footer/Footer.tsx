@@ -1,0 +1,84 @@
+import React from 'react';
+
+type FooterLinkItem = {
+  label: string;
+  href: string;
+};
+
+export type FooterProps = {
+  companyName: string;
+  description: string;
+};
+
+const Footer: React.FC<FooterProps> = ({ companyName, description }) => {
+  const currentYear = new Date().getFullYear();
+
+  const links = [
+    { label: 'Features', href: '#benefits' },
+    { label: 'How it works', href: '#solution' },
+    { label: 'FAQ', href: '#faq' },
+  ];
+
+  const legalLinks = [
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+  ];
+
+  return (
+    <footer className='border-muted bg-background border-t px-4 py-12'>
+      <div className='mx-auto max-w-7xl'>
+        <div className='mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5'>
+          <div className='lg:col-span-2'>
+            <div className='mb-4'>
+              <a href='/' className='flex items-center'>
+                <span className='font-poppins text-primary text-2xl font-bold'>
+                  {companyName}
+                </span>
+              </a>
+            </div>
+            <p className='mb-4 max-w-xs'>{description}</p>
+          </div>
+
+          <div className='flex w-full justify-end lg:col-span-3'>
+            <div className='flex w-full justify-start gap-8 md:justify-end'>
+              <div className='min-w-32'>
+                <h3 className='text-foreground mb-4 font-semibold'>Product</h3>
+                <ul className='space-y-2'>
+                  {links.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className='hover:text-primary transition-colors'
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='border-muted flex flex-col items-center border-t pt-8 md:flex-row md:justify-between'>
+          <p className='text-sm'>
+            &copy; {currentYear} {companyName}. All rights reserved.
+          </p>
+          <div className='mt-4 flex space-x-4 md:mt-0'>
+            {legalLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className='hover:text-primary text-sm'
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

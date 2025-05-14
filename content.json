@@ -1,75 +1,166 @@
 {
-    "metadata": {
-        "title": "Honu SaaS Starter",
-        "description": "Get started quickly with Next.js, Postgres, and Stripe.",
-        "llmInstructions": "This is the metadata for the website"
-    },
-    "hero": {
-        "href": "/sign-up",
-        "ctaText": "Get Started",
-        "heroText": "YOUR FRIENDLY AI ASSISTANT",
-        "heroDescriptionHeading": "WE BELIEVE IN MAKING TECHNOLOGY FEEL LIKE A FRIENDLY COMPANION",
-        "heroDescription": "Our AI virtual agent app is designed to be your digital sidekick, offering a seamless and friendly experience for all your tasks.",
-        "llmInstructions": "This is the hero section for the website."
-    },
-    "features": {
-        "title": "Powerful Features",
-        "subtitle": "Everything You Need in One Assistant",
-        "description": "Our AI virtual agent app is designed to be your digital sidekick, offering a seamless and friendly experience for all your tasks.",
-        "cards": [
-            {
-                "title": "Robust Database",
-                "description": "Efficient data management with a scalable database solution.",
-                "icon": "Database"
-            },
-            {
-                "title": "Secure Payments",
-                "description": "Seamless payment processing with top-notch security.",
-                "icon": "CreditCard"
-            },
-            {
-                "title": "Scalable Infrastructure",
-                "description": "Efficient data management with a scalable database solution.",
-                "icon": "Terminal"
-            }
-        ],
-        "llmInstructions": "This is the features section for the website. The cards should be a list of 3 cards with the title, description, and icon. The icon should be a valid icon from the lucide icon library."
-    },
-    "pricing": {
-        "title": "Choose Your Perfect Plan",
-        "subtitle": "Start with a free trial. No credit card required.",
-        "llmInstructions": "This is the pricing section for the website. Make sure to not create more than 4 products.",
-        "products": [
-            {
-                "name": "Base",
-                "description": "Base subscription plan",
-                "unit_amount": 800,
-                "currency": "usd",
-                "recurring": {
-                    "interval": "month",
-                    "trial_period_days": 7
-                }
-            },
-            {
-                "name": "Plus",
-                "description": "Plus subscription plan",
-                "unit_amount": 1200,
-                "currency": "usd",
-                "recurring": {
-                    "interval": "month",
-                    "trial_period_days": 7
-                }
-            },
-            {
-                "name": "Enterprise",
-                "description": "Enterprise subscription plan",
-                "unit_amount": 12000,
-                "currency": "usd",
-                "recurring": {
-                    "interval": "month",
-                    "trial_period_days": 7
-                }
-            }
-        ]
+  "metadata": {
+    "title": "CurrentSage AI: Real-Time, SEO-Optimised Blog Content",
+    "description": "CurrentSage AI empowers agencies and e-commerce businesses to create high-ranking, timely blog content using predictive AI SEO and automated real-time data integration. Streamline workflows with deep CMS sync.",
+    "brandName": "CurrentSage AI",
+    "llmInstructions": "This is the metadata for the website.",
+    "fontFamily": "Poppins",
+    "colors": {
+      "primary": "#2A9D8F",
+      "success": "#E9C46A",
+      "warning": "#E76F51",
+      "destructive": "#E76F51",
+      "neutral": "#F4F4F4"
     }
+  },
+  "hero": {
+    "href": "https://currentsage.ai",
+    "ctaText": "Generate Your First Post Free",
+    "heroText": "AI Blog Content That Ranks & Resonates, Powered by Real-Time Data.",
+    "heroDescriptionHeading": "Your Expert AI Content Partner",
+    "heroDescription": "CurrentSage AI empowers digital marketing agencies and e-commerce businesses to create high-quality, SEO-optimised blog posts by integrating real-time trends, consumer behavior, and local events. Streamline your workflow and accelerate organic growth.",
+    "llmInstructions": "This is the hero section for the website."
+  },
+  "benefits": {
+    "badge": "Unlock Your Content Potential",
+    "title": "Go Beyond Basic AI: Content That's Smart, Timely, and Optimized",
+    "description": "CurrentSage AI isn't just another AI writer. We're built to give you a competitive edge with content that leverages dynamic market insights and predictive SEO.",
+    "cards": [
+      {
+        "icon": "Clock",
+        "title": "Real-Time Relevance Engine",
+        "description": "Automatically integrate current trends, consumer behavior, and local/global events into your content.",
+        "benefits": [
+          "Capitalize on emerging opportunities",
+          "Create timely, engaging articles",
+          "Stay ahead of the curve"
+        ]
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Predictive AI SEO Optimization",
+        "description": "Leverage AI that analyzes SERP data and search intent to guide content structure and keywords for higher ranking potential.",
+        "benefits": [
+          "Improve organic search performance",
+          "Target high-value keywords effectively",
+          "Reduce manual SEO effort"
+        ]
+      },
+      {
+        "icon": "LayoutDashboard",
+        "title": "Seamless Workflow & CMS Sync",
+        "description": "Push content directly to your CMS (like WordPress) with two-way sync, drastically reducing publishing friction.",
+        "benefits": [
+          "Streamline content production",
+          "Save hours on publishing",
+          "Integrate with your existing tools"
+        ]
+      }
+    ],
+    "bottomSection": {
+      "title": "Ready to transform your content strategy?",
+      "description": "Experience the power of real-time, optimized content generation. Get started today."
+    },
+    "llmInstructions": "This is the benefits section that highlights the advantages of using the product."
+  },
+  "problem": {
+    "title": "The Content Creation Challenge",
+    "subtitle": "Struggling to consistently produce high-quality, SEO-optimised blog content that actually performs?",
+    "result": "The Result: Missed Opportunities & Stagnant Growth",
+    "resultSubtitle": "Without a reliable content engine, businesses lose out on organic traffic, customer engagement, and establishing online authority.",
+    "cards": [
+      {
+        "title": "Time & Resource Drain",
+        "description": "Content creation is time-consuming, requiring significant effort for research, writing, and optimization.",
+        "icon": "Timer"
+      },
+      {
+        "title": "Lack of Specialized Expertise",
+        "description": "Effective content demands SEO knowledge, dynamic strategy, and data analysis skills often missing in-house.",
+        "icon": "LightbulbOff"
+      },
+      {
+        "title": "Difficulty Leveraging Real-Time Data",
+        "description": "Translating trends, consumer behavior, and events into timely, relevant articles is complex and slow.",
+        "icon": "Database"
+      }
+    ],
+    "llmInstructions": "This is the problem section that highlights challenges users face. The icon should be a valid icon from the lucide icon library."
+  },
+  "solution": {
+    "badge": "Our Solution",
+    "title": "Your AI Partner for High-Impact Content",
+    "subtitle": "CurrentSage AI simplifies and supercharges your blog content creation process, turning challenges into opportunities.",
+    "cta": "Generate Your First Post Free",
+    "steps": [
+      {
+        "number": 1,
+        "title": "Define Your Focus",
+        "description": "Simply tell CurrentSage AI your topic, target keywords, and audience."
+      },
+      {
+        "number": 2,
+        "title": "Generate & Enhance",
+        "description": "Our AI drafts your post, integrating real-time insights and applying predictive SEO guidance."
+      },
+      {
+        "number": 3,
+        "title": "Review & Customize",
+        "description": "Easily review the draft, incorporate suggested real-time events, and refine to match your brand voice."
+      },
+      {
+        "number": 4,
+        "title": "Sync & Publish",
+        "description": "Push your finished, optimized post directly to your CMS (like WordPress) with one click."
+      }
+    ],
+    "llmInstructions": "This is the solution section that presents the product as the answer to the problems described in the previous section."
+  },
+  "faq": {
+    "badge": "FAQs",
+    "title": "Got Questions? We've Got Answers.",
+    "subtitle": "Find out more about how CurrentSage AI can transform your content strategy.",
+    "contactText": "Still have questions?",
+    "contactLinkText": "Contact Us",
+    "contactLink": "/contact",
+    "items": [
+      {
+        "question": "What makes CurrentSage AI different from other AI writers?",
+        "answer": "CurrentSage AI uniquely integrates automated real-time local/global event data and offers predictive AI SEO, going beyond basic content generation to create timely, highly optimized articles. We also provide deep, two-way CMS integration."
+      },
+      {
+        "question": "Who is CurrentSage AI for?",
+        "answer": "Our primary users are digital marketing agencies (10-50 employees) and mid-size e-commerce businesses ($1M-$5M revenue) who need to scale high-quality, SEO-optimized blog content efficiently."
+      },
+      {
+        "question": "How does the pricing work?",
+        "answer": "We use a transparent, value-driven pay-as-you-go model. You pay $22.99 for each AI-generated blog post. There are no monthly subscriptions required for core generation."
+      },
+      {
+        "question": "Can I integrate CurrentSage AI with my website?",
+        "answer": "Yes, we offer deep, two-way integration with popular CMS platforms like WordPress, allowing you to push drafts directly and streamline your publishing workflow."
+      },
+      {
+        "question": "How does the real-time data integration work?",
+        "answer": "Our Live Event Engine and data streams automatically identify relevant trends, consumer behavior signals, and local/global events based on your topic and target location, suggesting ways to incorporate them into your content for maximum relevance."
+      },
+      {
+        "question": "Is the content truly SEO-optimized?",
+        "answer": "Absolutely. Our predictive AI SEO analyzes top-ranking content and search intent to provide actionable guidance on structure, keywords, and on-page factors, aiming to improve your content's ranking potential."
+      }
+    ],
+    "llmInstructions": "This is the FAQ section that answers common questions about the product."
+  },
+  "cta": {
+    "title": "Ready to Generate High-Ranking, Relevant Content?",
+    "description": "Stop struggling with content creation. Start leveraging real-time insights and predictive SEO to accelerate your organic growth.",
+    "primaryButtonText": "Generate Your First Post Free",
+    "secondaryButtonText": "Learn More",
+    "llmInstructions": "This is the call-to-action section that encourages users to sign up or learn more."
+  },
+  "footer": {
+    "companyName": "CurrentSage AI",
+    "description": "Your expert AI content partner for real-time, SEO-optimised blog posts.",
+    "llmInstructions": "This is the footer section that contains company information, navigation links, and legal links."
+  }
 }

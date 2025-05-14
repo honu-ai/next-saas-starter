@@ -1,14 +1,15 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
+import { Poppins as poppinsFont } from 'next/font/google';
 import { UserProvider } from '@/lib/auth';
 import { getUser } from '@/lib/db/queries';
 import Script from 'next/script';
 
 import ThemeProvider from '@/components/theme-provider';
 import PostHogProvider from '@/components/posthog-provider';
+import DynamicFavicon from '@/components/dynamic-favicon';
 import { getBootstrapData } from '@/lib/posthog';
-import { Suspense } from 'react';
+
 // Uncomment to enable Formbricks integration
 // import FormbricksProvider from '@/components/formbricks-provider';
 
@@ -23,7 +24,11 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-const manrope = Manrope({ subsets: ['latin'] });
+const poppins = poppinsFont({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default async function RootLayout({
   children,
@@ -35,10 +40,17 @@ export default async function RootLayout({
   const bootstrap = await getBootstrapData();
 
   return (
-    <html lang='en' className={`${manrope.className}`} suppressHydrationWarning>
+    <html lang='en' className={`${poppins.className}`} suppressHydrationWarning>
       <head>
-        {/* Google Tag Manager */}
-        <Script id='gtm-script' strategy='afterInteractive'>
+        {/* Fallback favicon */}
+        <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
+        <DynamicFavicon />
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`}
+        ></Script>
+        <Script>
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
