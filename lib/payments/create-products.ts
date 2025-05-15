@@ -1,8 +1,39 @@
 import { stripe } from './stripe';
-
 import Stripe from 'stripe';
 
-import content from '../../content.json';
+// Define default products
+const defaultProducts = [
+  {
+    name: 'Basic Plan',
+    description: 'Access to basic features',
+    unit_amount: 999, // $9.99
+    currency: 'usd',
+    recurring: {
+      interval: 'month',
+      trial_period_days: 14,
+    },
+  },
+  {
+    name: 'Pro Plan',
+    description: 'Access to all features',
+    unit_amount: 1999, // $19.99
+    currency: 'usd',
+    recurring: {
+      interval: 'month',
+      trial_period_days: 7,
+    },
+  },
+  {
+    name: 'Enterprise Plan',
+    description: 'Custom solutions for larger teams',
+    unit_amount: 4999, // $49.99
+    currency: 'usd',
+    recurring: {
+      interval: 'month',
+      trial_period_days: 7,
+    },
+  },
+];
 
 const createStripeProducts = async () => {
   console.log('Creating Stripe products and prices...');
@@ -13,7 +44,7 @@ const createStripeProducts = async () => {
     existingProducts.data.map((p) => p.name),
   );
 
-  for (const product of content.pricing.products) {
+  for (const product of defaultProducts) {
     // Check if the product already exists
     if (existingProductNames.has(product.name)) {
       console.log(

@@ -5,8 +5,6 @@ import PriceCard from '@/components/pricing-card';
 
 import { checkoutAction } from '@/lib/payments/actions';
 
-import content from '../../../content.json';
-
 const colorVariants = [
   {
     gradientFrom: 'from-orange-400',
@@ -69,8 +67,8 @@ export default async function PricingPage() {
   return (
     <main className='mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8'>
       <PricingHeader
-        title={content.pricing.title}
-        subtitle={content.pricing.subtitle}
+        title='Pricing Plans'
+        subtitle='Choose the perfect plan for your needs'
       />
       <div className='flex flex-wrap justify-center gap-8'>
         {sortedProducts.map((product, index) => {

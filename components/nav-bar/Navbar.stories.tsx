@@ -12,5 +12,5 @@ const Template: StoryFn<NavbarProps> = (args) => <Navbar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  links: [{ name: 'Pricing', path: '#pricing' }],
+  links: [{ label: 'Pricing', path: '#pricing' }],
 };
