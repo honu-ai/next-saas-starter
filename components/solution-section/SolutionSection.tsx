@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { ContactDialog } from '@/components/contact-form';
 
 export type Step = {
   number: number;
@@ -61,9 +62,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         </div>
 
         <div className='text-center'>
-          <Button variant='default' className='rounded-md px-6 py-6 text-lg'>
-            {cta}
-          </Button>
+          <ContactDialog
+            triggerText={cta}
+            className='border-primary/30 w-full rounded-md px-6 py-6 text-lg sm:w-auto'
+          />
         </div>
       </div>
     </section>

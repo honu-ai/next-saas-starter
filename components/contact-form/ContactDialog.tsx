@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowRight } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 export type ContactDialogProps = {
   triggerText: string;
@@ -144,7 +145,10 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
         <Button
           variant={variant}
           size='lg'
-          className={`${className} rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:px-8 sm:py-6 sm:text-base`}
+          className={cn(
+            `rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:px-8 sm:py-6 sm:text-base`,
+            className,
+          )}
           onClick={() => {
             // Push event to Google Tag Manager dataLayer
             if (typeof window !== 'undefined' && window.dataLayer) {
@@ -169,7 +173,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div className='space-y-1'>
             <Label htmlFor='name'>
-              First name <span className='text-destructive'>*</span>
+              Name <span className='text-destructive'>*</span>
             </Label>
             <Input
               id='name'

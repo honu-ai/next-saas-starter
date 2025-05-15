@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-
+import { ContactDialog } from '@/components/contact-form';
 export type CtaSectionProps = {
   title?: string;
   description?: string;
@@ -40,10 +40,14 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           </p>
 
           <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
-            <Button className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md px-6 py-6 text-lg text-white sm:w-auto'>
+            <ContactDialog
+              triggerText={primaryButtonText}
+              className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md border-none px-6 py-6 text-lg text-white sm:w-auto'
+            />
+            {/* <Button className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md px-6 py-6 text-lg text-white sm:w-auto'>
               {primaryButtonText}
               <ArrowRight className='h-5 w-5' />
-            </Button>
+            </Button> */}
             {/* <Button
               variant='outline'
               className='w-full rounded-md px-6 py-6 text-lg sm:w-auto'
