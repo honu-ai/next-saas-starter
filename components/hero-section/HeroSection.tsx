@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ContactDialog } from '@/components/contact-form';
 
 // Add interface to extend Window interface with dataLayer
 declare global {
@@ -31,16 +31,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   secondaryCtaText = 'SIGN UP FOR FREE',
   secondaryHref,
 }) => {
-  const handleSignUpClick = () => {
-    // Push event to Google Tag Manager dataLayer
-    if (typeof window !== 'undefined' && window.dataLayer) {
-      window.dataLayer.push({
-        event: 'signup_button_click',
-        buttonLocation: 'hero_section',
-      });
-    }
-  };
-
   return (
     <section className='dark:bg-background relative overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-28'>
       {/* Grid background */}
@@ -76,17 +66,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </p>
 
           <div className='flex flex-col justify-center gap-4 sm:flex-row sm:gap-6'>
-            <Link href={href}>
-              <Button
-                variant='default'
-                size='lg'
-                className='border-primary/30 w-full rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:w-auto sm:px-8 sm:py-6 sm:text-base'
-                onClick={handleSignUpClick}
-              >
-                {ctaText}{' '}
-                <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4 sm:h-5 sm:w-5' />
-              </Button>
-            </Link>
+            <ContactDialog
+              triggerText={ctaText}
+              className='border-primary/30 w-full sm:w-auto'
+            />
 
             {secondaryHref && (
               <Link href={secondaryHref}>

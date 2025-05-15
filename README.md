@@ -488,6 +488,7 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
 - Keep your production secrets secure and rotate them regularly
 - Use different API keys for development and production environments
 - The provided values in the example are for illustration only - you must replace them with your own values
+- The contact form API is protected by origin validation using the BASE_URL environment variable
 
 ## Local Setup
 

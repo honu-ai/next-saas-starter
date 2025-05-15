@@ -9,6 +9,7 @@ import ThemeProvider from '@/components/theme-provider';
 import PostHogProvider from '@/components/posthog-provider';
 import DynamicFavicon from '@/components/dynamic-favicon';
 import { getBootstrapData } from '@/lib/posthog';
+import { Toaster } from '@/components/ui/sonner';
 
 // Uncomment to enable Formbricks integration
 // import FormbricksProvider from '@/components/formbricks-provider';
@@ -84,6 +85,7 @@ export default async function RootLayout({
                 <FormbricksProvider />
               </Suspense> */}
               {children}
+              <Toaster />
             </UserProvider>
           </PostHogProvider>
         </ThemeProvider>
