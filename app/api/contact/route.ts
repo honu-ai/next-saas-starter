@@ -1,14 +1,11 @@
 // pages/api/contact.ts
 import { NextResponse } from 'next/server';
 import sgClient from '@sendgrid/client';
-import { Resend } from 'resend';
 
 // Set SendGrid API key if available
 if (process.env.SENDGRID_API_KEY) {
   sgClient.setApiKey(process.env.SENDGRID_API_KEY!);
 }
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 /**
  * Validate the request origin against allowed origins
