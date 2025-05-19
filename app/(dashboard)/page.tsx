@@ -16,7 +16,6 @@ export default async function HomePage() {
     <main>
       <section id='hero'>
         <HeroSection
-          href={content.hero.href}
           ctaText={content.hero.ctaText}
           heroText={content.hero.heroText}
           heroDescriptionHeading={content.hero.heroDescriptionHeading}

@@ -13,7 +13,7 @@ declare global {
 }
 
 export type HeroSectionProps = {
-  href: string;
+  href?: string;
   ctaText: string;
   heroText: string;
   heroDescriptionHeading: string;
