@@ -181,7 +181,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
               value={formData.name}
               onChange={handleChange}
               placeholder='Your name'
-              className={`w-full bg-gray-50 ${errors.name ? 'border-destructive' : ''}`}
+              className={`bg-background w-full ${errors.name ? 'border-destructive' : ''}`}
               required
             />
             {errors.name && (
@@ -199,7 +199,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
               onChange={handleChange}
               placeholder='Your email'
               type='email'
-              className={`w-full bg-gray-50 ${errors.email ? 'border-destructive' : ''}`}
+              className={`bg-background w-full ${errors.email ? 'border-destructive' : ''}`}
               required
             />
             {errors.email && (
