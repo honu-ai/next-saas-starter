@@ -64,6 +64,19 @@ const Footer: React.FC<FooterProps> = ({ companyName, description }) => {
           <p className='text-sm'>
             &copy; {currentYear} {companyName}. All rights reserved.
           </p>
+          <a href='https://honu.ai' target='new'>
+            <div className='flex w-full items-center justify-center gap-4 align-middle'>
+              <p className='text-foreground text-sm font-medium'>
+                Powered by Honu
+              </p>
+
+              <img
+                className='h-14 w-14'
+                src='/honu-logo.svg'
+                alt='Honu Logo Image'
+              />
+            </div>
+          </a>
           <div className='mt-4 flex space-x-4 md:mt-0'>
             {legalLinks.map((link, index) => (
               <a

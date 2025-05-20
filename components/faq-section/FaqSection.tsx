@@ -35,7 +35,7 @@ const FaqSection: React.FC<FaqSectionProps> = ({ faqs }) => {
         <Accordion type='single' collapsible className='w-full'>
           {faqs?.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className='text-foreground text-left font-medium'>
+              <AccordionTrigger className='text-foreground text-left font-medium md:text-2xl'>
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className='text-muted-foreground'>
@@ -44,8 +44,8 @@ const FaqSection: React.FC<FaqSectionProps> = ({ faqs }) => {
             </AccordionItem>
           ))}
         </Accordion>
-
-        <div className='mt-12 text-center'>
+        {/* Hide the support link for now */}
+        {/* <div className='mt-12 text-center'>
           <p className='text-muted-foreground mb-4'>
             Still have questions? We&apos;re here to help.
           </p>
@@ -69,7 +69,7 @@ const FaqSection: React.FC<FaqSectionProps> = ({ faqs }) => {
               />
             </svg>
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );
