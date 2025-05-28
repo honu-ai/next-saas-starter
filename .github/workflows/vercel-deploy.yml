@@ -89,6 +89,14 @@ jobs:
           npx vercel env rm BASE_URL production -y --token "$VERCEL_TOKEN" || true
           npx vercel env add BASE_URL production < .vercel_tmp/BASE_URL --token "$VERCEL_TOKEN"
           
+          # Set GTM_ID variables if they exist
+          if [ ! -z "GTM_ID" ]; then
+            echo "Setting GTM_ID..."
+            echo "$GTM_ID" > .vercel_tmp/GTM_ID
+            npx vercel env rm NEXT_PUBLIC_GTM_ID production -y --token "$VERCEL_TOKEN" || true
+            npx vercel env add NEXT_PUBLIC_GTM_ID production < .vercel_tmp/GTM_ID --token "$VERCEL_TOKEN"
+          fi 
+          
           # Set POSTHOG variables if they exist
           if [ ! -z "$POSTHOG_API_KEY" ]; then
             echo "Setting POSTHOG_API_KEY..."
@@ -117,6 +125,7 @@ jobs:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           BASE_URL: ${{ secrets.BASE_URL }}
+          GTM_ID: ${{ secrets.GTM_ID }}
           POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
           POSTHOG_HOST: ${{ secrets.POSTHOG_HOST }}
 
@@ -130,6 +139,7 @@ jobs:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           BASE_URL: ${{ secrets.BASE_URL }}
+          GTM_ID: ${{ secrets.GTM_ID }}
           # Vercel secrets needed for build command context
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

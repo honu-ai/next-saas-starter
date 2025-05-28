@@ -37,7 +37,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userPromise = getUser();
-  const gtmId = process.env.GTM_ID; // Access the GTM ID from the environment
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID; // Access the GTM ID from the environment
   const bootstrap = await getBootstrapData();
 
   return (
