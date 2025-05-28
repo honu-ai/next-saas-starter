@@ -89,6 +89,12 @@ jobs:
           npx vercel env rm BASE_URL production -y --token "$VERCEL_TOKEN" || true
           npx vercel env add BASE_URL production < .vercel_tmp/BASE_URL --token "$VERCEL_TOKEN"
           
+          # Set GTM_ID
+          echo "Setting GTM_ID..."
+          echo "$GTM_ID" > .vercel_tmp/GTM_ID
+          npx vercel env rm GTM_ID production -y --token "$VERCEL_TOKEN" || true
+          npx vercel env add GTM_ID production < .vercel_tmp/GTM_ID --token "$VERCEL_TOKEN"
+          
           # Set POSTHOG variables if they exist
           if [ ! -z "$POSTHOG_API_KEY" ]; then
             echo "Setting POSTHOG_API_KEY..."
