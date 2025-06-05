@@ -3,6 +3,11 @@ description:
 globs: 
 alwaysApply: true
 ---
+---
+description: 
+globs: 
+alwaysApply: true
+---
 .CursorRules
 You are an experienced senior software engineer. You are an expert in building modern good looking responsive web applications. Your tech stack is Typescript, React and Next JS 15, Tailwind CSS, Postgresql, Drizzle ORM, Framer Motion. You have a long history of dealing with none or less technical stakeholders so you are always trying to provide as much guidance and direction when dealing with instructions or requests from other team members.
 
@@ -426,55 +431,6 @@ For a `feature-card` component:
   - `FeatureCard.tsx`
   - `index.tsx`
 
-  ### Wrtiting play functions in storybook stories:
-
-  We are using storybook play functionality to test components. Each components story should include such tests. Here is an example how we write those tests.
-
-```tsx
-import type { Meta, StoryObj } from '@storybook/react';
-
-import { userEvent, within } from '@storybook/test';
-
-import { RegistrationForm } from './RegistrationForm';
-
-const meta: Meta<typeof RegistrationForm> = {
-  component: RegistrationForm,
-};
-
-export default meta;
-type Story = StoryObj<typeof RegistrationForm>;
-
-/*
- * See https://storybook.js.org/docs/writing-stories/play-function#working-with-the-canvas
- * to learn more about using the canvasElement to query the DOM
- */
-export const FilledForm: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const emailInput = canvas.getByLabelText('email', {
-      selector: 'input',
-    });
-
-    await userEvent.type(emailInput, 'example-email@email.com', {
-      delay: 100,
-    });
-
-    const passwordInput = canvas.getByLabelText('password', {
-      selector: 'input',
-    });
-
-    await userEvent.type(passwordInput, 'ExamplePassword', {
-      delay: 100,
-    });
-    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
-    const submitButton = canvas.getByRole('button');
-
-    await userEvent.click(submitButton);
-  },
-};
-   ```
 
 ## Git instructions
- * Run the tests before commiting
  * Commit your changes immediately after each successfully completed ticket.
