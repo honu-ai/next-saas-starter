@@ -5,8 +5,20 @@ import {
   text,
   timestamp,
   integer,
+  pgEnum,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
+
+export const teamSubscriptionStatusEnum = pgEnum('team_subscription_status', [
+  'active',
+  'canceled',
+  'incomplete',
+  'incomplete_expired',
+  'past_due',
+  'paused',
+  'trialing',
+  'unpaid',
+]);
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -29,6 +41,7 @@ export const teams = pgTable('teams', {
   stripeProductId: text('stripe_product_id'),
   planName: varchar('plan_name', { length: 50 }),
   subscriptionStatus: varchar('subscription_status', { length: 20 }),
+  credits: integer('credits'),
 });
 
 export const teamMembers = pgTable('team_members', {

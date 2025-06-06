@@ -1,6 +1,11 @@
 import { redirect } from 'next/navigation';
-import { Settings } from './settings';
 import { getTeamForUser, getUser } from '@/lib/db/queries';
+import GeneralPage from './general';
+import {
+  getStripeProducts,
+  getSerializedSubscription,
+} from '@/lib/payments/stripe';
+import Stripe from 'stripe';
 
 export default async function SettingsPage() {
   const user = await getUser();
@@ -10,10 +15,24 @@ export default async function SettingsPage() {
   }
 
   const teamData = await getTeamForUser(user.id);
+  const products: Stripe.Product[] = await getStripeProducts();
+
+  if (!teamData) {
+    throw new Error('Team not found');
+  }
+  const subscription = teamData.stripeSubscriptionId
+    ? await getSerializedSubscription(teamData.stripeSubscriptionId)
+    : undefined;
 
   if (!teamData) {
     throw new Error('Team not found');
   }
 
-  return <Settings teamData={teamData} />;
+  return (
+    <GeneralPage
+      teamData={teamData}
+      products={products}
+      subscription={subscription}
+    />
+  );
 }
