@@ -5,6 +5,7 @@
     "brandName": "CurrentSage AI",
     "llmInstructions": "This is the metadata for the website.",
     "fontFamily": "Poppins",
+    "product": false,
     "theme": "vercel",
     "colors": {
       "primary": "#2A9D8F",
