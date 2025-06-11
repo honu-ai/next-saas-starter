@@ -1,6 +1,8 @@
 export const themes = {
   'modern-minimal': {
     label: 'Modern Minimal',
+    description:
+      'A clean, professional, and straightforward theme. Uses a classic blue primary color, high contrast, and standard modern fonts. Ideal for corporate sites, SaaS platforms, and applications where clarity and usability are paramount.',
     styles: {
       light: {
         background: '#ffffff',
@@ -80,6 +82,8 @@ export const themes = {
 
   't3-chat': {
     label: 'T3 Chat',
+    description:
+      'A vibrant and youthful theme with a palette of purples, pinks, and magentas. It feels energetic and is well-suited for chat applications, social media, or brands with a young, creative audience.',
     createdAt: '2025-04-19',
     styles: {
       light: {
@@ -156,6 +160,8 @@ export const themes = {
 
   twitter: {
     label: 'Twitter',
+    description:
+      'Mimics the iconic Twitter UI. Characterized by its specific shade of blue, high contrast for readability, and very rounded components. It conveys a sense of familiarity, social interaction, and modernity.',
     createdAt: '2025-04-24',
     styles: {
       light: {
@@ -242,6 +248,8 @@ export const themes = {
 
   'mocha-mousse': {
     label: 'Mocha Mousse',
+    description:
+      'A warm, comforting, and organic theme. Uses a palette of coffee and cream colors, creating a relaxed and approachable feel. Suitable for blogs, portfolios, or brands focused on lifestyle, food, or handcrafted goods.',
     createdAt: '2025-04-24',
     styles: {
       light: {
@@ -328,7 +336,8 @@ export const themes = {
 
   bubblegum: {
     label: 'Bubblegum',
-    createdAt: '2025-04-18',
+    description:
+      'A fun, playful, and energetic theme bursting with pastel and neon colors like pink, cyan, and yellow. It uses a modern, rounded font (Poppins) and has a distinct, cheerful personality. Perfect for brands targeting a younger demographic.',
     styles: {
       light: {
         background: '#f6e6ee',
@@ -417,7 +426,8 @@ export const themes = {
 
   'amethyst-haze': {
     label: 'Amethyst Haze',
-    createdAt: '2025-05-08',
+    description:
+      'A soft, dreamy, and sophisticated theme with a palette of muted purples, pinks, and gentle pastels. It evokes a sense of calm creativity and elegance. Ideal for personal blogs, wellness apps, or brands with a gentle, artistic identity.',
     styles: {
       light: {
         background: '#f8f7fa',
@@ -504,7 +514,8 @@ export const themes = {
 
   notebook: {
     label: 'Notebook',
-    createdAt: '2025-05-10',
+    description:
+      'A theme that mimics the look and feel of a physical notebook. It uses a desaturated, grayscale palette with an off-white background and a handwritten-style font. Conveys a sense of creativity, journaling, and personal reflection.',
     styles: {
       light: {
         background: '#f9f9f9',
@@ -603,7 +614,8 @@ export const themes = {
 
   'doom-64': {
     label: 'Doom 64',
-    createdAt: '2025-04-28',
+    description:
+      'A dark, intense, and retro-tech theme inspired by the video game "Doom 64". It features a gritty palette of reds, grays, and greens, with sharp, squared-off edges and a futuristic font. Evokes a sense of action, gaming, and industrial grit.',
     styles: {
       light: {
         background: '#cccccc',
@@ -704,7 +716,8 @@ export const themes = {
 
   catppuccin: {
     label: 'Catppuccin',
-    createdAt: '2025-04-18',
+    description:
+      'Based on the popular Catppuccin color palette, this theme is warm, cozy, and easy on the eyes. It uses a soothing mix of pastels and is favored in the developer community. Ideal for tech blogs, documentation sites, or developer tools.',
     styles: {
       light: {
         background: '#eff1f5',
@@ -789,7 +802,8 @@ export const themes = {
 
   graphite: {
     label: 'Graphite',
-    createdAt: '2025-04-17',
+    description:
+      'A sleek, modern, and minimalist monochromatic theme. It uses various shades of grey, creating a sophisticated, understated, and professional look. Excellent for portfolios, design agencies, and tech-focused websites.',
     styles: {
       light: {
         background: '#f0f0f0',
@@ -877,7 +891,8 @@ export const themes = {
 
   perpetuity: {
     label: 'Perpetuity',
-    createdAt: '2025-04-01',
+    description:
+      'A futuristic, technical theme dominated by cool teal and cyan hues and monospace fonts. It has a "command-line" aesthetic, making it perfect for technical documentation, sci-fi projects, or developer-centric applications.',
     styles: {
       light: {
         background: '#e8f0f0',
@@ -971,6 +986,8 @@ export const themes = {
   },
   'kodama-grove': {
     label: 'Kodama Grove',
+    description:
+      'Inspired by a forest grove, this theme uses earthy greens, warm browns, and parchment tones. The serif font adds a touch of classic storytelling. It feels natural, calming, and grounded.',
     styles: {
       light: {
         background: '#e4d7b0',
@@ -1055,7 +1072,8 @@ export const themes = {
 
   'cosmic-night': {
     label: 'Cosmic Night',
-    createdAt: '2025-04-04',
+    description:
+      'A dark theme inspired by the night sky. It uses deep blues and purples with glowing, vibrant accents, evoking a sense of space, technology, and wonder. Ideal for startups, tech companies, or any brand with a futuristic identity.',
     styles: {
       light: {
         background: '#f5f5ff',
@@ -1141,7 +1159,8 @@ export const themes = {
 
   tangerine: {
     label: 'Tangerine',
-    createdAt: '2025-04-09',
+    description:
+      "A fresh and energetic theme featuring a zesty tangerine orange as the primary color, balanced by cool blues. It's vibrant, optimistic, and friendly, with soft, rounded corners.",
     styles: {
       light: {
         background: '#e8ebed',
@@ -1226,7 +1245,8 @@ export const themes = {
 
   'quantum-rose': {
     label: 'Quantum Rose',
-    createdAt: '2025-04-03',
+    description:
+      'A bold, futuristic theme with a vibrant palette of magenta, pink, and purple. It creates a high-fashion, tech-forward feel. Perfect for brands in beauty, tech, or digital art that want to make a strong statement.',
     styles: {
       light: {
         background: '#fff0f8',
@@ -1315,6 +1335,8 @@ export const themes = {
 
   nature: {
     label: 'Nature',
+    description:
+      'A calm and organic theme that uses a natural color palette of greens and earthy browns. It feels grounded, peaceful, and trustworthy. An excellent choice for brands focused on wellness, sustainability, or natural products.',
     styles: {
       light: {
         background: '#f8f5f0',
@@ -1394,6 +1416,8 @@ export const themes = {
 
   'bold-tech': {
     label: 'Bold Tech',
+    description:
+      'A confident and vibrant tech-focused theme. It uses a bold purple and indigo palette to convey innovation and creativity. The clean fonts and defined shadows give it a modern, professional edge.',
     styles: {
       light: {
         background: '#ffffff',
@@ -1479,6 +1503,8 @@ export const themes = {
 
   'elegant-luxury': {
     label: 'Elegant Luxury',
+    description:
+      'A sophisticated and luxurious theme featuring a palette of deep red, gold, and cream. The use of a classic serif font enhances its refined and premium feel. Perfect for high-end brands and premium products.',
     styles: {
       light: {
         background: '#faf7f5',
@@ -1564,7 +1590,8 @@ export const themes = {
 
   'amber-minimal': {
     label: 'Amber Minimal',
-    createdAt: '2025-04-27',
+    description:
+      'A minimal and modern theme with a warm touch. It uses a striking amber yellow as an accent against a clean black and white backdrop. This palette feels optimistic, clear, and approachable.',
     styles: {
       light: {
         background: '#ffffff',
@@ -1651,7 +1678,8 @@ export const themes = {
 
   supabase: {
     label: 'Supabase',
-    createdAt: '2025-04-27',
+    description:
+      'A clean, developer-focused theme inspired by the Supabase branding. It features a bright, optimistic green against a very light background, conveying ease of use, growth, and technology.',
     styles: {
       light: {
         background: '#fcfcfc',
@@ -1738,6 +1766,8 @@ export const themes = {
 
   'neo-brutalism': {
     label: 'Neo Brutalism',
+    description:
+      'A bold, edgy, and unconventional theme inspired by neo-brutalism. It uses raw, high-contrast colors, sharp corners, and hard shadows to make a very strong, confident statement.',
     styles: {
       light: {
         background: '#ffffff',
@@ -1822,7 +1852,8 @@ export const themes = {
 
   'solar-dusk': {
     label: 'Solar Dusk',
-    createdAt: '2025-04-12',
+    description:
+      'A warm and inviting theme that captures the feeling of a sunset. It uses a palette of rich oranges, yellows, and earthy browns, feeling comforting, relaxed, and slightly rustic.',
     styles: {
       light: {
         background: '#FDFBF7',
@@ -1909,6 +1940,8 @@ export const themes = {
 
   claymorphism: {
     label: 'Claymorphism',
+    description:
+      'A theme based on the claymorphism trend, giving UI elements a soft, 3D, clay-like appearance. It uses light, muted colors and large rounded corners to create a friendly, tactile, and modern interface.',
     styles: {
       light: {
         background: '#e7e5e4',
@@ -1995,6 +2028,8 @@ export const themes = {
 
   cyberpunk: {
     label: 'Cyberpunk',
+    description:
+      'A high-tech, futuristic theme inspired by the cyberpunk genre. It features vibrant, glowing neons—especially pink and cyan—against a dark, moody background, communicating a sense of advanced technology and digital rebellion.',
     styles: {
       light: {
         background: '#f8f9fa',
@@ -2078,6 +2113,8 @@ export const themes = {
   },
   'pastel-dreams': {
     label: 'Pastel Dreams',
+    description:
+      'A soft, gentle, and dreamy theme with a light pastel palette. Dominated by lavender and light pink, it has a very soft, rounded, and friendly aesthetic, perfect for whimsical and comforting brands.',
     styles: {
       light: {
         background: '#f7f3f9',
@@ -2163,6 +2200,8 @@ export const themes = {
 
   'clean-slate': {
     label: 'Clean Slate',
+    description:
+      'A crisp, clean, and professional theme that provides a "clean slate" for content. It uses a dependable blue primary color and neutral grays, ensuring a trustworthy feel for business, finance, and enterprise applications.',
     styles: {
       light: {
         background: '#f8fafc',
@@ -2248,6 +2287,8 @@ export const themes = {
 
   caffeine: {
     label: 'Caffeine',
+    description:
+      'A warm, rich, and energizing theme inspired by coffee. It uses a palette of deep browns, creams, and warm beiges. This theme feels cozy, focused, and sophisticated.',
     styles: {
       light: {
         background: '#f9f9f9',
@@ -2323,6 +2364,8 @@ export const themes = {
   },
   'ocean-breeze': {
     label: 'Ocean Breeze',
+    description:
+      'A fresh, calm, and clean theme that evokes a sense of a cool ocean breeze. The palette consists of light blues and energetic greens, creating a refreshing and trustworthy atmosphere.',
     styles: {
       light: {
         background: '#f0f8ff',
@@ -2407,6 +2450,8 @@ export const themes = {
   },
   'retro-arcade': {
     label: 'Retro Arcade',
+    description:
+      'A theme with a retro computing feel, based on the classic Solarized color palette. It features off-white and deep blue-gray backgrounds with vibrant, contrasting accent colors, feeling both nostalgic and highly readable.',
     styles: {
       light: {
         background: '#fdf6e3',
@@ -2491,6 +2536,8 @@ export const themes = {
 
   'midnight-bloom': {
     label: 'Midnight Bloom',
+    description:
+      'A sophisticated and slightly mysterious dark theme. It combines a deep purple primary color with earthy and floral-inspired accents. It feels creative, elegant, and modern, like a garden at midnight.',
     styles: {
       light: {
         background: '#f9f9f9',
@@ -2575,6 +2622,8 @@ export const themes = {
   },
   candyland: {
     label: 'Candyland',
+    description:
+      'A sweet, playful, and whimsical theme. Its palette is full of candy-like colors such as pastel pink, blue, and yellow. This theme is fun, lighthearted, and perfect for products or content aimed at children.',
     styles: {
       light: {
         background: '#f7f9fa',
@@ -2652,6 +2701,8 @@ export const themes = {
   },
   'northern-lights': {
     label: 'Northern Lights',
+    description:
+      'This theme captures the beauty of the aurora borealis with a palette of glowing greens and blues. It feels magical, natural, and inspiring. Suitable for travel, nature, or technology brands that want an enchanting feel.',
     styles: {
       light: {
         background: '#f9f9fa',
@@ -2730,6 +2781,8 @@ export const themes = {
   },
   'vintage-paper': {
     label: 'Vintage Paper',
+    description:
+      'A nostalgic and classic theme that mimics the look of vintage paper and ink. It uses a palette of sepia, brown, and off-white, with a classic serif font. Ideal for historical content, author portfolios, or artisanal brands.',
     styles: {
       light: {
         background: '#f5f1e6',
@@ -2814,6 +2867,8 @@ export const themes = {
   },
   'sunset-horizon': {
     label: 'Sunset Horizon',
+    description:
+      'A warm, vibrant, and calming theme inspired by the colors of a sunset. It features a beautiful palette of warm oranges, pinks, and yellows, evoking feelings of relaxation, optimism, and beauty.',
     styles: {
       light: {
         background: '#fff9f5',
@@ -2899,7 +2954,8 @@ export const themes = {
 
   'starry-night': {
     label: 'Starry Night',
-    createdAt: '2025-04-16',
+    description:
+      "Inspired by Van Gogh's famous painting, this artistic theme uses a palette of deep blues and vibrant, expressive yellows. It feels creative, dramatic, and expressive. Perfect for artists, galleries, or creative brands.",
     styles: {
       light: {
         background: '#f5f7fa',
@@ -2977,6 +3033,8 @@ export const themes = {
 
   claude: {
     label: 'Claude',
+    description:
+      'A sophisticated, understated, and intellectual theme. It uses a muted palette with a distinctive burnt orange primary color, creating a feeling of warmth, intelligence, and clarity. Suitable for AI or educational platforms.',
     styles: {
       light: {
         background: '#faf9f5',
@@ -3052,7 +3110,8 @@ export const themes = {
 
   vercel: {
     label: 'Vercel',
-    createdAt: '2025-04-13',
+    description:
+      "A sharp, minimalist, and highly modern theme inspired by Vercel's branding. It uses a pure black-and-white palette and the Geist font family, reinforcing its technical and cutting-edge identity.",
     styles: {
       light: {
         background: 'oklch(0.99 0 0)',
@@ -3141,7 +3200,8 @@ export const themes = {
 
   mono: {
     label: 'Mono',
-    createdAt: '2025-04-20',
+    description:
+      'A purely monochromatic and minimalist theme where every font is monospace, creating a stark, uniform, and typewriter-esque aesthetic. A statement theme for minimalists who prefer a content-first, distraction-free environment.',
     styles: {
       light: {
         background: '#ffffff',
