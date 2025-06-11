@@ -42,7 +42,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
             <ContactDialog
               triggerText={primaryButtonText}
-              className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md border-none px-6 py-6 text-lg text-white sm:w-auto'
+              className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md border-none px-6 py-6 text-lg sm:w-auto'
             />
             {/* <Button className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md px-6 py-6 text-lg text-white sm:w-auto'>
               {primaryButtonText}

@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/80 shadow-sm backdrop-blur-md'
-          : 'bg-transparent'
+          : 'bg-background'
       }`}
     >
       <div className='container mx-auto flex h-17 items-center justify-between px-4'>

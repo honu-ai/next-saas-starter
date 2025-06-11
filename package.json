@@ -22,9 +22,12 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "update-font": "npx tsx lib/theme-converter/update-font.ts",
-    "convert-theme": "npx tsx lib/theme-converter/theme-converter.ts"
+    "update-font-new": "npx tsx lib/theme-converter/font/index.ts",
+    "convert-theme": "npx tsx lib/theme-converter/theme-converter.ts",
+    "convert-theme-new": "npx tsx lib/theme-converter/theme/index.ts"
   },
   "dependencies": {
+    "@fontsource/open-sans": "^5.2.6",
     "@formbricks/js": "^4.1.0",
     "@next/mdx": "^15.2.1",
     "@radix-ui/react-accordion": "^1.2.10",
@@ -43,6 +46,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "culori": "^4.0.1",
     "drizzle-orm": "^0.39.1",
     "framer-motion": "^12.4.10",
     "jose": "^5.9.6",
@@ -88,6 +92,7 @@
     "@tailwindcss/postcss": "4.0.3",
     "@tailwindcss/typography": "^0.5.16",
     "@types/bcryptjs": "^2.4.6",
+    "@types/culori": "^4.0.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "^22.13.10",
     "@types/react": "19.0.8",

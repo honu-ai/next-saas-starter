@@ -28,9 +28,7 @@ const ProblemSection: React.FC<ProblemSectionProps> = ({
             className='mb-6 text-3xl font-bold md:text-4xl'
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
-            {subtitle}
-          </p>
+          <p className='mx-auto max-w-2xl text-lg'>{subtitle}</p>
         </div>
 
         <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
@@ -45,7 +43,7 @@ const ProblemSection: React.FC<ProblemSectionProps> = ({
                   <Icon className='text-primary h-6 w-6' />
                 </div>
                 <h3 className='mb-3 text-xl font-semibold'>{card.title}</h3>
-                <p className='text-muted-foreground'>{card.description}</p>
+                <p>{card.description}</p>
               </div>
             );
           })}

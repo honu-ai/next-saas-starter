@@ -27,21 +27,19 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
 }) => {
   return (
     <section
-      className='to-primary/2 dark:from-background/5 bg-gradient-to-b from-white px-4 py-16'
+      className='bg-slate-500/20 px-4 py-16 dark:bg-slate-800/20'
       id='how-it-works'
     >
       <div className='mx-auto max-w-7xl'>
         <div className='mb-16 text-center'>
-          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium'>
+          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium md:text-lg'>
             {badge}
           </span>
           <h2
             className='text-primary-background mt-4 mb-6 text-3xl font-bold md:text-4xl'
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
-            {subtitle}
-          </p>
+          <p className='mx-auto max-w-2xl text-lg'>{subtitle}</p>
         </div>
 
         <div className='mb-16 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:grid-rows-2'>

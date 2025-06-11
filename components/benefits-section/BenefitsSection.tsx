@@ -49,16 +49,14 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
     <section className='bg-background px-4 py-16' id='features'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-16 text-center'>
-          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium'>
+          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium md:text-lg'>
             {badge}
           </span>
           <h2
             className='text-foreground mt-4 mb-6 text-3xl font-bold md:text-4xl'
             dangerouslySetInnerHTML={{ __html: title }}
           ></h2>
-          <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
-            {description}
-          </p>
+          <p className='mx-auto max-w-2xl text-lg'>{description}</p>
         </div>
 
         <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
@@ -75,12 +73,12 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
                 <h3 className='text-foreground mb-3 text-xl font-semibold'>
                   {card.title}
                 </h3>
-                <p className='text-muted-foreground mb-4'>{card.description}</p>
+                <p className='text-foreground mb-4'>{card.description}</p>
                 <ul className='space-y-2'>
                   {card.benefits.map((benefit, benefitIndex) => (
                     <li
                       key={benefitIndex}
-                      className='text-muted-foreground flex items-center text-sm'
+                      className='text-foreground flex items-center text-sm'
                     >
                       <svg
                         className='mr-2 h-4 w-4 text-green-500'
@@ -105,15 +103,13 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
           })}
         </div>
 
-        <div className='bg-secondary border-secondary/50 mt-16 rounded-lg border p-8'>
+        <div className='bg-card hover:border-primary/50 border-border mt-16 rounded-lg border p-8'>
           <div className='grid grid-cols-1 items-center gap-8 md:grid-cols-3'>
             <div className='col-span-2'>
               <h3 className='text-foreground mb-3 text-2xl font-semibold'>
                 {bottomSection.title}
               </h3>
-              <p className='text-muted-foreground'>
-                {bottomSection.description}
-              </p>
+              <p className='text-foreground'>{bottomSection.description}</p>
             </div>
             <div className='flex justify-center md:justify-end'>
               <div className='flex items-center gap-2 md:gap-4'>

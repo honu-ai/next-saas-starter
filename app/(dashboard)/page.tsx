@@ -54,7 +54,11 @@ export default async function HomePage() {
         />
       </section>
       <section id='faq'>
-        <FaqSection faqs={content.faq.items} />
+        <FaqSection
+          faqs={content.faq.items}
+          title={content.faq.title}
+          subtitle={content.faq.subtitle}
+        />
       </section>
       <section id='cta'>
         <CtaSection

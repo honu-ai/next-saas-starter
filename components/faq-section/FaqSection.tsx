@@ -12,33 +12,30 @@ export type FaqItem = {
 };
 
 export type FaqSectionProps = {
+  title: string;
+  subtitle: string;
   faqs?: FaqItem[];
 };
 
-const FaqSection: React.FC<FaqSectionProps> = ({ faqs }) => {
+const FaqSection: React.FC<FaqSectionProps> = ({ faqs, title, subtitle }) => {
   return (
     <section className='bg-muted px-4 py-16' id='faqs'>
       <div className='mx-auto max-w-3xl'>
         <div className='mb-12 text-center'>
-          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium'>
+          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium md:text-lg'>
             FAQs
           </span>
-          <h2 className='mt-4 mb-6 text-3xl font-bold md:text-4xl'>
-            Frequently Asked <span className='text-primary'>Questions</span>
-          </h2>
-          <p className='text-muted-foreground'>
-            Everything you need to know about RankWell&apos;s AI-powered content
-            platform.
-          </p>
+          <h2 className='mt-4 mb-6 text-3xl font-bold md:text-4xl'>{title}</h2>
+          <p className='text-muted-foreground'>{subtitle}</p>
         </div>
 
         <Accordion type='single' collapsible className='w-full'>
           {faqs?.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className='text-foreground text-left font-medium md:text-2xl'>
+              <AccordionTrigger className='text-foreground text-left text-lg font-medium md:text-2xl'>
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className='text-muted-foreground'>
+              <AccordionContent className='text-muted-foreground text-sm md:text-lg'>
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
