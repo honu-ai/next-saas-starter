@@ -322,39 +322,8 @@ Before you begin setting up this project, you'll need to have the following acco
 ### 2. Stripe Account and Webhook Setup
 
 1. Create a Stripe account at [stripe.com](https://stripe.com)
-2. Install the Stripe CLI:
-   - **macOS** (using Homebrew):
-     ```bash
-     brew install stripe/stripe-cli/stripe
-     ```
-   - **Windows** (using Scoop):
-     ```bash
-     scoop bucket add stripe https://github.com/stripe/scoop-stripe-cli.git
-     scoop install stripe
-     ```
-   - **Linux**:
-     ```bash
-     # Download the latest Linux tar.gz
-     curl -s https://packages.stripe.dev/api/security/keypair/stripe-cli-gpg/public | gpg --dearmor | sudo tee /usr/share/keyrings/stripe.gpg
-     echo "deb [signed-by=/usr/share/keyrings/stripe.gpg] https://packages.stripe.dev/stripe-cli-debian-local stable main" | sudo tee -a /etc/apt/sources.list.d/stripe.list
-     sudo apt update
-     sudo apt install stripe
-     ```
-   - **Alternative**: Download directly from [Stripe CLI releases](https://github.com/stripe/stripe-cli/releases/latest)
-3. Set up a webhook endpoint:
-   - Go to Stripe Dashboard → Developers → Webhooks
-   - Click "Add endpoint"
-   - For local development:
-     - Use the Stripe CLI command: `stripe listen --forward-to localhost:3000/api/stripe/webhook`
-     - Copy the webhook signing secret (starts with `whsec_`)
-   - For production:
-     - Set the endpoint URL to `https://your-domain.com/api/stripe/webhook`
-     - Select events to listen for:
-       - `checkout.session.completed`
-       - `customer.subscription.updated`
-       - `customer.subscription.deleted`
-     - Copy the webhook signing secret
-4. Get your API keys:
+
+2. Get your API keys:
    - Go to Stripe Dashboard → Developers → API keys
    - Copy your "Secret key" (starts with `sk_test_` for test mode)
    - Keep these keys secure and never commit them to version control
@@ -556,51 +525,6 @@ This will create the following user and team:
 
 You can, of course, create new users as well through `/sign-up`.
 
-4. Setup products in Stripe:
-
-```bash
-pnpm stripe:create-products
-```
-
-This will setup the default products:
-
-```json
-[
-  {
-    "name": "Base",
-    "description": "Base subscription plan",
-    "unit_amount": 800,
-    "currency": "usd",
-    "recurring": {
-      "interval": "month",
-      "trial_period_days": 7
-    }
-  },
-  {
-    "name": "Plus",
-    "description": "Plus subscription plan",
-    "unit_amount": 1200,
-    "currency": "usd",
-    "recurring": {
-      "interval": "month",
-      "trial_period_days": 7
-    }
-  },
-  {
-    "name": "Enterprise",
-    "description": "Enterprise subscription plan",
-    "unit_amount": 12000,
-    "currency": "usd",
-    "recurring": {
-      "interval": "month",
-      "trial_period_days": 7
-    }
-  }
-]
-```
-
-Feel free to edit the `content.json` file in the root folder to set different products.
-
 5. Finally, run the Next.js development server:
 
 ```bash
@@ -611,36 +535,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ## Setting Up Local Stripe Webhooks
 
-To test Stripe webhooks locally during development, follow these steps:
+Stripe webhooks are deployed withing docker compose.
 
-1. Ensure you've installed the Stripe CLI as described in the [Prerequisites section](#2-stripe-account-and-webhook-setup)
-
-2. Login to your Stripe account via the CLI:
-
-   ```bash
-   stripe login
-   ```
-
-3. Start the webhook forwarding:
-
-   ```bash
-   stripe listen --forward-to localhost:3000/api/stripe/webhook
-   ```
-
-4. The CLI will display a webhook signing secret. Copy this secret and update your `.env` file:
-
-   ```
-   STRIPE_WEBHOOK_SECRET=whsec_your_webhook_signing_secret
-   ```
-
-5. Keep this terminal window open while testing Stripe integrations. The Stripe CLI will forward events from Stripe to your local application.
-
-6. To test specific events, you can trigger them manually using:
+To test specific events, you can trigger them manually using:
    ```bash
    stripe trigger checkout.session.completed
    ```
-
-You can find more information about testing webhooks in the [Stripe CLI documentation](https://stripe.com/docs/stripe-cli/webhooks).
 
 ### Accessing pgAdmin
 
