@@ -371,7 +371,7 @@ POSTGRES_URL=postgresql://postgres:postgres@localhost:5433/saas_db
 
 # Stripe Configuration
 # Get these from your Stripe Dashboard (https://dashboard.stripe.com/test/apikeys)
-STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+STRIPE_API_KEY=sk_test_your_stripe_secret_key
 STRIPE_WEBHOOK_SECRET=whsec_your_stripe_webhook_secret
 
 # Base URL for your application
@@ -662,7 +662,7 @@ Open the `.env.vercel` file in your code editor and update these essential varia
 # Production environment variables
 BASE_URL=https://your-project-name.vercel.app
 POSTGRES_URL=your_production_database_url
-STRIPE_SECRET_KEY=sk_live_your_stripe_production_key
+STRIPE_API_KEY=sk_live_your_stripe_production_key
 STRIPE_WEBHOOK_SECRET=whsec_your_production_webhook_secret
 AUTH_SECRET=your_generated_auth_secret
 NEXT_PUBLIC_POSTHOG_KEY=phc_your_production_project_api_key
@@ -675,7 +675,7 @@ Key variables to configure:
 
 - `BASE_URL`: Your production domain (e.g., `https://your-project-name.vercel.app`)
 - `POSTGRES_URL`: The connection string for your production database
-- `STRIPE_SECRET_KEY`: Your Stripe live mode secret key (starts with `sk_live_`)
+- `STRIPE_API_KEY`: Your Stripe live mode secret key (starts with `sk_live_`)
 - `STRIPE_WEBHOOK_SECRET`: The webhook secret from the production webhook you set up
 - `AUTH_SECRET`: A secure random string (generate with `openssl rand -base64 32`)
 - `NEXT_PUBLIC_POSTHOG_KEY`: Your PostHog project API key for production analytics
