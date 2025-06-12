@@ -23,6 +23,10 @@ db-logs:
 db-status:
 	docker compose ps
 
+db-init:
+	pnpm db:migrate
+	pnpm db:seed
+
 # Show database connection information
 db-info:
 	@echo "PostgreSQL:"
@@ -35,4 +39,8 @@ db-info:
 	@echo "pgAdmin:"
 	@echo "  URL: http://localhost:5051"
 	@echo "  Email: admin@admin.com"
-	@echo "  Password: admin" 
+	@echo "  Password: admin"
+
+# start local copy
+run-dev:
+	pnpm dev
