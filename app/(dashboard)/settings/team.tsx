@@ -1,18 +1,21 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { customerPortalAction } from '@/lib/payments/actions';
 import { useActionState } from 'react';
 import { TeamDataWithMembers, User } from '@/lib/db/schema';
 import { removeTeamMember } from '@/app/(login)/actions';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { InviteTeamMember } from './invite-team';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 
 type ActionState = {
   error?: string;
   success?: string;
 };
+
+/**
+ * Keep the Team page for future use when this functionality is available
+ */
 
 export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
   const [removeState, removeAction, isRemovePending] = useActionState<
@@ -26,35 +29,7 @@ export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
 
   return (
     <section className='flex-1 p-4 lg:p-8'>
-      <h1 className='mb-6 text-lg font-medium lg:text-2xl'>Team Settings</h1>
-      <Card className='mb-8'>
-        <CardHeader>
-          <CardTitle>Team Subscription</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className='space-y-4'>
-            <div className='flex flex-col items-start justify-between sm:flex-row sm:items-center'>
-              <div className='mb-4 sm:mb-0'>
-                <p className='font-medium'>
-                  Current Plan: {teamData.planName || 'Free'}
-                </p>
-                <p className='text-muted-foreground text-sm'>
-                  {teamData.subscriptionStatus === 'active'
-                    ? 'Billed monthly'
-                    : teamData.subscriptionStatus === 'trialing'
-                      ? 'Trial period'
-                      : 'No active subscription'}
-                </p>
-              </div>
-              <form action={customerPortalAction}>
-                <Button type='submit' variant='outline'>
-                  Manage Subscription
-                </Button>
-              </form>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <h1 className='mb-6 text-lg font-medium lg:text-2xl'>Team</h1>
       <Card className='mb-8'>
         <CardHeader>
           <CardTitle>Team Members</CardTitle>
