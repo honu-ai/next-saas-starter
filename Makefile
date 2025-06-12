@@ -44,3 +44,6 @@ db-info:
 # start local copy
 run-dev:
 	pnpm dev
+
+setup-derived-secret:
+	/bin/bash setup_secrets.sh
