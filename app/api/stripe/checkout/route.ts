@@ -84,6 +84,7 @@ export async function GET(request: NextRequest) {
         stripeProductId: productId,
         planName: (plan.product as Stripe.Product).name,
         subscriptionStatus: subscription.status,
+        credits: 0,
         updatedAt: new Date(),
       })
       .where(eq(teams.id, userTeam[0].teamId));

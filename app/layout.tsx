@@ -6,7 +6,7 @@ import { getUser } from '@/lib/db/queries';
 import Script from 'next/script';
 
 import ThemeProvider from '@/components/theme-provider';
-import PostHogProvider from '@/components/posthog-provider';
+// import PostHogProvider from '@/components/posthog-provider';
 import DynamicFavicon from '@/components/dynamic-favicon';
 import { getBootstrapData } from '@/lib/posthog';
 import { Toaster } from '@/components/ui/sonner';
@@ -78,16 +78,16 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PostHogProvider bootstrap={bootstrap}>
-            <UserProvider userPromise={userPromise}>
-              {/* Uncomment to enable Formbricks integration */}
-              {/* <Suspense>
+          {/* <PostHogProvider bootstrap={bootstrap}> */}
+          <UserProvider userPromise={userPromise}>
+            {/* Uncomment to enable Formbricks integration */}
+            {/* <Suspense>
                 <FormbricksProvider />
               </Suspense> */}
-              {children}
-              <Toaster />
-            </UserProvider>
-          </PostHogProvider>
+            {children}
+            <Toaster />
+          </UserProvider>
+          {/* </PostHogProvider> */}
         </ThemeProvider>
       </body>
     </html>

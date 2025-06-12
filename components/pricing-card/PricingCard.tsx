@@ -12,7 +12,7 @@ export type PricingCardProps = {
   name: string;
   price: number;
   interval: string;
-  trialDays: number;
+  trialDays?: number | null;
   features: string[];
   gradientFrom: string;
   gradientTo: string;
@@ -23,6 +23,7 @@ export type PricingCardProps = {
   featured?: boolean;
   highlightFeatureIndex?: number;
   priceId?: string;
+  usageType?: string;
   checkoutAction?: (formData: FormData) => Promise<void>;
 };
 
@@ -41,6 +42,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
   featured,
   highlightFeatureIndex,
   priceId,
+  usageType,
   checkoutAction,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -77,9 +79,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
         <div className='relative'>
           <div className='mb-8'>
             <h2 className='text-3xl font-bold text-gray-900'>{name}</h2>
-            <p className='mt-2 text-gray-600'>
-              with {trialDays} day free trial
-            </p>
+            {trialDays && (
+              <p className='mt-2 text-gray-600'>
+                with {trialDays} day free trial
+              </p>
+            )}
           </div>
 
           <div className='mb-8'>
@@ -108,6 +112,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
           </ul>
           <form action={checkoutAction}>
             <input type='hidden' name='priceId' value={priceId} />
+            <input type='hidden' name='usageType' value={usageType} />
             <PricingSubmitButton
               label='Get Started'
               gradientFrom={gradientFrom}
