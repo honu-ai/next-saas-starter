@@ -19,7 +19,7 @@ export async function createCheckoutSession({
 }: {
   team: Team | null;
   priceId: string;
-  usageType: string;
+  usageType?: string;
 }) {
   const user = await getUser();
 
