@@ -611,36 +611,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ## Setting Up Local Stripe Webhooks
 
-To test Stripe webhooks locally during development, follow these steps:
+Stripe webhooks are deployed withing docker compose.
 
-1. Ensure you've installed the Stripe CLI as described in the [Prerequisites section](#2-stripe-account-and-webhook-setup)
-
-2. Login to your Stripe account via the CLI:
-
-   ```bash
-   stripe login
-   ```
-
-3. Start the webhook forwarding:
-
-   ```bash
-   stripe listen --forward-to localhost:3000/api/stripe/webhook
-   ```
-
-4. The CLI will display a webhook signing secret. Copy this secret and update your `.env` file:
-
-   ```
-   STRIPE_WEBHOOK_SECRET=whsec_your_webhook_signing_secret
-   ```
-
-5. Keep this terminal window open while testing Stripe integrations. The Stripe CLI will forward events from Stripe to your local application.
-
-6. To test specific events, you can trigger them manually using:
+To test specific events, you can trigger them manually using:
    ```bash
    stripe trigger checkout.session.completed
    ```
-
-You can find more information about testing webhooks in the [Stripe CLI documentation](https://stripe.com/docs/stripe-cli/webhooks).
 
 ### Accessing pgAdmin
 
