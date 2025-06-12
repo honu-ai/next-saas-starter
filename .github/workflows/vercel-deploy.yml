@@ -65,11 +65,11 @@ jobs:
           npx vercel env rm POSTGRES_URL production -y --token "$VERCEL_TOKEN" || true
           npx vercel env add POSTGRES_URL production < .vercel_tmp/POSTGRES_URL --token "$VERCEL_TOKEN"
           
-          # Set STRIPE_SECRET_KEY
-          echo "Setting STRIPE_SECRET_KEY..."
-          echo -n "$STRIPE_SECRET_KEY" > .vercel_tmp/STRIPE_SECRET_KEY
-          npx vercel env rm STRIPE_SECRET_KEY production -y --token "$VERCEL_TOKEN" || true
-          npx vercel env add STRIPE_SECRET_KEY production < .vercel_tmp/STRIPE_SECRET_KEY --token "$VERCEL_TOKEN"
+          # Set STRIPE_API_KEY
+          echo "Setting STRIPE_API_KEY..."
+          echo -n "STRIPE_API_KEY" > .vercel_tmp/STRIPE_API_KEY
+          npx vercel env rm STRIPE_API_KEY production -y --token "$VERCEL_TOKEN" || true
+          npx vercel env add STRIPE_API_KEY production < .vercel_tmp/STRIPE_API_KEY --token "$VERCEL_TOKEN"
           
           # Set STRIPE_WEBHOOK_SECRET
           echo "Setting STRIPE_WEBHOOK_SECRET..."
@@ -121,7 +121,7 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           # Application secrets to be deployed to Vercel
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           BASE_URL: ${{ secrets.BASE_URL }}
@@ -135,7 +135,7 @@ jobs:
         env:
           # Ensure all build-time secrets are here
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           BASE_URL: ${{ secrets.BASE_URL }}

@@ -30,7 +30,7 @@ execSync(`mkdir -p ${tempDir}`);
 // List of environment variables to set
 const envVarKeys = [
   'POSTGRES_URL',
-  'STRIPE_SECRET_KEY',
+  'STRIPE_API_KEY',
   'STRIPE_WEBHOOK_SECRET',
   'AUTH_SECRET',
   'BASE_URL',
