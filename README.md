@@ -556,51 +556,6 @@ This will create the following user and team:
 
 You can, of course, create new users as well through `/sign-up`.
 
-4. Setup products in Stripe:
-
-```bash
-pnpm stripe:create-products
-```
-
-This will setup the default products:
-
-```json
-[
-  {
-    "name": "Base",
-    "description": "Base subscription plan",
-    "unit_amount": 800,
-    "currency": "usd",
-    "recurring": {
-      "interval": "month",
-      "trial_period_days": 7
-    }
-  },
-  {
-    "name": "Plus",
-    "description": "Plus subscription plan",
-    "unit_amount": 1200,
-    "currency": "usd",
-    "recurring": {
-      "interval": "month",
-      "trial_period_days": 7
-    }
-  },
-  {
-    "name": "Enterprise",
-    "description": "Enterprise subscription plan",
-    "unit_amount": 12000,
-    "currency": "usd",
-    "recurring": {
-      "interval": "month",
-      "trial_period_days": 7
-    }
-  }
-]
-```
-
-Feel free to edit the `content.json` file in the root folder to set different products.
-
 5. Finally, run the Next.js development server:
 
 ```bash
