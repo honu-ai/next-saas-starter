@@ -4,8 +4,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "db:setup": "npx tsx lib/db/setup.ts",
-    "db:seed": "npx tsx lib/db/seed.ts",
+    "db:setup": "npx --yes tsx lib/db/setup.ts",
+    "db:seed": "npx --yes tsx lib/db/seed.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
@@ -21,10 +21,10 @@
     "deploy-env": "npx tsx deploy-env.ts",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "update-font": "npx tsx lib/theme-converter/update-font.ts",
-    "update-font-new": "npx tsx lib/theme-converter/font/index.ts",
-    "convert-theme": "npx tsx lib/theme-converter/theme-converter.ts",
-    "convert-theme-new": "npx tsx lib/theme-converter/theme/index.ts"
+    "update-font": "npx --yes tsx lib/theme-converter/update-font.ts",
+    "update-font-new": "npx --yes tsx lib/theme-converter/font/index.ts",
+    "convert-theme": "npx --yes tsx lib/theme-converter/theme-converter.ts",
+    "convert-theme-new": "npx --yes tsx lib/theme-converter/theme/index.ts"
   },
   "dependencies": {
     "@fontsource/open-sans": "^5.2.6",
