@@ -29,10 +29,14 @@ def request_stripe_key():
     return api_key
 
 def request_host_and_port():
-    host_and_port = input("Enter host and port (default http://localhost:3001):")
-    if host_and_port == "":
-        host_and_port = "http://localhost:3001"
-    return host_and_port
+    host = input("Enter a hostname (default localhost): ")
+    port = input("Enter a port (default 3000): ")
+    if host == "":
+        host = "localhost"
+    if port == "":
+        port = "3000"
+
+    return f"http://{host}:{port}", host, port
 
 def get_auth_secret_key():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(50))
@@ -48,7 +52,7 @@ def write_dotenv(dotenv_variables: dict):
 
 if __name__ == "__main__":
     POSTGRES_URL = get_postgres_connection_string()
-    BASE_URL = request_host_and_port()
+    BASE_URL, HOST, PORT = request_host_and_port()
     STRIPE_API_KEY = request_stripe_key()
     STRIPE_WEBHOOK_SECRET = get_stripe_webhook_secret(STRIPE_API_KEY, BASE_URL)
     AUTH_SECRET = get_auth_secret_key()
@@ -56,6 +60,8 @@ if __name__ == "__main__":
     dotenv_variables = {
         'POSTGRES_URL': POSTGRES_URL,
         'BASE_URL': BASE_URL,
+        'HOST': HOST,
+        'PORT': PORT,
         'STRIPE_API_KEY': STRIPE_API_KEY,
         'STRIPE_WEBHOOK_SECRET': STRIPE_WEBHOOK_SECRET,
         'AUTH_SECRET': AUTH_SECRET,
