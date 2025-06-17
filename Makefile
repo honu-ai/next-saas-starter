@@ -6,6 +6,8 @@ export $(shell sed 's/=.*//' .env)
 # Start the database and pgAdmin
 db-up:
 	docker compose up -d
+
+db-seed:
 	pnpm install
 	pnpm db:migrate
 	pnpm db:seed
@@ -47,3 +49,5 @@ db-info:
 run-dev:
 	pnpm dev
 
+db-seed: db-up
+run-dev: db-seed
