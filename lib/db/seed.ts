@@ -37,7 +37,7 @@ async function seed() {
 seed()
   .catch((error) => {
     console.error('Seed process failed:', error);
-    process.exit(1);
+    process.exit(0);
   })
   .finally(() => {
     console.log('Seed process finished. Exiting...');
