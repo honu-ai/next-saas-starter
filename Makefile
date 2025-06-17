@@ -1,5 +1,8 @@
 .PHONY: db-up db-down db-clean db-logs db-status
 
+include .env
+export $(shell sed 's/=.*//' .env)
+
 # Start the database and pgAdmin
 db-up:
 	docker compose up -d
