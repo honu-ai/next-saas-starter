@@ -3,6 +3,9 @@
 # Start the database and pgAdmin
 db-up:
 	docker compose up -d
+	pnpm install
+	pnpm db:migrate
+	pnpm db:seed
 
 # Stop the database and pgAdmin
 db-down:
@@ -22,11 +25,6 @@ db-logs:
 # Check status of database containers
 db-status:
 	docker compose ps
-
-db-init:
-	pnpm install
-	pnpm db:migrate
-	pnpm db:seed
 
 # Show database connection information
 db-info:
