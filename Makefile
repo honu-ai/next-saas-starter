@@ -24,6 +24,7 @@ db-status:
 	docker compose ps
 
 db-init:
+	pnpm install
 	pnpm db:migrate
 	pnpm db:seed
 
@@ -45,5 +46,3 @@ db-info:
 run-dev:
 	pnpm dev
 
-setup-derived-secret:
-	/bin/bash setup_secrets.sh
