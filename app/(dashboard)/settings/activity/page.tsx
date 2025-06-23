@@ -73,9 +73,7 @@ export default async function ActivityPage() {
 
   return (
     <section className='flex-1 p-4 lg:p-8'>
-      <h1 className='mb-6 text-lg font-medium text-gray-900 lg:text-2xl'>
-        Activity Log
-      </h1>
+      <h1 className='mb-6 text-lg font-medium lg:text-2xl'>Activity Log</h1>
       <Card>
         <CardHeader>
           <CardTitle>Recent Activity</CardTitle>
@@ -95,11 +93,11 @@ export default async function ActivityPage() {
                       <Icon className='h-5 w-5 text-orange-600' />
                     </div>
                     <div className='flex-1'>
-                      <p className='text-sm font-medium text-gray-900'>
+                      <p className='text-sm font-medium'>
                         {formattedAction}
                         {log.ipAddress && ` from IP ${log.ipAddress}`}
                       </p>
-                      <p className='text-xs text-gray-500'>
+                      <p className='text-xs'>
                         {getRelativeTime(new Date(log.timestamp))}
                       </p>
                     </div>
@@ -110,10 +108,8 @@ export default async function ActivityPage() {
           ) : (
             <div className='flex flex-col items-center justify-center py-12 text-center'>
               <AlertCircle className='mb-4 h-12 w-12 text-orange-500' />
-              <h3 className='mb-2 text-lg font-semibold text-gray-900'>
-                No activity yet
-              </h3>
-              <p className='max-w-sm text-sm text-gray-500'>
+              <h3 className='mb-2 text-lg font-semibold'>No activity yet</h3>
+              <p className='max-w-sm text-sm'>
                 When you perform actions like signing in or updating your
                 account, they&apos;ll appear here.
               </p>

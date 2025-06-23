@@ -76,6 +76,17 @@ export async function GET(request: NextRequest) {
       throw new Error('User is not associated with any team.');
     }
 
+    // Fetch the product to get metadata including credits allowance
+    const product = await stripe.products.retrieve(productId);
+    const creditsAllowance = parseInt(
+      product.metadata?.credits_allowance || '0',
+      10,
+    );
+
+    console.log(
+      `Setting credits for new subscription: ${creditsAllowance} credits for product ${productId}`,
+    );
+
     await db
       .update(teams)
       .set({
@@ -84,7 +95,7 @@ export async function GET(request: NextRequest) {
         stripeProductId: productId,
         planName: (plan.product as Stripe.Product).name,
         subscriptionStatus: subscription.status,
-        credits: 0,
+        credits: creditsAllowance,
         updatedAt: new Date(),
       })
       .where(eq(teams.id, userTeam[0].teamId));

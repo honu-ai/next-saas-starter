@@ -59,9 +59,7 @@ export default function GeneralPage({
 
   return (
     <section className='flex-1 p-4 lg:p-8'>
-      <h1 className='mb-6 text-lg font-medium text-gray-900 lg:text-2xl'>
-        General Settings
-      </h1>
+      <h1 className='mb-6 text-lg font-medium lg:text-2xl'>General Settings</h1>
 
       <Card>
         <CardHeader>
@@ -121,22 +119,16 @@ export default function GeneralPage({
           <div className='space-y-4'>
             <div className='flex flex-col items-start justify-between sm:flex-row sm:items-center'>
               <div className='mb-4 sm:mb-0'>
-                {teamData.subscriptionStatus === 'active' && (
+                {(teamData.subscriptionStatus === 'active' ||
+                  teamData.subscriptionStatus === 'trialing') && (
                   <>
                     <p className='font-medium'>
                       Current Plan: {teamData.planName}
                     </p>
                     <p className='font-medium'>
-                      Available Credits: {creditAllowance}
+                      Available Credits: {teamCredits}/{creditAllowance}
                     </p>
-                    <p
-                      className={cn(
-                        'font-medium',
-                        `${teamCredits >= creditAllowance ? `text-destructive` : ''}`,
-                      )}
-                    >
-                      Used Credits: {teamCredits}
-                    </p>
+
                     {renewDate && (
                       <p className='text-muted-foreground text-sm'>
                         Renews on {renewDate.toLocaleDateString()}
