@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Check, Star } from 'lucide-react';
+import { Check, Star, LucideIcon } from 'lucide-react';
 
 export type PricingFeatureProps = {
   feature: string;
@@ -9,6 +9,8 @@ export type PricingFeatureProps = {
   gradientFrom: string;
   gradientTo: string;
   highlight?: boolean;
+  highlightIcon?: LucideIcon;
+  highlightText?: string;
   delay: number;
 };
 
@@ -18,6 +20,8 @@ const PricingFeature: React.FC<PricingFeatureProps> = ({
   gradientFrom,
   gradientTo,
   highlight = false,
+  highlightIcon: HighlightIcon = Star,
+  highlightText = 'New',
   delay,
 }) => {
   return (
@@ -32,10 +36,10 @@ const PricingFeature: React.FC<PricingFeatureProps> = ({
       >
         <Check className='h-4 w-4' />
       </div>
-      <span className='ml-3 text-lg text-gray-700'>{feature}</span>
+      <span className='text-md ml-3 text-gray-700'>{feature}</span>
       {highlight && (
         <div className='ml-2 flex items-center rounded-full bg-gradient-to-r from-orange-100 to-pink-100 px-2 py-0.5 text-xs font-medium text-pink-700'>
-          <Star className='mr-1 h-3 w-3' /> New
+          <HighlightIcon className='mr-1 h-3 w-3' /> {highlightText}
         </div>
       )}
     </motion.li>

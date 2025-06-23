@@ -76,7 +76,7 @@ export default async function PricingPage() {
               name={product?.name || 'Base'}
               price={price?.unitAmount || 0}
               interval={price?.interval || ''}
-              trialDays={price?.trialPeriodDays}
+              trialPeriodDays={product?.metadata?.trial_period_days}
               usageType={product?.usageType}
               features={product?.metadata?.features?.split(',') || []}
               {...colors}

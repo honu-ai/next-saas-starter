@@ -16,10 +16,12 @@ export async function createCheckoutSession({
   team,
   priceId,
   usageType,
+  trialPeriodDays,
 }: {
   team: Team | null;
   priceId: string;
   usageType?: string;
+  trialPeriodDays?: number;
 }) {
   const user = await getUser();
 
@@ -57,6 +59,13 @@ export async function createCheckoutSession({
     customer: team.stripeCustomerId || undefined,
     client_reference_id: user.id.toString(),
     allow_promotion_codes: true,
+    ...(trialPeriodDays
+      ? {
+          subscription_data: {
+            trial_period_days: trialPeriodDays,
+          },
+        }
+      : {}),
   });
 
   redirect(session.url!);

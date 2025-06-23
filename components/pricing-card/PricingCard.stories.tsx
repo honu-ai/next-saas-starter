@@ -18,7 +18,6 @@ Default.args = {
   name: 'Basic Plan',
   price: 2900,
   interval: 'month',
-  trialDays: 14,
   features: [
     'Up to 5 users',
     'Basic analytics',
@@ -50,6 +49,29 @@ Featured.args = {
   highlightFeatureIndex: 2,
   gradientFrom: 'from-purple-500',
   gradientTo: 'to-pink-700',
+  hoverFrom: 'from-purple-600',
+  hoverTo: 'to-pink-800',
+  hoverBorderColor: 'border-purple-300',
+  hoverShadowColor: 'shadow-purple-200',
+};
+
+export const MostPopular = Template.bind({});
+MostPopular.args = {
+  ...Featured.args,
+  name: 'Premium Plan',
+  price: 9900,
+  mostPopular: true,
+  features: [
+    'Exclusive Wellness',
+    'Priority Appointments',
+    'Increased Discounts',
+    'Specialist Consultation',
+    'Enhanced Health',
+    'Comprehensive Health',
+  ],
+  description: 'Everything you need for complete wellness management',
+  gradientFrom: 'from-gradient-purple-start',
+  gradientTo: 'to-gradient-purple-end',
   hoverFrom: 'from-purple-600',
   hoverTo: 'to-pink-800',
   hoverBorderColor: 'border-purple-300',
