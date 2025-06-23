@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --port $PORT --hostname $HOST",
     "build": "next build",
     "start": "next start",
     "db:setup": "npx --yes tsx lib/db/setup.ts",

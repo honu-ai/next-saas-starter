@@ -1,8 +1,16 @@
-.PHONY: db-up db-down db-clean db-logs db-status
+.PHONY: all
+
+include .env
+export $(shell sed 's/=.*//' .env)
 
 # Start the database and pgAdmin
 db-up:
 	docker compose up -d
+
+db-seed:
+	pnpm install
+	pnpm db:migrate
+	pnpm db:seed
 
 # Stop the database and pgAdmin
 db-down:
@@ -23,10 +31,6 @@ db-logs:
 db-status:
 	docker compose ps
 
-db-init:
-	pnpm db:migrate
-	pnpm db:seed
-
 # Show database connection information
 db-info:
 	@echo "PostgreSQL:"
@@ -45,5 +49,5 @@ db-info:
 run-dev:
 	pnpm dev
 
-setup-derived-secret:
-	/bin/bash setup_secrets.sh
+db-seed: db-up
+run-dev: db-seed
