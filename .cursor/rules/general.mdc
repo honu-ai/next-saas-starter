@@ -197,6 +197,68 @@ const SearchBar = () => {
 
 Always add Storybook stories if you are creating new React Components.
 
+
+## API endpoint protection
+
+Ensure Next.js API endpoints requiring a signed-in user are protected. Any API route interacting with or exposing sensitive user/team data, or performing identity-dependent actions, must implement authentication and authorization. This includes data modification (Create, Update, Delete) for tables like users, teams, teamMembers, activityLogs, and invitations, as well as sensitive data retrieval or actions from ActivityType that imply user context (e.g., updating passwords, creating teams, inviting members).For these protected routes, first, a valid authentication token (e.g., JWT, session cookie) must be verified; requests without a valid token are rejected with 401 Unauthorized. Second, after authentication, the authenticated user's permissions for the specific resource or action must be checked. For user-specific data, the userId must match the target id. For team-specific operations, the user must be a member of the target teamId, and their teamMember.role should grant necessary permissions. Unauthorized requests are rejected with 403 Forbidden. Routes like SIGN_UP or SIGN_IN are public exceptions but still require robust validation and rate limiting. All security events should be logged to activityLogs.Example API Endpoint: GET /api/job-descriptions. This endpoint fetches job descriptions associated with the authenticated user's team.import { NextResponse } from 'next/server';
+
+```typescript
+import { db } from '@/lib/db/drizzle';
+import { jobDescriptions, teamMembers } from '@/lib/db/schema'; // Assuming jobDescriptions table exists with a teamId
+import { eq } from 'drizzle-orm';
+import { getSession } from '@/lib/auth/session';
+
+export async function GET() {
+  try {
+    // 1. Authentication: Ensure a valid user session exists.
+    // Directives for AI Agent: "Verify a valid authentication token... requests without a valid token are rejected with 401 Unauthorized."
+    const session = await getSession();
+
+    if (!session?.user?.id) {
+      console.log('No authenticated user found');
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // 2. Authorization (Team-Specific Access):
+    // Directives for AI Agent: "user must be a member of the target teamId"
+    // Get the user's team ID from the `teamMembers` table to ensure they belong to a team.
+    const userTeamMember = await db.query.teamMembers.findFirst({
+      where: eq(teamMembers.userId, session.user.id),
+      with: {
+        team: true, // Optionally load team details
+      },
+    });
+
+    if (!userTeamMember?.teamId) {
+      console.log('User is not associated with any team');
+      // While a 404 is used here, a 403 Forbidden could also be appropriate
+      // if the resource (job descriptions) is team-specific and the user
+      // has no authorized team context.
+      return NextResponse.json({ error: 'No team found' }, { status: 404 });
+    }
+
+    // 3. Business Logic: Fetch job descriptions for the *authorized* team.
+    // Directives for AI Agent: "For team-specific operations, the user must be a member of the target teamId"
+    const jds = await db.query.jobDescriptions.findMany({
+      where: eq(jobDescriptions.teamId, userTeamMember.teamId), // Filters by the authorized teamId
+      orderBy: (jds, { desc }) => [desc(jds.createdAt)],
+    });
+
+    console.log(
+      `Found ${jds.length} job descriptions for team ${userTeamMember.teamId}`,
+    );
+
+    return NextResponse.json(jds);
+  } catch (error) {
+    console.error('Error fetching job descriptions:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch job descriptions' },
+      { status: 500 },
+    );
+  }
+}
+```
+
 ## Data Fetching
 
 ```typescript
