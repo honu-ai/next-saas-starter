@@ -39,7 +39,7 @@ services:
     image: stripe/stripe-cli
     env_file:
       - ./.env
-    command: "listen --forward-to host.docker.internal:3001/api/stripe/webhook"
+    command: "listen --forward-to host.docker.internal:${PORT}/api/stripe/webhook"
 
 networks:
   saas-starter-network:
