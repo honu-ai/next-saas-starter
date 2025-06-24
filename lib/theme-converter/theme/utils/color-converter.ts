@@ -9,7 +9,7 @@ export const formatNumber = (num?: number) => {
 };
 
 export const formatHsl = (hsl: Hsl) => {
-  return `hsl(${formatNumber(hsl.h)} ${formatNumber(hsl.s * 100)}% ${formatNumber(hsl.l * 100)}%)`;
+  return `${formatNumber(hsl.h)} ${formatNumber(hsl.s * 100)}% ${formatNumber(hsl.l * 100)}%`;
 };
 
 export const colorFormatter = (
