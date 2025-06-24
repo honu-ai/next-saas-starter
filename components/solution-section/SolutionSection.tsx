@@ -16,6 +16,7 @@ export type SolutionSectionProps = {
   subtitle: string;
   cta: string;
   steps: Step[];
+  product: boolean;
 };
 
 const SolutionSection: React.FC<SolutionSectionProps> = ({
@@ -24,6 +25,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   subtitle,
   cta,
   steps,
+  product,
 }) => {
   return (
     <section
@@ -63,6 +65,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           <ContactDialog
             triggerText={cta}
             className='border-primary/30 w-full rounded-md px-6 py-6 text-lg sm:w-auto'
+            product={product}
           />
         </div>
       </div>

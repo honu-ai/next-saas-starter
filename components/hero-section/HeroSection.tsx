@@ -20,6 +20,7 @@ export type HeroSectionProps = {
   heroDescription: string;
   secondaryCtaText?: string;
   secondaryHref?: string;
+  product?: boolean;
 };
 
 const HeroSection: React.FC<HeroSectionProps> = ({
@@ -30,6 +31,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   heroDescription,
   secondaryCtaText = 'SIGN UP FOR FREE',
   secondaryHref,
+  product,
 }) => {
   return (
     <section className='dark:bg-background relative overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-28'>
@@ -69,6 +71,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <ContactDialog
               triggerText={ctaText}
               className='border-primary/30 w-full sm:w-auto'
+              product={product}
             />
 
             {secondaryHref && (

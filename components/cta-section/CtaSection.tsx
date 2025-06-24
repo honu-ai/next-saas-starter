@@ -8,6 +8,7 @@ export type CtaSectionProps = {
   primaryButtonText?: string;
   secondaryButtonText?: string;
   disclaimerText?: string;
+  product?: boolean;
   companyLogos?: Array<{
     src: string;
     alt: string;
@@ -19,6 +20,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   description = 'Join 1,200+ marketing professionals who are saving time and driving more organic traffic with RankWell. Start your 14-day free trial today.',
   primaryButtonText = 'Start Your 14-Day Free Trial',
   secondaryButtonText = 'Schedule a Demo',
+  product,
 }) => {
   return (
     <section className='relative overflow-hidden bg-slate-950 px-4 py-20'>
@@ -43,6 +45,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
             <ContactDialog
               triggerText={primaryButtonText}
               className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md border-none px-6 py-6 text-lg sm:w-auto'
+              product={product}
             />
             {/* <Button className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md px-6 py-6 text-lg text-white sm:w-auto'>
               {primaryButtonText}

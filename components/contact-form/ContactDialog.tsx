@@ -17,6 +17,7 @@ import { ArrowRight } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 export type ContactDialogProps = {
   triggerText: string;
@@ -24,6 +25,7 @@ export type ContactDialogProps = {
   description?: string;
   showIcon?: boolean;
   className?: string;
+  product?: boolean;
   variant?:
     | 'default'
     | 'outline'
@@ -54,6 +56,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
   showIcon = true,
   className = '',
   variant = 'default',
+  product,
 }) => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
@@ -138,6 +141,27 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
       }
     }
   };
+
+  if (product) {
+    return (
+      <Button
+        variant={variant}
+        size='lg'
+        className={cn(
+          `rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:px-8 sm:py-6 sm:text-base`,
+          className,
+        )}
+        asChild
+      >
+        <Link href='/pricing'>
+          {triggerText}{' '}
+          {showIcon && (
+            <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4 sm:h-5 sm:w-5' />
+          )}
+        </Link>
+      </Button>
+    );
+  }
 
   return (
     <Dialog>
