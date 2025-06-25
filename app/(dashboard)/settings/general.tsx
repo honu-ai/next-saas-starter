@@ -38,7 +38,10 @@ export default function GeneralPage({
     (product) => product.id === teamData.stripeProductId,
   );
   const teamCredits = teamData.credits || 0;
-  const creditAllowance = parseInt(product?.metadata.credits_allowance || '0');
+  const creditAllowance =
+    teamData.subscriptionStatus === 'trialing'
+      ? parseInt(product?.metadata.trial_period_credits || '0')
+      : parseInt(product?.metadata.credits_allowance || '0');
   const renewDate =
     subscription?.current_period_end &&
     new Date(subscription.current_period_end * 1000);
