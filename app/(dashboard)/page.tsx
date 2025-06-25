@@ -42,6 +42,7 @@ export default async function HomePage() {
           subtitle={content.solution.subtitle}
           cta={content.solution.cta}
           steps={content.solution.steps}
+          product={content.metadata.product}
         />
       </section>
       <section id='benefits'>
