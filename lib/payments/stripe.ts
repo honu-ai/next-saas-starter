@@ -7,6 +7,7 @@ import {
   updateTeamSubscription,
   setTeamCreditsByStripeCustomerId,
 } from '@/lib/db/queries';
+import content from '@/content.json';
 
 export const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
   apiVersion: '2025-02-24.acacia',
@@ -227,13 +228,31 @@ export async function handleSubscriptionChange(
 }
 
 export async function getStripePrices() {
-  const prices = await stripe.prices.list({
-    expand: ['data.product'],
-    active: true,
-    type: 'recurring',
+  const products = await stripe.products.search({
+    query: `metadata["business_id"]:"${content.metadata.brandName}" AND active:"true"`,
+    expand: ['data.default_price'],
   });
 
-  return prices.data.map((price) => ({
+  if (products.data.length === 0) {
+    return [];
+  }
+
+  // Then get prices for those specific products
+  const productIds = products.data.map((p) => p.id);
+  const allPrices: Stripe.Price[] = [];
+
+  // Get prices for each product
+  for (const productId of productIds) {
+    const prices = await stripe.prices.list({
+      product: productId,
+      active: true,
+      type: 'recurring',
+      expand: ['data.product'],
+    });
+    allPrices.push(...prices.data);
+  }
+
+  return allPrices.map((price) => ({
     id: price.id,
     productId:
       typeof price.product === 'string' ? price.product : price.product.id,
@@ -245,12 +264,11 @@ export async function getStripePrices() {
 }
 
 export async function getStripeProducts() {
-  const products = await stripe.products.list({
-    active: true,
+  const products = await stripe.products.search({
+    query: `metadata["business_id"]:"${content.metadata.brandName}" AND active:"true"`,
     expand: ['data.default_price'],
   });
   const prices = await stripe.prices.list();
-  console.log('prices', products.data);
 
   return products.data.map((product) => ({
     ...product,
