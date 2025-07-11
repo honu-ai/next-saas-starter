@@ -79,7 +79,9 @@ export async function GET(request: NextRequest) {
     // Fetch the product to get metadata including credits allowance
     const product = await stripe.products.retrieve(productId);
     const creditsAllowance = parseInt(
-      product.metadata?.credits_allowance || '0',
+      product.metadata.trial_period_credits
+        ? product.metadata.trial_period_credits
+        : product.metadata?.credits_allowance || '0',
       10,
     );
 
