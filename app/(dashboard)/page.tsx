@@ -20,6 +20,7 @@ export default async function HomePage() {
           heroText={content.hero.heroText}
           heroDescriptionHeading={content.hero.heroDescriptionHeading}
           heroDescription={content.hero.heroDescription}
+          product={content.metadata.product}
         />
       </section>
       <section id='problem'>
@@ -67,6 +68,7 @@ export default async function HomePage() {
           description={content.cta.description}
           primaryButtonText={content.cta.primaryButtonText}
           secondaryButtonText={content.cta.secondaryButtonText}
+          product={content.metadata.product}
         />
       </section>
       <section>

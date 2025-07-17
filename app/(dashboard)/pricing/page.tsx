@@ -74,6 +74,7 @@ export default async function PricingPage() {
               checkoutAction={checkoutAction}
               key={product.id}
               name={product?.name || 'Base'}
+              description={product?.description || ''}
               price={price?.unitAmount || 0}
               interval={price?.interval || ''}
               trialPeriodDays={product?.metadata?.trial_period_days}
