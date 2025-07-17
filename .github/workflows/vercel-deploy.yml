@@ -67,7 +67,7 @@ jobs:
           
           # Set STRIPE_API_KEY
           echo "Setting STRIPE_API_KEY..."
-          echo -n "STRIPE_API_KEY" > .vercel_tmp/STRIPE_API_KEY
+          echo -n "$STRIPE_API_KEY" > .vercel_tmp/STRIPE_API_KEY
           npx vercel env rm STRIPE_API_KEY production -y --token "$VERCEL_TOKEN" || true
           npx vercel env add STRIPE_API_KEY production < .vercel_tmp/STRIPE_API_KEY --token "$VERCEL_TOKEN"
           

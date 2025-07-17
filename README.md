@@ -364,23 +364,9 @@ cp .env.example .env
 2. Update the values in your `.env` file with your own configuration:
 
 ```env
-# Database URL for PostgreSQL
-# Format: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
-# For local development with Docker, use:
-POSTGRES_URL=postgresql://postgres:postgres@localhost:5433/saas_db
-
 # Stripe Configuration
 # Get these from your Stripe Dashboard (https://dashboard.stripe.com/test/apikeys)
 STRIPE_API_KEY=sk_test_your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=whsec_your_stripe_webhook_secret
-
-# Base URL for your application
-# For local development:
-BASE_URL=http://localhost:3000
-
-# Authentication Secret
-# Generate a random string using: openssl rand -base64 32
-AUTH_SECRET=your_generated_auth_secret
 
 # PostHog Configuration
 # Get these from your PostHog Project Settings
@@ -394,41 +380,16 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
 
 ### Detailed Setup Instructions
 
-1. **Database URL (POSTGRES_URL)**:
 
-   - For local development with Docker: `postgresql://postgres:postgres@localhost:5433/saas_db`
-   - For production: Use your production database URL
-   - Make sure the database is running before starting the application
+#### Account setup
 
-2. **Stripe Configuration**:
+1. **Stripe Configuration**:
 
    - Sign up for a Stripe account at https://stripe.com
    - Go to the Stripe Dashboard → Developers → API keys
    - Copy your "Secret key" (starts with `sk_test_` for test mode)
-   - For webhook secret:
-     - Go to Stripe Dashboard → Developers → Webhooks
-     - Create a new webhook endpoint pointing to your application
-     - Copy the "Signing secret" (starts with `whsec_`)
-   - To automatically create your Stripe products:
-     - Products are defined in `content.json` under the `pricing.products` section
-     - Run `pnpm stripe:create-products` to create the products in your Stripe account
-     - This script is safe to run multiple times - it won't affect existing products (including archived ones) that match the ones defined in `content.json`
 
-3. **Base URL (BASE_URL)**:
-
-   - For local development: `http://localhost:3000`
-   - For production: Your actual domain (e.g., `https://your-app.com`)
-
-4. **Auth Secret (AUTH_SECRET)**:
-
-   - Generate a secure random string using:
-     ```bash
-     openssl rand -base64 32
-     ```
-   - Copy the generated string
-   - Keep this secret secure and never commit it to version control
-
-5. **PostHog Configuration**:
+5. **PostHog Configuration (Optional)**:
 
    - Sign up for a PostHog account at https://posthog.com
    - Create a new project in your PostHog dashboard
@@ -440,7 +401,7 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
      NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com  # or your self-hosted URL
      ```
 
-6. **Formbrick Configuration**:
+6. **Formbrick Configuration (Optional)**:
    - Sign up for a Formbrick account at https://formbricks.com
    - Create a new project in your Formbrick dashboard
    - Go to "Settings" → "Developer" to find your environment ID
@@ -459,14 +420,25 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
 - The provided values in the example are for illustration only - you must replace them with your own values
 - The contact form API is protected by origin validation using the BASE_URL environment variable
 
-## Local Setup
-
-This project uses Docker to run PostgreSQL and pgAdmin locally. The setup is isolated to avoid conflicts with other local databases.
-
 ### Prerequisites
 
 - Docker and Docker Compose installed on your machine
 - Make (usually pre-installed on Unix-based systems)
+
+### Run The App Locally
+
+```bash
+make run-dev
+```
+
+This will create the following user and team:
+
+- User: `test@test.com`
+- Password: `admin123`
+
+You can, create new users as well through `/sign-up`.
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
 
 ### Database Commands
 
@@ -491,56 +463,6 @@ make db-status
 # Show database connection information
 make db-info
 ```
-
-### Run The App Locally
-
-1. Start the database:
-
-```bash
-make db-up
-```
-
-2. Verify the database is running:
-
-```bash
-make db-status
-```
-
-3. Run database migrations:
-
-```bash
-pnpm db:migrate
-```
-
-4. Seed the database with initial data:
-
-```bash
-pnpm db:seed
-```
-
-This will create the following user and team:
-
-- User: `test@test.com`
-- Password: `admin123`
-
-You can, of course, create new users as well through `/sign-up`.
-
-5. Finally, run the Next.js development server:
-
-```bash
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
-
-## Setting Up Local Stripe Webhooks
-
-Stripe webhooks are deployed withing docker compose.
-
-To test specific events, you can trigger them manually using:
-   ```bash
-   stripe trigger checkout.session.completed
-   ```
 
 ### Accessing pgAdmin
 
