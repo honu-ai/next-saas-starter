@@ -20,7 +20,12 @@ export default async function DashboardLayout({
   const hasActiveSubscription = details?.hasActiveSubscription;
   const subscriptionStatus = details?.status;
 
-  if (!hasActiveSubscription) {
+  // Allow dashboard access in development or when explicitly enabled
+  const isDevelopment =
+    process.env.NODE_ENV === 'development' ||
+    process.env.NEXT_PUBLIC_ALLOW_DASHBOARD_ACCESS === 'true';
+
+  if (!hasActiveSubscription && !isDevelopment) {
     return (
       <div className='container mx-auto flex h-[calc(100vh-150px)] max-w-6xl flex-col items-center justify-center px-4 py-8 text-center'>
         <div className='rounded-lg bg-white p-8 shadow-xl dark:bg-gray-800'>

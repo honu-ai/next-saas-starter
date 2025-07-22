@@ -49,6 +49,15 @@ This is a starter template for building a SaaS application using **Next.js** wit
 - Local middleware to protect Server Actions or validate Zod schemas
 - Activity logging system for any user events
 
+## Dashboard Access Requirements
+
+The dashboard is protected by subscription-based access control. Users must have an active subscription to access dashboard features in production. However, during development, there are two ways to bypass this requirement:
+
+1. **Development Mode**: Dashboard access is automatically granted when `NODE_ENV=development`
+2. **Environment Variable Override**: Set `NEXT_PUBLIC_ALLOW_DASHBOARD_ACCESS=true` in your environment variables to bypass subscription checks
+
+Without an active subscription and outside of development mode, users will see a "Subscription Required" page with a link to the pricing page. This ensures that your SaaS application properly enforces payment before providing access to premium features.
+
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/)
@@ -77,17 +86,14 @@ This project uses [PostHog](https://posthog.com/) for product analytics, feature
 PostHog is integrated in several key areas of the codebase:
 
 1. **Client-side Tracking** (`components/posthog-provider/PostHogProvider.tsx`)
-
    - Automatically captures pageviews and page leave events
    - Provider component wraps the application for global PostHog access
 
 2. **Server-side API** (`lib/posthog/index.ts`)
-
    - Server-side PostHog client for capturing events from API routes
    - Provides feature flag access on the server
 
 3. **Feature Flags Bootstrap** (`app/layout.tsx`)
-
    - Initializes feature flags during application bootstrap
    - Ensures consistent feature flag state between server and client
 
@@ -139,13 +145,11 @@ This project uses [Formbrick](https://formbricks.com/) for in-app surveys, user 
 Formbrick is integrated in the codebase as follows:
 
 1. **Client-side Provider** (`components/formbricks-provider/index.tsx`)
-
    - Sets up the Formbrick client with your environment configuration
    - Tracks page navigation automatically with `registerRouteChange()`
    - Runs in a React Suspense boundary for optimal performance
 
 2. **Root Layout Integration** (`app/layout.tsx`)
-
    - The Formbrick provider is commented out by default
    - Can be easily enabled by uncommenting the provider component
 
@@ -380,17 +384,14 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
 
 ### Detailed Setup Instructions
 
-
 #### Account setup
 
 1. **Stripe Configuration**:
-
    - Sign up for a Stripe account at https://stripe.com
    - Go to the Stripe Dashboard → Developers → API keys
    - Copy your "Secret key" (starts with `sk_test_` for test mode)
 
-5. **PostHog Configuration (Optional)**:
-
+2. **PostHog Configuration (Optional)**:
    - Sign up for a PostHog account at https://posthog.com
    - Create a new project in your PostHog dashboard
    - Go to "Project Settings" → "Project API Key"
@@ -401,7 +402,7 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
      NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com  # or your self-hosted URL
      ```
 
-6. **Formbrick Configuration (Optional)**:
+3. **Formbrick Configuration (Optional)**:
    - Sign up for a Formbrick account at https://formbricks.com
    - Create a new project in your Formbrick dashboard
    - Go to "Settings" → "Developer" to find your environment ID
@@ -468,7 +469,6 @@ make db-info
 
 1. Open pgAdmin in your browser at `http://localhost:5051`
 2. Log in with:
-
    - Email: admin@admin.com
    - Password: admin
 
