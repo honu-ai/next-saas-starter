@@ -46,8 +46,5 @@ db-info:
 	@echo "  Password: admin"
 
 # start local copy
-run-dev:
+run-dev: db-up db-seed
 	pnpm dev
-
-db-seed: db-up
-run-dev: db-seed
