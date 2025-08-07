@@ -12,6 +12,7 @@ import * as mdx from 'eslint-plugin-mdx';
 
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'], ignores: ['node_modules'] },
+  { ignores: ['node_modules', '.next', '.vercel'] },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
