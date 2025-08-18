@@ -359,6 +359,25 @@ pnpm install
 
 The repository includes a `.env.example` file that you can use as a template. To get started:
 
+### Option 1: Automated Setup (Recommended)
+
+Use the Node.js setup script to automatically configure your environment variables:
+
+```bash
+pnpm setup
+
+```
+
+This script will:
+
+- Prompt you for your Stripe API key
+- Ask for hostname and port configuration
+- Automatically generate a Stripe webhook secret using Docker
+- Create a secure auth secret
+- Write all variables to your `.env` file
+
+### Option 2: Manual Setup
+
 1. Copy the example file:
 
 ```bash
@@ -420,6 +439,7 @@ NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
 - Use different API keys for development and production environments
 - The provided values in the example are for illustration only - you must replace them with your own values
 - The contact form API is protected by origin validation using the BASE_URL environment variable
+- The Python setup script (`setup_dotenv.py`) is deprecated in favor of the Node.js script (`setup_dotenv.js`)
 
 ### Prerequisites
 

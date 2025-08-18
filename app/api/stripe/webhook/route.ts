@@ -1,7 +1,10 @@
 import Stripe from 'stripe';
 import { handleSubscriptionChange, stripe } from '@/lib/payments/stripe';
 import { NextRequest, NextResponse } from 'next/server';
-import { resetTeamCredits } from '@/lib/payments/stripe';
+import {
+  resetTeamCredits,
+  updateSubscriptionAndResetCredits,
+} from '@/lib/payments/stripe';
 // Keep this for future reference on how to track events with PostHog
 // import PostHogClient from '@/lib/posthog';
 
@@ -67,6 +70,7 @@ export async function POST(request: NextRequest) {
     case 'invoice.paid': {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
+      const subscriptionId = invoice.subscription as string;
 
       if (customerId) {
         console.log(
@@ -74,6 +78,12 @@ export async function POST(request: NextRequest) {
         );
         // Placeholder for resetting user credits
         await resetTeamCredits(customerId);
+
+        try {
+          await updateSubscriptionAndResetCredits(customerId, subscriptionId);
+        } catch (error) {
+          console.error('Error handling invoice paid event:', error);
+        }
 
         // Track invoice paid event (optional, keep commented if not immediately needed)
         // posthog.capture({

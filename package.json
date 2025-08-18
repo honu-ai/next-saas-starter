@@ -4,6 +4,7 @@
     "dev": "next dev --turbopack --port $PORT --hostname $HOST",
     "build": "next build",
     "start": "next start",
+    "setup": "node setup_dotenv.mjs",
     "db:setup": "npx --yes tsx lib/db/setup.ts",
     "db:seed": "npx --yes tsx lib/db/seed.ts",
     "db:generate": "drizzle-kit generate",

@@ -548,3 +548,62 @@ export async function deductCreditsFromTeam(
     };
   }
 }
+
+export async function updateSubscriptionAndResetCredits(
+  stripeCustomerId: string,
+  subscriptionId: string,
+): Promise<void> {
+  try {
+    console.log(
+      `Updating subscription details and resetting credits for customer ${stripeCustomerId}`,
+    );
+
+    // 1. Get the updated subscription details from Stripe
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
+      expand: ['items.data.price.product'],
+    });
+
+    // 2. Update subscription details (reuse existing function)
+    await handleSubscriptionChange(subscription);
+
+    // 3. Get the product to determine the new credits allowance
+    const plan = subscription.items.data[0]?.price;
+    if (plan) {
+      // Check if product is already expanded (object) or just ID (string)
+      const product =
+        typeof plan.product === 'string'
+          ? await stripe.products.retrieve(plan.product)
+          : (plan.product as Stripe.Product);
+
+      const creditsAllowance = parseInt(
+        product.metadata?.credits_allowance || '0',
+        10,
+      );
+
+      console.log(
+        `Setting credits for subscription renewal: ${creditsAllowance} credits for product ${product.id}`,
+      );
+
+      // 4. Set credits to the plan allowance (reuse existing function)
+      await setTeamCreditsByStripeCustomerId(
+        stripeCustomerId,
+        creditsAllowance,
+      );
+    } else {
+      console.warn(
+        `No plan found for subscription ${subscriptionId}, setting credits to 0`,
+      );
+      await setTeamCreditsByStripeCustomerId(stripeCustomerId, 0);
+    }
+
+    console.log(
+      `Successfully updated subscription and credits for customer ${stripeCustomerId}`,
+    );
+  } catch (error) {
+    console.error(
+      `Error updating subscription and resetting credits for customer ${stripeCustomerId}:`,
+      error,
+    );
+    throw error;
+  }
+}
