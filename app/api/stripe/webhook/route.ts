@@ -1,10 +1,12 @@
 import Stripe from 'stripe';
-import { handleSubscriptionChange, stripe } from '@/lib/payments/stripe';
-import { NextRequest, NextResponse } from 'next/server';
 import {
+  handleSubscriptionChange,
+  stripe,
   resetTeamCredits,
   updateSubscriptionAndResetCredits,
 } from '@/lib/payments/stripe';
+import { NextRequest, NextResponse } from 'next/server';
+
 // Keep this for future reference on how to track events with PostHog
 // import PostHogClient from '@/lib/posthog';
 
