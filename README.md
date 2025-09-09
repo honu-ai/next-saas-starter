@@ -2,8 +2,6 @@
 
 This is a starter template for building a SaaS application using **Next.js** with support for authentication, Stripe integration for payments, and a dashboard for logged-in users.
 
-**Demo: [https://leonairdo.honulabs.xyz/](https://leonairdo.honulabs.xyz/)**
-
 ## Prerequisites
 
 Before running the project locally, make sure you have the following installed:

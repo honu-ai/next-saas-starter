@@ -5,7 +5,7 @@ export $(shell sed 's/=.*//' .env)
 
 # Start the database and pgAdmin
 db-up:
-	docker compose up -d
+	docker compose up -d --build
 
 db-seed:
 	pnpm install
@@ -36,7 +36,7 @@ db-info:
 	@echo "PostgreSQL:"
 	@echo "  Host: localhost"
 	@echo "  Port: 5433"
-	@echo "  Database: saas_db"
+	@echo "  Database: $(POSTGRES_DB)"
 	@echo "  Username: postgres"
 	@echo "  Password: postgres"
 	@echo ""

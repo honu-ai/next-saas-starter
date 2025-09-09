@@ -3,7 +3,7 @@
 import { execSync } from 'node:child_process';
 import readline from 'node:readline';
 import crypto from 'node:crypto';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, readFileSync } from 'node:fs';
 
 // Create a readline interface for user input
 const rl = readline.createInterface({
@@ -108,11 +108,47 @@ function getAuthSecretKey() {
 }
 
 /**
- * Returns the hardcoded PostgreSQL connection string.
+ * Builds a PostgreSQL connection string for a given database name.
+ * @param {string} databaseName
  * @returns {string} The connection string.
  */
-function getPostgresConnectionString() {
-  return 'postgresql://postgres:postgres@localhost:5433/saas_db';
+function getPostgresConnectionString(databaseName) {
+  return `postgresql://postgres:postgres@localhost:5433/${databaseName}`;
+}
+
+/**
+ * Reads brandName from ./content.json and derives a Postgres-safe database name.
+ * - Lowercase
+ * - Replace non-alphanumeric with underscores
+ * - Collapse multiple underscores
+ * - Trim leading/trailing underscores
+ * - Ensure starts with a letter by prefixing 'app_' if needed
+ * @returns {{ brandName: string, databaseName: string }}
+ */
+function getBrandAndDatabaseName() {
+  try {
+    const raw = readFileSync('./content.json', 'utf-8');
+    const json = JSON.parse(raw);
+    const brandName =
+      typeof json?.metadata?.brandName === 'string' &&
+      json.metadata.brandName.trim().length > 0
+        ? json.metadata.brandName.trim()
+        : 'saas_starter';
+    let db = brandName.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+    db = db.replace(/_+/g, '_').replace(/^_+|_+$/g, '');
+    if (!/^[a-z]/.test(db)) {
+      db = `app_${db}`;
+    }
+    if (db.length === 0) {
+      db = 'saas_starter';
+    }
+    return { brandName, databaseName: db };
+  } catch (error) {
+    console.warn(
+      'Failed to read brandName from content.json. Falling back to saas_starter.',
+    );
+    return { brandName: 'saas_starter', databaseName: 'saas_starter' };
+  }
 }
 
 /**
@@ -137,7 +173,8 @@ function writeDotenv(dotenvVariables) {
  */
 async function main() {
   try {
-    const POSTGRES_URL = getPostgresConnectionString();
+    const { databaseName } = getBrandAndDatabaseName();
+    const POSTGRES_URL = getPostgresConnectionString(databaseName);
     const { baseUrl, host, port } = await requestHostAndPort();
     const STRIPE_API_KEY = await requestStripeKey();
     const STRIPE_WEBHOOK_SECRET = getStripeWebhookSecret(
@@ -147,6 +184,7 @@ async function main() {
     const AUTH_SECRET = getAuthSecretKey();
 
     const dotenvVariables = {
+      POSTGRES_DB: databaseName,
       POSTGRES_URL,
       BASE_URL: baseUrl,
       HOST: host,
