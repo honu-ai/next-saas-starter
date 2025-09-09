@@ -4,655 +4,232 @@ This is a starter template for building a SaaS application using **Next.js** wit
 
 **Demo: [https://leonairdo.honulabs.xyz/](https://leonairdo.honulabs.xyz/)**
 
-## Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Storybook](#storybook)
-  - [Why We Use Storybook](#why-we-use-storybook)
-  - [Running Storybook](#running-storybook)
-  - [Creating Stories](#creating-stories)
-  - [Best Practices](#best-practices)
-- [Prerequisites](#prerequisites)
-  - [1. Vercel Account](#1-vercel-account)
-  - [2. Stripe Account and Webhook Setup](#2-stripe-account-and-webhook-setup)
-  - [3. Supabase Database](#3-supabase-database)
-- [Getting Started](#getting-started)
-- [Environment Variables Setup](#environment-variables-setup)
-  - [Detailed Setup Instructions](#detailed-setup-instructions)
-  - [Important Notes](#important-notes)
-- [Local Setup](#local-setup)
-  - [Prerequisites](#prerequisites-1)
-  - [Database Commands](#database-commands)
-  - [Run The App Locally](#run-the-app-locally)
-  - [Accessing pgAdmin](#accessing-pgadmin)
-  - [Database Connection Details](#database-connection-details)
-  - [Cleaning Up](#cleaning-up)
-- [Setting Up Local Stripe Webhooks](#setting-up-local-stripe-webhooks)
-- [Testing Payments](#testing-payments)
-- [Going to Production](#going-to-production)
-  - [Deploy to Vercel](#deploy-to-vercel)
-  - [Deploy Script Capabilities](#deploy-script-capabilities)
-  - [Add environment variables](#add-environment-variables)
-  - [Set up a production Stripe webhook](#set-up-a-production-stripe-webhook)
-- [Other Templates](#other-templates)
-
-## Features
-
-- Marketing landing page (`/`) with animated Terminal element
-- Pricing page (`/pricing`) which connects to Stripe Checkout
-- Dashboard pages with CRUD operations on users/teams
-- Basic RBAC with Owner and Member roles
-- Subscription management with Stripe Customer Portal
-- Email/password authentication with JWTs stored to cookies
-- Global middleware to protect logged-in routes
-- Local middleware to protect Server Actions or validate Zod schemas
-- Activity logging system for any user events
-
-## Dashboard Access Requirements
-
-The dashboard is protected by subscription-based access control. Users must have an active subscription to access dashboard features in production. However, during development, there are two ways to bypass this requirement:
-
-1. **Development Mode**: Dashboard access is automatically granted when `NODE_ENV=development`
-2. **Environment Variable Override**: Set `NEXT_PUBLIC_ALLOW_DASHBOARD_ACCESS=true` in your environment variables to bypass subscription checks
-
-Without an active subscription and outside of development mode, users will see a "Subscription Required" page with a link to the pricing page. This ensures that your SaaS application properly enforces payment before providing access to premium features.
-
-## Tech Stack
-
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Database**: [Postgres](https://www.postgresql.org/)
-- **ORM**: [Drizzle](https://orm.drizzle.team/)
-- **Payments**: [Stripe](https://stripe.com/)
-- **UI Library**: [shadcn/ui](https://ui.shadcn.com/)
-- **Analytics**: [PostHog](https://posthog.com/)
-- **Surveys & Feedback**: [Formbrick](https://formbricks.com/)
-
-## PostHog Integration
-
-This project uses [PostHog](https://posthog.com/) for product analytics, feature flags, and user tracking.
-
-### Why PostHog?
-
-- **Product Analytics** - Track user behavior and understand how people use your SaaS application
-- **Feature Flags** - Safely roll out new features, perform A/B tests, and manage feature access
-- **Session Recording** - Watch real user sessions to understand usability issues
-- **User Identification** - Track users across their journey from anonymous visitors to paying customers
-- **Self-hosted Option** - PostHog can be self-hosted for complete data ownership
-- **Open Source** - PostHog offers an open-source core with transparent development
-
-### Integration Details
-
-PostHog is integrated in several key areas of the codebase:
-
-1. **Client-side Tracking** (`components/posthog-provider/PostHogProvider.tsx`)
-   - Automatically captures pageviews and page leave events
-   - Provider component wraps the application for global PostHog access
-
-2. **Server-side API** (`lib/posthog/index.ts`)
-   - Server-side PostHog client for capturing events from API routes
-   - Provides feature flag access on the server
-
-3. **Feature Flags Bootstrap** (`app/layout.tsx`)
-   - Initializes feature flags during application bootstrap
-   - Ensures consistent feature flag state between server and client
-
-4. **API Forwarding** (`next.config.ts`)
-   - Configures API endpoint rewrites for PostHog tracking
-   - Maintains proper handling of PostHog's API requirements
-
-### Setup
-
-To use PostHog in this project:
-
-1. Create a PostHog account at [posthog.com](https://posthog.com/)
-2. Create a new project in your PostHog dashboard
-3. Add your PostHog API keys to your `.env` file:
-   ```
-   NEXT_PUBLIC_POSTHOG_KEY=your_project_api_key
-   NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com  # or your self-hosted URL
-   ```
-
-### Best Practices
-
-When using feature flags:
-
-- Limit the use of a single flag to as few locations as possible
-- Use descriptive naming for flags
-- Verify flag values before applying conditional logic
-
-When tracking events:
-
-- Maintain consistent naming conventions for events and properties
-- Use enums or constant objects for event names used in multiple places
-- Consider privacy implications and avoid tracking sensitive information
-
-## Formbrick Integration
-
-This project uses [Formbrick](https://formbricks.com/) for in-app surveys, user feedback collection, and micro-surveys.
-
-### Why Formbrick?
-
-- **In-App Surveys** - Collect valuable user feedback directly within your application
-- **Micro-Surveys** - Create targeted short surveys to gain specific insights
-- **Customer Feedback Loop** - Understand user sentiment and identify areas for improvement
-- **Contextual Data Collection** - Gather feedback at specific points in the user journey
-- **Open Source** - Formbrick offers an open-source solution that can be self-hosted
-- **Privacy-Focused** - Designed with privacy in mind, giving you control over your data
-
-### Integration Details
-
-Formbrick is integrated in the codebase as follows:
-
-1. **Client-side Provider** (`components/formbricks-provider/index.tsx`)
-   - Sets up the Formbrick client with your environment configuration
-   - Tracks page navigation automatically with `registerRouteChange()`
-   - Runs in a React Suspense boundary for optimal performance
-
-2. **Root Layout Integration** (`app/layout.tsx`)
-   - The Formbrick provider is commented out by default
-   - Can be easily enabled by uncommenting the provider component
-
-### Setup
-
-To use Formbrick in this project:
-
-1. Create a Formbrick account at [formbricks.com](https://formbricks.com/)
-2. Create a new project in your Formbrick dashboard
-3. Add your Formbrick configuration to your `.env` file:
-   ```
-   NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID=your_environment_id
-   NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
-   ```
-4. Uncomment the Formbrick provider in `app/layout.tsx`:
-   ```tsx
-   {
-     /* Uncomment to enable Formbricks integration */
-   }
-   <Suspense>
-     <FormbricksProvider />
-   </Suspense>;
-   ```
-
-### Usage Best Practices
-
-When creating surveys:
-
-- Keep surveys short and focused
-- Target specific user segments
-- Use surveys at appropriate points in the user journey
-- Test surveys before deploying them to all users
-- Regularly review and act on the feedback collected
-
-### Embedding Surveys in Your Application
-
-Formbricks provides multiple ways to display surveys to your users. Here's how to implement them in your Next.js SaaS Starter:
-
-#### 1. Automatic Triggers
-
-Once you've enabled the Formbricks provider in `app/layout.tsx`, you can create surveys in the Formbricks dashboard that trigger automatically based on:
-
-- **Page Navigation**: Surveys can appear when users navigate to specific pages
-- **Exit Intent**: Capture feedback when users are about to leave your site
-- **Scroll Depth**: Trigger surveys when users scroll to a certain point on the page
-
-#### 2. Custom Code Triggers
-
-For more targeted surveys, you can implement custom triggers in your components:
-
-```tsx
-'use client';
-
-import { Button } from '@/components/ui/button';
-import formbricks from '@formbricks/js';
-
-export default function FeedbackButton() {
-  const handleFeedbackClick = () => {
-    // Track a custom event that can trigger a survey
-    formbricks.track('requested_feedback');
-  };
-
-  return <Button onClick={handleFeedbackClick}>Give Feedback</Button>;
-}
-```
-
-In your Formbricks dashboard, create a survey that triggers on the `requested_feedback` action.
-
-#### 3. User Identification
-
-To associate survey responses with specific users, add user identification after authentication:
-
-```tsx
-'use client';
-
-import { useEffect } from 'react';
-import formbricks from '@formbricks/js';
-
-export function UserIdentifier({ user }) {
-  useEffect(() => {
-    if (user?.id) {
-      formbricks.setUserId(user.id);
-
-      // Optionally set user attributes for targeting
-      formbricks.setAttributes({
-        email: user.email,
-        plan: user.subscription?.plan || 'free',
-        createdAt: user.createdAt,
-      });
-    }
-  }, [user]);
-
-  return null;
-}
-```
-
-Add this component to your authenticated layout or within components that have access to the user context.
-
-#### 4. Debugging Survey Display
-
-If your surveys aren't appearing as expected:
-
-1. Add `?formbricksDebug=true` to your URL while testing
-2. Open your browser's developer console to see debug information
-3. Verify that your triggers are being tracked correctly
-4. Check that your targeting conditions in the Formbricks dashboard are set correctly
-
-By using these techniques, you can collect valuable user feedback at critical points in your application's user journey, helping you improve your product based on real user insights.
-
-## Storybook
-
-This project uses [Storybook](https://storybook.js.org/) as a development environment for UI components. Storybook allows us to build, test, and document UI components in isolation, which improves development efficiency and ensures consistent design implementation.
-
-### Why We Use Storybook
-
-- **Component Development in Isolation**: Work on UI components without needing to run the entire application
-- **Visual Testing**: Preview UI components in different states and configurations
-- **Documentation**: Auto-generate documentation for our component library
-- **Collaboration**: Makes it easier for designers and developers to collaborate on UI components
-
-### Running Storybook
-
-To start Storybook locally:
-
-```bash
-pnpm storybook
-```
-
-This will launch Storybook at [http://localhost:6006](http://localhost:6006).
-
-### Creating Stories
-
-When building a new component, always create a corresponding Storybook story to document its usage:
-
-```tsx
-// ComponentName.stories.tsx
-import { Meta, StoryObj } from '@storybook/react';
-import Button from './Button';
-
-const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
-  component: Button,
-  tags: ['autodocs'],
-};
-
-export default meta;
-type Story = StoryObj<typeof Button>;
-
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Click Me',
-  },
-};
-```
-
-### Best Practices
-
-1. Create stories for all reusable components
-2. Document component variations and edge cases
-3. Use the [Component Story Format (CSF)](https://storybook.js.org/docs/react/api/csf) for writing stories
-4. Use [Args](https://storybook.js.org/docs/react/writing-stories/args) to demonstrate different states of a component
-
 ## Prerequisites
 
-Before you begin setting up this project, you'll need to have the following accounts and configurations ready:
+Before running the project locally, make sure you have the following installed:
 
-### 1. Vercel Account
+- **Docker Desktop**: Runs Postgres and any other services via containers
+- **Node.js (LTS) via nvm**: Recommended Node 20 LTS (Node 19+ supported)
+- **Git**: To clone the repository
+- **pnpm**: Preferred package manager for this project
+- **Stripe account + secret key**: Required for local development. You'll use your test mode secret key
 
-- Sign up for a Vercel account at [vercel.com](https://vercel.com)
-- Create a new project in your Vercel dashboard
-- You'll need this to deploy your application to production
+> **Note**: A **Stripe account** is required even for local development so the app can make API calls in test mode. The Dockerized stack handles webhooks for you—no Stripe CLI needed.
 
-### 2. Stripe Account and Webhook Setup
+### GitHub setup
 
-1. Create a Stripe account at [stripe.com](https://stripe.com)
+Before cloning the repository, make sure your GitHub access is set up:
 
-2. Get your API keys:
-   - Go to Stripe Dashboard → Developers → API keys
-   - Copy your "Secret key" (starts with `sk_test_` for test mode)
-   - Keep these keys secure and never commit them to version control
-   - To automatically create your Stripe products:
-     - Products are defined in `content.json` under the `pricing.products` section
-     - Run `pnpm stripe:create-products` to create the products in your Stripe account
-     - This script is safe to run multiple times - it won't affect existing products (including archived ones) that match the ones defined in `content.json`
-
-### 3. Supabase Database
-
-1. Create a Supabase account at [supabase.com](https://supabase.com)
-2. Create a new project
-3. Get your database connection string:
-   - Go to Project Settings → Database
-   - Find the "Connection string" section
-   - Copy the "URI" connection string
-   - It should look like: `postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres`
-   - Keep this connection string secure and never commit it to version control
-
-## Getting Started
+- Create or sign in to your **GitHub** account
+- Configure your Git identity (once per machine):
 
 ```bash
-git clone https://github.com/nextjs/saas-starter
-cd saas-starter
-pnpm install
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
 ```
 
-## Environment Variables Setup
-
-The repository includes a `.env.example` file that you can use as a template. To get started:
-
-### Option 1: Automated Setup (Recommended)
-
-Use the Node.js setup script to automatically configure your environment variables:
+- Set up **SSH** for passwordless access (recommended):
 
 ```bash
-pnpm setup
-
+ssh-keygen -t ed25519 -C "you@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+# Copy the printed key and add it to GitHub → Settings → SSH and GPG keys
 ```
 
-This script will:
-
-- Prompt you for your Stripe API key
-- Ask for hostname and port configuration
-- Automatically generate a Stripe webhook secret using Docker
-- Create a secure auth secret
-- Write all variables to your `.env` file
-
-### Option 2: Manual Setup
-
-1. Copy the example file:
+- Verify your connection:
 
 ```bash
-cp .env.example .env
+ssh -T git@github.com
 ```
 
-2. Update the values in your `.env` file with your own configuration:
+### Install Docker Desktop
 
-```env
-# Stripe Configuration
-# Get these from your Stripe Dashboard (https://dashboard.stripe.com/test/apikeys)
-STRIPE_API_KEY=sk_test_your_stripe_secret_key
+**macOS:**
 
-# PostHog Configuration
-# Get these from your PostHog Project Settings
-NEXT_PUBLIC_POSTHOG_KEY=phc_your_project_api_key
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+1. Download Docker Desktop for Mac (Apple silicon or Intel) from [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. Install and open Docker Desktop
+3. Verify installation:
+   ```bash
+   docker --version
+   docker compose version
+   ```
 
-# Formbrick Configuration
-NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID=your_environment_id
-NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
+**Windows:**
+
+1. Install [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/)
+2. Enable the recommended WSL 2 integration during setup
+3. Verify installation with `docker --version`
+
+**Linux:**
+
+1. Install the [Docker Engine](https://docs.docker.com/engine/install/) and Docker Compose for your distro
+2. Add your user to the `docker` group so you can run Docker without `sudo`
+3. Verify with `docker --version` and `docker compose version`
+
+### Install Node.js with nvm
+
+We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage Node versions:
+
+1. **Install nvm:**
+
+   ```bash
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+   # Restart your shell, then load nvm (if needed)
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+   ```
+
+2. **Install and use Node LTS (recommended):**
+
+   ```bash
+   nvm install --lts
+   nvm use --lts
+   node -v
+   pnpm -v
+   ```
+
+3. **Alternative: specific version:**
+   If you prefer a specific version, install Node 20.x or newer (Node 19+ supported):
+   ```bash
+   nvm install 20
+   nvm use 20
+   ```
+
+### Install pnpm (via Corepack)
+
+We use **pnpm**. With modern Node versions, use Corepack to activate it:
+
+```bash
+corepack enable
+corepack prepare pnpm@latest --activate
+pnpm -v
 ```
 
-### Detailed Setup Instructions
+### Stripe account and keys (required)
 
-#### Account setup
+1. Create or sign in to your account at [Stripe Dashboard](https://dashboard.stripe.com)
+2. Switch to **Test mode**
+3. Copy your **Secret key** (starts with `sk_test_...`)
+4. Add it to your environment file as your Stripe secret. For example:
 
-1. **Stripe Configuration**:
-   - Sign up for a Stripe account at https://stripe.com
-   - Go to the Stripe Dashboard → Developers → API keys
-   - Copy your "Secret key" (starts with `sk_test_` for test mode)
+```bash
+# .env
+STRIPE_SECRET_KEY=sk_test_********************************
+```
 
-2. **PostHog Configuration (Optional)**:
-   - Sign up for a PostHog account at https://posthog.com
-   - Create a new project in your PostHog dashboard
-   - Go to "Project Settings" → "Project API Key"
-   - Copy your "Project API Key" (starts with `phc_`)
-   - Add to your `.env` file:
-     ```
-     NEXT_PUBLIC_POSTHOG_KEY=your_project_api_key
-     NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com  # or your self-hosted URL
-     ```
+The local Docker setup manages webhooks automatically. You do not need the Stripe CLI for local development.
 
-3. **Formbrick Configuration (Optional)**:
-   - Sign up for a Formbrick account at https://formbricks.com
-   - Create a new project in your Formbrick dashboard
-   - Go to "Settings" → "Developer" to find your environment ID
-   - Copy your "Environment ID"
-   - Add to your `.env` file:
-     ```
-     NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID=your_environment_id
-     NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com  # or your self-hosted URL
-     ```
+## Run the App Locally
 
-### Important Notes
+### 1. Clone the repository
 
-- Never commit your `.env` file to version control
-- Keep your production secrets secure and rotate them regularly
-- Use different API keys for development and production environments
-- The provided values in the example are for illustration only - you must replace them with your own values
-- The contact form API is protected by origin validation using the BASE_URL environment variable
-- The Python setup script (`setup_dotenv.py`) is deprecated in favor of the Node.js script (`setup_dotenv.js`)
+```bash
+git clone <YOUR_REPOSITORY_URL>
+cd <YOUR_REPOSITORY_DIRECTORY>
+```
 
-### Prerequisites
+### 2. Open the project in Cursor
 
-- Docker and Docker Compose installed on your machine
-- Make (usually pre-installed on Unix-based systems)
+- Open **Cursor** and select the cloned folder
+- If you use Cursor Pro + Honu MCP, ensure your MCP is connected (see your Honu business dashboard Developers page)
 
-### Run The App Locally
+### 3. Verify Docker and Node are available
+
+```bash
+docker --version
+docker compose version
+node -v
+pnpm -v
+```
+
+> **Tip**: Make sure Docker Desktop is running before proceeding.
+
+### 4. Generate your .env file
+
+From the `next-saas-starter` project root, run:
+
+```bash
+pnpm run setup
+```
+
+What this does:
+
+- Prompts for hostname and port, e.g., `localhost` and `3000`
+- Prompts for your Stripe Secret Key (starts with `sk_`)
+- Uses Docker to run the Stripe CLI and fetch a local `STRIPE_WEBHOOK_SECRET` that forwards to `/api/stripe/webhook`
+- Generates a secure `AUTH_SECRET`
+- Writes all values to a new `./.env` file
+
+The resulting `.env` includes at least:
+
+```bash
+POSTGRES_URL=postgresql://postgres:postgres@localhost:5433/saas_db
+BASE_URL=http://localhost:3000
+HOST=localhost
+PORT=3000
+STRIPE_API_KEY=sk_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+AUTH_SECRET=...
+```
+
+> **Tip**: Ensure Docker Desktop is running; the script uses a `stripe/stripe-cli` Docker container to obtain the webhook secret.
+
+### 5. Start services and run the app
+
+Use the following command to start the services and run the app:
 
 ```bash
 make run-dev
 ```
 
-This will create the following user and team:
+What this command does:
 
-- User: `test@test.com`
-- Password: `admin123`
+- **Docker Compose (local services)**: Brings up Postgres on port 5433 with a persistent volume and pgAdmin on `http://localhost:5051` for inspecting the database. It may also start a `stripe-cli` listener that forwards webhooks to your app
+- **Database setup**: Runs migrations and seeds your database using pnpm scripts
+- **Dev server**: Launches the Next.js development server at your configured `HOST:PORT` (e.g. `localhost:3000`)
 
-You can, create new users as well through `/sign-up`.
+**pgAdmin quick reference:**
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+- **Open**: `http://localhost:5051`
+- **Login**: Email `admin@admin.com`, Password `admin`
+- **Connect to Postgres**: Register a server → Host `postgres` (Docker service name), Port `5432` (internal), DB `saas_db`, User `postgres`, Password `postgres`
+- **Purpose**: Inspect schemas/tables, browse data, and run SQL during development
 
-### Database Commands
+### 6. Switch the landing page to Product mode
 
-The following Make commands are available to manage your local database:
+To display pricing and the login/sign-up buttons on the landing page, enable Product mode in `content.json` (project root of `next-saas-starter`):
 
-```bash
-# Start the database and pgAdmin
-make db-up
-
-# Stop the database and pgAdmin
-make db-down
-
-# Stop and remove all containers and volumes (this will delete all data)
-make db-clean
-
-# View database logs
-make db-logs
-
-# Check status of database containers
-make db-status
-
-# Show database connection information
-make db-info
+```json
+{
+  "metadata": {
+    "product": true
+  }
+}
 ```
 
-### Accessing pgAdmin
+Effects:
 
-1. Open pgAdmin in your browser at `http://localhost:5051`
-2. Log in with:
-   - Email: admin@admin.com
-   - Password: admin
+- Shows pricing section on `/`
+- Reveals Login and Sign Up buttons on the navbar
 
-3. Connect to your PostgreSQL database:
-   - Right-click on "Servers" in the left sidebar
-   - Select "Register" → "Server"
-   - In the "General" tab:
-     - Name: "SaaS Starter DB" (or any name you prefer)
-   - In the "Connection" tab:
-     - Host name/address: `postgres` (this is the Docker service name)
-     - Port: `5432` (use the internal container port)
-     - Maintenance database: `saas_db`
-     - Username: `postgres`
-     - Password: `postgres`
-   - Click "Save"
+## Troubleshooting
 
-### Database Connection Details
+**Docker isn't running**
+Open Docker Desktop and wait until it reports that it is running, then retry `docker compose up -d`.
 
-- **Host**: localhost
-- **Port**: 5433 (external port for host machine)
-- **Database**: saas_db
-- **Username**: postgres
-- **Password**: postgres
+**Port already in use**
+Common conflicts:
 
-Note: When connecting from pgAdmin (which runs in Docker), use:
+- App port (default `3000`): change `PORT` in your `.env` (e.g., `3001`) or stop the conflicting process
+- Postgres port (`5433` on host): stop the process using `5433` or change the host port mapping in `docker-compose.yml`
 
-- Host: `postgres` (Docker service name)
-- Port: `5432` (internal container port)
+**Postgres already running locally**
+If you have a local Postgres service running, it won't conflict unless it uses host port `5433`. Either stop your local Postgres or edit `docker-compose.yml` to map another host port (e.g., `5434:5432`), and update `POSTGRES_URL` in `.env` accordingly.
 
-### Cleaning Up
+**Node version issues**
+Use `nvm use --lts` (or the project's specified version) and reinstall dependencies: `rm -rf node_modules && pnpm install`.
 
-To completely remove the database and all its data:
-
-```bash
-make db-clean
-```
-
-This will:
-
-- Stop all containers
-- Remove all containers
-- Remove all volumes (deleting all data)
-- Remove the custom network
-
-## Testing Payments
-
-To test Stripe payments, use the following test card details:
-
-- Card Number: `4242 4242 4242 4242`
-- Expiration: Any future date
-- CVC: Any 3-digit number
-
-## Going to Production
-
-When you're ready to deploy your SaaS application to production, follow these steps:
-
-### Deploy to Vercel
-
-We provide a deploy script that abstracts away the Vercel CLI functionality, so you don't need to install the Vercel CLI globally on your machine. This script handles the entire deployment process in one convenient command:
-
-```bash
-pnpm run deploy
-```
-
-The deploy script will:
-
-1. **Log you in to your Vercel account** - You'll be prompted to enter your Vercel credentials or authenticate through a browser
-2. **Guide you through project creation** - The script will ask you to name your project and configure basic settings
-3. **Set up deployment settings** - It will automatically detect your Next.js project and suggest optimal settings
-4. **Deploy your application** - Your code will be built and deployed to Vercel's global CDN
-
-### Deploy Script Capabilities
-
-Our deploy script is a wrapper around the Vercel CLI, providing access to all its functionality without requiring a global installation. You can leverage these powerful features by passing additional arguments to the script:
-
-```bash
-pnpm run deploy --[vercel-cli-arguments]
-```
-
-For example:
-
-```bash
-# List all your Vercel projects
-pnpm run deploy --ls
-
-```
-
-For a complete list of commands and options, run:
-
-```bash
-pnpm run deploy -- help
-```
-
-The deploy script gives you the full power of the Vercel CLI while maintaining a consistent environment for your team and eliminating the need for separate CLI installation.
-
-### Add environment variables
-
-After deployment, you'll need to configure environment variables on Vercel. This is a critical step for your application to function properly in production.
-
-#### 1. Create your production environment file
-
-First, create a `.env.vercel` file based on the example template:
-
-```bash
-cp .env.example .env.vercel
-```
-
-#### 2. Update production variables
-
-Open the `.env.vercel` file in your code editor and update these essential variables:
-
-```env
-# Production environment variables
-BASE_URL=https://your-project-name.vercel.app
-POSTGRES_URL=your_production_database_url
-STRIPE_API_KEY=sk_live_your_stripe_production_key
-STRIPE_WEBHOOK_SECRET=whsec_your_production_webhook_secret
-AUTH_SECRET=your_generated_auth_secret
-NEXT_PUBLIC_POSTHOG_KEY=phc_your_production_project_api_key
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
-NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID=your_production_environment_id
-NEXT_PUBLIC_FORMBRICKS_APP_URL=https://app.formbricks.com
-```
-
-Key variables to configure:
-
-- `BASE_URL`: Your production domain (e.g., `https://your-project-name.vercel.app`)
-- `POSTGRES_URL`: The connection string for your production database
-- `STRIPE_API_KEY`: Your Stripe live mode secret key (starts with `sk_live_`)
-- `STRIPE_WEBHOOK_SECRET`: The webhook secret from the production webhook you set up
-- `AUTH_SECRET`: A secure random string (generate with `openssl rand -base64 32`)
-- `NEXT_PUBLIC_POSTHOG_KEY`: Your PostHog project API key for production analytics
-- `NEXT_PUBLIC_POSTHOG_HOST`: The PostHog host URL (or your self-hosted instance)
-- `NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID`: Your Formbrick production environment ID
-- `NEXT_PUBLIC_FORMBRICKS_APP_URL`: The Formbrick host URL (or your self-hosted instance)
-
-#### 3. Deploy your environment variables
-
-Run our environment deployment script to push these variables to Vercel:
-
-```bash
-pnpm run deploy-env
-```
-
-This script will:
-
-- Connect to your Vercel project
-- Sync all variables from your `.env.vercel` file to Vercel's environment variables
-- Confirm once the variables are successfully deployed
-
-The variables will be available in your Vercel production environment, separate from your local development variables. You can verify them in the Vercel dashboard under your project's Settings → Environment Variables.
-
-Make sure to redeploy again for the env vars to be picked up by the app.
-
-### Set up a production Stripe webhook
-
-Once your project is deployed, you'll need to set up a Stripe webhook for the production environment:
-
-1. Go to the Stripe Dashboard and create a new webhook for your production environment.
-2. Set the endpoint URL to your production API route (e.g., `https://your-project-name.vercel.app/api/stripe/webhook`).
-3. Select the events to listen for:
-   - `checkout.session.completed`
-   - `customer.subscription.updated`
-   - `customer.subscription.deleted`
-4. Copy the webhook signing secret for the next step.
-
-## Other Templates
+**Stripe webhook setup issues**
+Ensure Docker is running and your Stripe secret key is valid (starts with `sk_`). Re-run the env setup: `pnpm run setup`.
