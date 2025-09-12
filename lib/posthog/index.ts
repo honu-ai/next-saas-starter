@@ -17,7 +17,8 @@ export default function PostHogClient() {
 
 export async function getBootstrapData() {
   let distinct_id = '';
-  const phProjectAPIKey = 'phc_tbN4IFm4fzYM03Uc8D0XFCTYnt84K3RHWgQzhFE8Uc';
+  const phProjectAPIKey = process.env.NEXT_PUBLIC_POSTHOG_KEY as string;
+  const phHost = process.env.NEXT_PUBLIC_POSTHOG_HOST as string;
   const phCookieName = `ph_${phProjectAPIKey}_posthog`;
   const cookieStore = await cookies();
   const phCookie = cookieStore.get(phCookieName);
@@ -39,7 +40,7 @@ export async function getBootstrapData() {
   }
 
   const client = new PostHog(phProjectAPIKey, {
-    host: 'https://us.i.posthog.com',
+    host: phHost,
   });
   const flags = await client.getAllFlags(distinct_id);
   const bootstrap = {

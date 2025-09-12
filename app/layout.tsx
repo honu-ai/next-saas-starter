@@ -6,10 +6,11 @@ import { getUser } from '@/lib/db/queries';
 import Script from 'next/script';
 
 import ThemeProvider from '@/components/theme-provider';
-// import PostHogProvider from '@/components/posthog-provider';
+import PostHogProvider from '@/components/posthog-provider';
 import DynamicFavicon from '@/components/dynamic-favicon';
 import { getBootstrapData } from '@/lib/posthog';
 import { Toaster } from '@/components/ui/sonner';
+import { GlobalErrorBoundary } from '@/components/error-reporting-widget';
 
 // Uncomment to enable Formbricks integration
 // import FormbricksProvider from '@/components/formbricks-provider';
@@ -78,16 +79,18 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <PostHogProvider bootstrap={bootstrap}> */}
-          <UserProvider userPromise={userPromise}>
-            {/* Uncomment to enable Formbricks integration */}
-            {/* <Suspense>
-                <FormbricksProvider />
-              </Suspense> */}
-            {children}
-            <Toaster />
-          </UserProvider>
-          {/* </PostHogProvider> */}
+          <PostHogProvider bootstrap={bootstrap}>
+            <UserProvider userPromise={userPromise}>
+              <GlobalErrorBoundary>
+                {/* Uncomment to enable Formbricks integration */}
+                {/* <Suspense>
+                  <FormbricksProvider />
+                </Suspense> */}
+                {children}
+                <Toaster />
+              </GlobalErrorBoundary>
+            </UserProvider>
+          </PostHogProvider>
         </ThemeProvider>
       </body>
     </html>

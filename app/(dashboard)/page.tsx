@@ -10,6 +10,7 @@ import BenefitsSection from '@/components/benefits-section';
 import FaqSection from '@/components/faq-section';
 import CtaSection from '@/components/cta-section';
 import Footer from '@/components/footer';
+import { ErrorTestingDemo } from '@/components/error-reporting-widget';
 
 export default async function HomePage() {
   return (
@@ -71,6 +72,14 @@ export default async function HomePage() {
           product={content.metadata.product}
         />
       </section>
+
+      {/* Error Testing Demo - Only in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <section className='py-8'>
+          <ErrorTestingDemo />
+        </section>
+      )}
+
       <section>
         <Footer
           companyName={content.footer.companyName}
