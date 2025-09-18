@@ -15,16 +15,22 @@ export function PostHogProvider({
     featureFlags: Record<string, any>;
   };
 }) {
+  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+
   useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+    if (!posthogKey || !posthogHost) return;
+    posthog.init(posthogKey, {
       api_host: '/ingest',
-      ui_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+      ui_host: posthogHost,
       capture_pageview: false, // We capture pageviews manually
       capture_pageleave: true, // Enable pageleave capture
       debug: process.env.NODE_ENV === 'development',
       bootstrap,
     });
-  }, [bootstrap]);
+  }, [bootstrap, posthogKey, posthogHost]);
+
+  if (!posthogKey || !posthogHost) return <>{children}</>;
 
   return (
     <PHProvider client={posthog}>
@@ -54,6 +60,10 @@ function PostHogPageView() {
 }
 
 function SuspendedPostHogPageView() {
+  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+  if (!posthogKey || !posthogHost) return null;
+
   return (
     <Suspense fallback={null}>
       <PostHogPageView />

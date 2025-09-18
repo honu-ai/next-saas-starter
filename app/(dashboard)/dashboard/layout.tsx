@@ -2,7 +2,10 @@ import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { getUser, getUserActiveSubscriptionDetails } from '@/lib/db/queries';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button'; // For a nicer link
+import { Button } from '@/components/ui/button';
+import ErrorReportingWidget, {
+  AutoErrorCapture,
+} from '@/components/error-reporting-widget';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -19,6 +22,8 @@ export default async function DashboardLayout({
   const details = user && (await getUserActiveSubscriptionDetails(user.id));
   const hasActiveSubscription = details?.hasActiveSubscription;
   const subscriptionStatus = details?.status;
+  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
   // Allow dashboard access in development or when explicitly enabled
   const isDevelopment =
@@ -54,6 +59,12 @@ export default async function DashboardLayout({
       <main className='flex-1'>
         <div className='container py-6'>{children}</div>
       </main>
+      {posthogKey && posthogHost && (
+        <>
+          <ErrorReportingWidget />
+          <AutoErrorCapture />{' '}
+        </>
+      )}
     </div>
   );
 }

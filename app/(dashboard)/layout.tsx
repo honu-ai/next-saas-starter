@@ -68,8 +68,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <section className='flex min-h-screen flex-col pt-17'>
       <Header />
       {children}
-      <ErrorReportingWidget />
-      <AutoErrorCapture />
     </section>
   );
 }
