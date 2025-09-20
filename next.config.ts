@@ -4,18 +4,17 @@ import createMDX from '@next/mdx';
 const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
   async rewrites() {
+    const posthogHost =
+      process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
+
     return [
       {
-        source: '/ingest/static/:path*',
-        destination: 'https://us-assets.i.posthog.com/static/:path*',
-      },
-      {
         source: '/ingest/:path*',
-        destination: 'https://us.i.posthog.com/:path*',
+        destination: `${posthogHost}/:path*`,
       },
       {
         source: '/ingest/decide',
-        destination: 'https://us.i.posthog.com/decide',
+        destination: `${posthogHost}/decide`,
       },
     ];
   },
