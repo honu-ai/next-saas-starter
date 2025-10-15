@@ -3,7 +3,7 @@
 include .env
 export $(shell sed 's/=.*//' .env)
 
-# Start the database and pgAdmin
+# Start the database
 db-up:
 	docker compose up -d --build
 
@@ -12,15 +12,15 @@ db-seed:
 	pnpm db:migrate
 	pnpm db:seed
 
-# Stop the database and pgAdmin
+# Stop the database
 db-down:
 	docker compose down
 
 # Stop and remove all containers and volumes (this will delete all data)
 db-clean:
 	docker compose down -v
-	docker rm -f saas-starter-postgres saas-starter-pgadmin 2>/dev/null || true
-	docker volume rm -f saas-starter-postgres-data saas-starter-pgadmin-data 2>/dev/null || true
+	docker rm -f saas-starter-postgres 2>/dev/null || true
+	docker volume rm -f saas-starter-postgres-data 2>/dev/null || true
 	docker network rm saas-starter-network 2>/dev/null || true
 
 # View database logs
@@ -39,11 +39,6 @@ db-info:
 	@echo "  Database: $(POSTGRES_DB)"
 	@echo "  Username: postgres"
 	@echo "  Password: postgres"
-	@echo ""
-	@echo "pgAdmin:"
-	@echo "  URL: http://localhost:5051"
-	@echo "  Email: admin@admin.com"
-	@echo "  Password: admin"
 
 # start local copy
 run-dev: db-up db-seed

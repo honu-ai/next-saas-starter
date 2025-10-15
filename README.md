@@ -184,16 +184,9 @@ make run-dev
 
 What this command does:
 
-- **Docker Compose (local services)**: Brings up Postgres on port 5433 with a persistent volume and pgAdmin on `http://localhost:5051` for inspecting the database. It may also start a `stripe-cli` listener that forwards webhooks to your app
+- **Docker Compose (local services)**: Brings up Postgres on port 5433 with a persistent volume. It may also start a `stripe-cli` listener that forwards webhooks to your app
 - **Database setup**: Runs migrations and seeds your database using pnpm scripts
 - **Dev server**: Launches the Next.js development server at your configured `HOST:PORT` (e.g. `localhost:3000`)
-
-**pgAdmin quick reference:**
-
-- **Open**: `http://localhost:5051`
-- **Login**: Email `admin@admin.com`, Password `admin`
-- **Connect to Postgres**: Register a server → Host `postgres` (Docker service name), Port `5432` (internal), DB `saas_db`, User `postgres`, Password `postgres`
-- **Purpose**: Inspect schemas/tables, browse data, and run SQL during development
 
 ### 6. Switch the landing page to Product mode
 
@@ -231,3 +224,104 @@ Use `nvm use --lts` (or the project's specified version) and reinstall dependenc
 
 **Stripe webhook setup issues**
 Ensure Docker is running and your Stripe secret key is valid (starts with `sk_`). Re-run the env setup: `pnpm run setup`.
+
+## Development Workflow
+
+Once you have the app running locally, here are the key development tools and workflows to help you build your product efficiently.
+
+### 1. Connect Honu MCP in Cursor
+
+The Honu MCP (Model Context Protocol) provides AI-powered assistance directly in Cursor for managing your business model and development workflow.
+
+**Setup Steps:**
+
+1. **Get your MCP connection details:**
+   - Log in to your [Honu platform dashboard](https://app.honu.io)
+   - Navigate to the **Developers** section
+   - Copy your MCP connection configuration
+
+2. **Configure Cursor:**
+   - Open Cursor Settings (Cmd/Ctrl + ,)
+   - Go to **Features** → **Model Context Protocol**
+   - Add a new MCP server with your Honu configuration
+   - Test the connection to ensure it's working
+
+3. **Start using Honu MCP:**
+   - Use `@honu` in your Cursor chat to access business model information
+   - Get AI assistance for product development decisions
+   - Sync your development progress with your business strategy
+
+### 2. Component Development with Storybook
+
+Storybook helps you develop and test UI components in isolation, making it easier to build a consistent design system.
+
+**Start Storybook:**
+
+```bash
+pnpm storybook
+```
+
+This opens Storybook at `http://localhost:6006` where you can:
+
+- **View all components**: Browse your component library with live examples
+- **Test different states**: See how components look with various props and states
+- **Interactive development**: Modify component props in real-time using Storybook controls
+- **Visual testing**: Ensure components work across different scenarios
+
+**Component Story Structure:**
+Each component in the `components/` directory has a corresponding `.stories.tsx` file. For example:
+
+- `components/hero-section/HeroSection.tsx` → component implementation
+- `components/hero-section/HeroSection.stories.tsx` → Storybook stories
+
+**Best Practices:**
+
+- Create stories for different component states (default, loading, error, etc.)
+- Use Storybook controls to make props interactive
+- Test responsive behavior across different viewport sizes
+- Document component usage and props in your stories
+
+### 3. Database Management with Drizzle Studio
+
+Drizzle Studio provides a visual interface to inspect and manage your database during development.
+
+**Start Drizzle Studio:**
+
+```bash
+pnpm db:studio
+```
+
+This opens Drizzle Studio in your browser where you can:
+
+- **Browse tables**: View all your database tables and their structure
+- **Inspect data**: See actual data in your tables with filtering and sorting
+- **Run queries**: Execute SQL queries directly against your database
+- **Monitor relationships**: Visualize foreign key relationships between tables
+
+**Database Schema Location:**
+
+- Schema definitions: `lib/db/schema.ts`
+- Database queries: `lib/db/queries.ts`
+- Migrations: `lib/db/migrations/`
+
+**Common Database Tasks:**
+
+```bash
+# Generate new migration after schema changes
+pnpm db:generate
+
+# Apply migrations to database
+pnpm db:migrate
+
+# Reset and reseed database (development only)
+make db-clean
+make run-dev
+```
+
+### Development Tips
+
+- **Hot Reload**: All three tools (Next.js dev server, Storybook, Drizzle Studio) support hot reloading
+- **Parallel Development**: Run multiple tools simultaneously in different terminal tabs
+- **Component-First**: Use Storybook to build components before integrating them into pages
+- **Data-Driven**: Use Drizzle Studio to understand your data structure and test queries
+- **Business Alignment**: Use Honu MCP to ensure your development aligns with your business strategy
