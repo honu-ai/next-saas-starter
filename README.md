@@ -119,6 +119,14 @@ STRIPE_SECRET_KEY=sk_test_********************************
 
 The local Docker setup manages webhooks automatically. You do not need the Stripe CLI for local development.
 
+## Recommended: Cursor Pro + Honu MCP
+
+For the best developer experience and AI-assisted workflows:
+
+- Install **Cursor** and use a **Pro subscription**.
+- Connect the **Honu MCP** within Cursor. You can copy the required MCP configuration from your **Honu business dashboard**.
+  - Deve Tools page URL format (replace with your business ID): `https://dashboard.honu.ai/business/{BUSINESS_ID}/developers`
+
 ## Run the App Locally
 
 ### 1. Clone the repository
@@ -131,7 +139,7 @@ cd <YOUR_REPOSITORY_DIRECTORY>
 ### 2. Open the project in Cursor
 
 - Open **Cursor** and select the cloned folder
-- If you use Cursor Pro + Honu MCP, ensure your MCP is connected (see your Honu business dashboard Developers page)
+- If you use Cursor Pro + Honu MCP, ensure your MCP is connected (see your Honu business dashboard Deve Tools page)
 
 ### 3. Verify Docker and Node are available
 
@@ -149,7 +157,7 @@ pnpm -v
 From the `next-saas-starter` project root, run:
 
 ```bash
-pnpm run setup
+pnpm run setup:env
 ```
 
 What this does:
@@ -188,6 +196,13 @@ What this command does:
 - **Database setup**: Runs migrations and seeds your database using pnpm scripts
 - **Dev server**: Launches the Next.js development server at your configured `HOST:PORT` (e.g. `localhost:3000`)
 
+Drizzle Studio quick reference:
+
+- **Open**: Run `pnpm drizzle:studio` from your project root
+- **Purpose**: Modern database browser and query interface for inspecting schemas/tables, browsing data, and running SQL during development
+- **Features**: Visual table browser, SQL query editor, data editing capabilities, and schema visualization
+- **Docs**: See [Drizzle Studio documentation](https://orm.drizzle.team/studio)
+
 ### 6. Switch the landing page to Product mode
 
 To display pricing and the login/sign-up buttons on the landing page, enable Product mode in `content.json` (project root of `next-saas-starter`):
@@ -223,7 +238,7 @@ If you have a local Postgres service running, it won't conflict unless it uses h
 Use `nvm use --lts` (or the project's specified version) and reinstall dependencies: `rm -rf node_modules && pnpm install`.
 
 **Stripe webhook setup issues**
-Ensure Docker is running and your Stripe secret key is valid (starts with `sk_`). Re-run the env setup: `pnpm run setup`.
+Ensure Docker is running and your Stripe secret key is valid (starts with `sk_`). Re-run the env setup: `pnpm run setup:env`.
 
 ## Development Workflow
 
@@ -233,11 +248,20 @@ Once you have the app running locally, here are the key development tools and wo
 
 The Honu MCP (Model Context Protocol) provides AI-powered assistance directly in Cursor for managing your business model and development workflow.
 
+> **Recommended Setup**: For the best experience with Honu MCP, we recommend using **Cursor Pro** with **Claude 4.5 Sonnet** or higher. This combination provides:
+>
+> - **Enhanced AI capabilities**: More sophisticated reasoning and code generation
+> - **Better context understanding**: Improved ability to understand complex business requirements
+> - **Faster response times**: Optimized performance for development workflows
+> - **Reliable uptime**: Priority access to the latest AI models
+>
+> While Honu MCP works with other AI models, the Pro subscription with Claude 4.5 Sonnet delivers the most comprehensive and reliable development assistance.
+
 **Setup Steps:**
 
 1. **Get your MCP connection details:**
-   - Log in to your [Honu platform dashboard](https://app.honu.io)
-   - Navigate to the **Developers** section
+   - Log in to your [Honu platform dashboard](https://dashboard.honu.ai)
+   - Navigate to the **Deve Tools** section
    - Copy your MCP connection configuration
 
 2. **Configure Cursor:**
@@ -247,9 +271,14 @@ The Honu MCP (Model Context Protocol) provides AI-powered assistance directly in
    - Test the connection to ensure it's working
 
 3. **Start using Honu MCP:**
-   - Use `@honu` in your Cursor chat to access business model information
-   - Get AI assistance for product development decisions
-   - Sync your development progress with your business strategy
+
+You can now start developing your product with the help of Honu MCP in Cursor:
+
+- **Review your Trello board**: Ask the Cursor AI agent to analyze your Trello product board and understand your project structure
+- **Task Execution**: Get the Cursor AI agent to execute the tasks on the Trello board
+- **Task Tracking**: As it executes the tasks, the Cursor AI agent will move the task in the correct column on the Trello board e.g. "In Progress" to "In Review" to "QA" to "Done".
+- **Collaboration**: The Cursor AI agent will request your approval to proceed with the task. You will need to provide QA before final sign off.
+- **Add Tasks**: You can ask the Cursor AI agent to add tasks to the Trello backlog.
 
 ### 2. Component Development with Storybook
 
