@@ -1,11 +1,6 @@
 // pages/api/contact.ts
 import { NextResponse } from 'next/server';
-import sgClient from '@sendgrid/client';
-
-// Set SendGrid API key if available
-if (process.env.SENDGRID_API_KEY) {
-  sgClient.setApiKey(process.env.SENDGRID_API_KEY!);
-}
+import PostHogClient from '@/lib/posthog';
 
 /**
  * Validate the request origin against allowed origins
@@ -82,28 +77,46 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send email if SendGrid is configured
-    if (process.env.SENDGRID_API_KEY) {
-      // Split the name properly
+    // Track contact form submission in PostHog
+    const posthogClient = PostHogClient();
+
+    if (posthogClient) {
+      // Split the name properly for better tracking
       const { firstName, lastName } = splitName(name);
 
-      // 1. Add to SendGrid contacts
-      await sgClient.request({
-        method: 'PUT',
-        url: '/v3/marketing/contacts',
-        body: {
-          contacts: [
-            {
-              email,
-              first_name: firstName,
-              last_name: lastName,
-            },
-          ],
+      // Capture the contact form submission event
+      posthogClient.capture({
+        distinctId: email, // Use email as the distinct ID
+        event: 'contact_form_submitted',
+        properties: {
+          name: name,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          message: message || '',
+          phone: phone || '',
+          timestamp: new Date().toISOString(),
         },
       });
+
+      // Identify the user with their properties
+      posthogClient.identify({
+        distinctId: email,
+        properties: {
+          email: email,
+          name: name,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone || '',
+        },
+      });
+
+      await posthogClient.shutdown();
+
+      console.log('Contact form submission tracked in PostHog:', email);
     } else {
       console.log(
-        'SendGrid API key not configured. Contact was not added:',
+        'PostHog not configured. Contact form submission not tracked:',
         email,
       );
     }
