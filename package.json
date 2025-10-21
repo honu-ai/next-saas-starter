@@ -11,7 +11,6 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "stripe": "stripe",
-    "stripe:create-products": "npx tsx lib/payments/create-products.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:css": "stylelint '**/*.{css,scss}'",
@@ -21,15 +20,10 @@
     "build-storybook": "storybook build",
     "deploy-env": "npx tsx deploy-env.ts",
     "test": "vitest run",
-    "coverage": "vitest run --coverage",
-    "update-font": "npx --yes tsx lib/theme-converter/update-font.ts",
-    "update-font-new": "npx --yes tsx lib/theme-converter/font/index.ts",
-    "convert-theme": "npx --yes tsx lib/theme-converter/theme-converter.ts",
-    "convert-theme-new": "npx --yes tsx lib/theme-converter/theme/index.ts"
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@fontsource/open-sans": "^5.2.7",
-    "@formbricks/js": "^4.2.1",
     "@next/mdx": "^15.5.6",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.10",

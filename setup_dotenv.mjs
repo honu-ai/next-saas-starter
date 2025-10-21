@@ -78,6 +78,21 @@ async function requestStripeKey() {
 }
 
 /**
+ * Requests the PostHog API key from the user.
+ * @returns {Promise<string>} The PostHog API key.
+ */
+async function requestPostHogKey() {
+  const apiKey = await question('Give me your PostHog API key: ');
+  if (!apiKey.startsWith('phc_')) {
+    console.error(
+      "This is not a valid PostHog API key. It should start with 'phc_'. Get your PostHog key from: https://app.posthog.com/project/settings",
+    );
+    process.exit(1);
+  }
+  return apiKey;
+}
+
+/**
  * Requests the host and port from the user.
  * @returns {Promise<{baseUrl: string, host: string, port: string}>} Full base URL, host, and port.
  */
@@ -181,6 +196,7 @@ async function main() {
       STRIPE_API_KEY,
       baseUrl,
     );
+    const NEXT_PUBLIC_POSTHOG_KEY = await requestPostHogKey();
     const AUTH_SECRET = getAuthSecretKey();
 
     const dotenvVariables = {
@@ -192,11 +208,8 @@ async function main() {
       STRIPE_API_KEY,
       STRIPE_WEBHOOK_SECRET,
       AUTH_SECRET,
-      NEXT_PUBLIC_POSTHOG_KEY: 'phc_***',
-      NEXT_PUBLIC_POSTHOG_HOST: 'https://us.i.posthog.com',
-      NEXT_PUBLIC_FORMBRICKS_ENVIRONMENT_ID: '*****',
-      // Align with README and provider usage
-      NEXT_PUBLIC_FORMBRICKS_APP_URL: 'https://app.formbricks.com',
+      NEXT_PUBLIC_POSTHOG_KEY,
+      NEXT_PUBLIC_POSTHOG_HOST: 'https://eu.i.posthog.com',
     };
 
     writeDotenv(dotenvVariables);

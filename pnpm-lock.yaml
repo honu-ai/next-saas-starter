@@ -11,9 +11,6 @@ importers:
       '@fontsource/open-sans':
         specifier: ^5.2.7
         version: 5.2.7
-      '@formbricks/js':
-        specifier: ^4.2.1
-        version: 4.2.1
       '@next/mdx':
         specifier: ^15.5.6
         version: 15.5.6(@mdx-js/react@3.1.1(@types/react@19.2.2)(react@19.2.0))
@@ -1314,9 +1311,6 @@ packages:
 
   '@fontsource/open-sans@5.2.7':
     resolution: {integrity: sha512-8yfgDYjE5O0vmTPdrcjV35y4yMnctsokmi9gN49Gcsr0sjzkMkR97AnKDe6OqZh2SFkYlR28fxOvi21bYEgMSw==}
-
-  '@formbricks/js@4.2.1':
-    resolution: {integrity: sha512-r7qWbf3XpU96QhVNZd80PlVM6ak9CLND8MSBzA6TmKYNkh0PFnNPCNO1yDJ17djgnS+O9utok0IlSCdQW+xNnA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -8848,8 +8842,6 @@ snapshots:
   '@floating-ui/utils@0.2.10': {}
 
   '@fontsource/open-sans@5.2.7': {}
-
-  '@formbricks/js@4.2.1': {}
 
   '@humanfs/core@0.19.1': {}
 
