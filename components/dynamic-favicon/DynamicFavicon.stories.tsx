@@ -1,10 +1,10 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs';
 import DynamicFavicon from './DynamicFavicon';
 
 const meta: Meta<typeof DynamicFavicon> = {
   component: DynamicFavicon,
-  title: 'Components/DynamicFavicon',
+  title: 'Landing Page/Components/DynamicFavicon',
   tags: ['autodocs'],
   parameters: {
     // This component doesn't have visual output in Storybook

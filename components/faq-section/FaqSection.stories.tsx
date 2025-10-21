@@ -1,16 +1,24 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import FaqSection, { FaqSectionProps } from './FaqSection';
+import content from '../../content.json';
 
 export default {
-  title: 'Components/FaqSection',
+  title: 'Landing Page/Sections/FaqSection',
   component: FaqSection,
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: StoryFn<FaqSectionProps> = (args) => <FaqSection {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  title: content.faq.title,
+  subtitle: content.faq.subtitle,
+  faqs: content.faq.items,
+};
 
 export const CustomFaqs = Template.bind({});
 CustomFaqs.args = {

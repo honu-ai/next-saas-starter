@@ -1,9 +1,9 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import UserAvatarMenu from './UserAvatarMenu';
 
 export default {
-  title: 'Components/UserAvatarMenu',
+  title: 'Dashboard/Components/UserAvatarMenu',
   component: UserAvatarMenu,
 } as Meta;
 
@@ -22,6 +22,12 @@ Default.args = {
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,
+    stripeCustomerId: null,
+    stripeSubscriptionId: null,
+    stripeProductId: null,
+    planName: null,
+    subscriptionStatus: null,
+    credits: null,
   },
   handleSignOut: () => alert('Signed out'),
 };

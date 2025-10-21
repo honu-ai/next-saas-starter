@@ -27,18 +27,29 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useErrorReporting } from './useErrorReporting';
-import { ErrorReport, ErrorReportingWidgetProps } from './types';
-import ErrorReportingOnboarding from './ErrorReportingOnboarding';
+import {
+  useErrorReporting,
+  ErrorReport,
+} from '@/lib/posthog/useErrorReporting';
+import ErrorReportingOnboarding from '@/components/error-reporting-onboarding';
 import { toast } from 'sonner';
-import { Bug, MessageSquare, AlertCircle, CheckCircle2, X } from 'lucide-react';
+import { Bug, AlertCircle, CheckCircle2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+export interface ErrorReportingWidgetProps {
+  className?: string;
+  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  size?: 'small' | 'medium' | 'large';
+  theme?: 'light' | 'dark' | 'auto';
+  disableOnboarding?: boolean;
+}
 
 export function ErrorReportingWidget({
   className,
   position = 'bottom-right',
   size = 'medium',
   theme = 'auto',
+  disableOnboarding = false,
 }: ErrorReportingWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -136,7 +147,7 @@ export function ErrorReportingWidget({
   return (
     <TooltipProvider>
       <div className={cn(positionClasses[position], 'z-50', className)}>
-        <ErrorReportingOnboarding />
+        {!disableOnboarding && <ErrorReportingOnboarding delay={0} />}
 
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <Tooltip>

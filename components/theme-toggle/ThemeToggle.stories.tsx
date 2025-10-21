@@ -1,11 +1,14 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import ThemeToggle from './';
 import { ThemeToggleProps } from './ThemeToggle';
 
 export default {
-  title: 'Components/ThemeToggle',
+  title: 'Dashboard/Components/ThemeToggle',
   component: ThemeToggle,
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: StoryFn<ThemeToggleProps> = () => <ThemeToggle />;

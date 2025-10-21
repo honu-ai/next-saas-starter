@@ -1,10 +1,10 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/test';
+import type { Meta, StoryObj } from '@storybook/nextjs';
+import { userEvent, within } from 'storybook/test';
 import ContactDialog from './ContactDialog';
 
 const meta: Meta<typeof ContactDialog> = {
-  title: 'Components/ContactDialog',
+  title: 'Landing Page/Components/ContactDialog',
   component: ContactDialog,
   tags: ['autodocs'],
   parameters: {

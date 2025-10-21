@@ -3,9 +3,8 @@ import { Suspense } from 'react';
 import { getUser, getUserActiveSubscriptionDetails } from '@/lib/db/queries';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import ErrorReportingWidget, {
-  AutoErrorCapture,
-} from '@/components/error-reporting-widget';
+import ErrorReportingWidget from '@/components/error-reporting-widget';
+import { AutoErrorCapture } from '@/components/auto-error-capture';
 
 export const metadata: Metadata = {
   title: 'Dashboard',

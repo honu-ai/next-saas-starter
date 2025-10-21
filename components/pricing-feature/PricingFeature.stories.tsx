@@ -1,10 +1,10 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs';
 import { Star, Zap, Crown, Heart, Flame } from 'lucide-react';
 import PricingFeature, { PricingFeatureProps } from './PricingFeature';
 
 const meta: Meta<typeof PricingFeature> = {
-  title: 'Components/PricingFeature',
+  title: 'Landing Page/Components/PricingFeature',
   component: PricingFeature,
   parameters: {
     layout: 'padded',

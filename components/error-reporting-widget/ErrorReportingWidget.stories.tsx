@@ -1,8 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { ErrorReportingWidget } from './ErrorReportingWidget';
 
+import PostHogProvider from '@/components/posthog-provider';
+
 const meta: Meta<typeof ErrorReportingWidget> = {
-  title: 'Components/ErrorReportingWidget',
+  title: 'Dashboard/Components/ErrorReportingWidget',
   component: ErrorReportingWidget,
   parameters: {
     layout: 'fullscreen',
@@ -33,6 +35,7 @@ const meta: Meta<typeof ErrorReportingWidget> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof ErrorReportingWidget>;
 
 export const Default: Story = {
@@ -40,6 +43,7 @@ export const Default: Story = {
     position: 'bottom-right',
     size: 'medium',
     theme: 'auto',
+    disableOnboarding: true,
   },
 };
 
@@ -48,6 +52,7 @@ export const BottomLeft: Story = {
     position: 'bottom-left',
     size: 'medium',
     theme: 'auto',
+    disableOnboarding: true,
   },
 };
 
@@ -56,6 +61,7 @@ export const TopRight: Story = {
     position: 'top-right',
     size: 'medium',
     theme: 'auto',
+    disableOnboarding: true,
   },
 };
 
@@ -64,6 +70,7 @@ export const Large: Story = {
     position: 'bottom-right',
     size: 'large',
     theme: 'auto',
+    disableOnboarding: true,
   },
 };
 
@@ -72,6 +79,7 @@ export const Small: Story = {
     position: 'bottom-right',
     size: 'small',
     theme: 'auto',
+    disableOnboarding: true,
   },
 };
 
@@ -84,16 +92,17 @@ export const WithMockPostHog: Story = {
   },
   decorators: [
     (Story) => {
-      // Mock PostHog for Storybook environment
-      if (typeof window !== 'undefined') {
-        (window as any).posthog = {
-          capture: (event: string, properties: any) => {
-            console.log('Mock PostHog capture:', event, properties);
-          },
-          get_session_id: () => 'mock-session-id',
-        };
-      }
-      return <Story />;
+      // Mock bootstrap data for Storybook
+      const mockBootstrap = {
+        distinctID: 'storybook-user',
+        featureFlags: {},
+      };
+
+      return (
+        <PostHogProvider bootstrap={mockBootstrap}>
+          <Story disableOnboarding />
+        </PostHogProvider>
+      );
     },
   ],
 };

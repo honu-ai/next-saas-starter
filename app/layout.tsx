@@ -10,7 +10,7 @@ import PostHogProvider from '@/components/posthog-provider';
 import DynamicFavicon from '@/components/dynamic-favicon';
 import { getBootstrapData } from '@/lib/posthog';
 import { Toaster } from '@/components/ui/sonner';
-import { GlobalErrorBoundary } from '@/components/error-reporting-widget';
+import { GlobalErrorBoundary } from '@/components/global-error-boundary';
 
 import content from '../content.json';
 

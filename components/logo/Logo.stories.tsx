@@ -1,12 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/test';
+import { Meta, StoryObj } from '@storybook/nextjs';
+import { within } from 'storybook/test';
 import Logo from './Logo';
-
-const brandName = 'Honu';
+import content from '../../content.json';
 
 const meta: Meta<typeof Logo> = {
   component: Logo,
-  title: 'Components/Logo',
+  title: 'Landing Page/Components/Logo',
   tags: ['autodocs'],
 };
 
@@ -16,16 +15,16 @@ type Story = StoryObj<typeof Logo>;
 export const Default: Story = {
   args: {
     href: '/',
-    brandName,
+    brandName: content.metadata.brandName,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Verify the logo circle with first letter exists
-    canvas.getByText(brandName.charAt(0));
+    canvas.getByText(content.metadata.brandName.charAt(0));
 
     // Verify the brand name text exists
-    canvas.getByText(brandName);
+    canvas.getByText(content.metadata.brandName);
   },
 };
 

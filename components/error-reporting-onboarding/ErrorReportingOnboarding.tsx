@@ -10,14 +10,15 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Bug, MessageSquare, X, CheckCircle, ArrowRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface ErrorReportingOnboardingProps {
   className?: string;
+  delay?: number;
 }
 
 export function ErrorReportingOnboarding({
   className,
+  delay = 2000,
 }: ErrorReportingOnboardingProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState(true);
@@ -32,7 +33,7 @@ export function ErrorReportingOnboarding({
       // Show onboarding after a short delay
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 2000);
+      }, delay);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -79,7 +80,7 @@ export function ErrorReportingOnboarding({
             <CardContent className='pt-4'>
               <div className='space-y-3'>
                 <div className='flex items-start gap-3'>
-                  <div className='mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-red-600'>
+                  <div className='mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-600'>
                     <Bug className='h-4 w-4 text-white' />
                   </div>
                   <div>
@@ -94,7 +95,7 @@ export function ErrorReportingOnboarding({
                 </div>
 
                 <div className='flex items-start gap-3'>
-                  <div className='mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600'>
+                  <div className='mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600'>
                     <MessageSquare className='h-4 w-4 text-white' />
                   </div>
                   <div>
@@ -109,7 +110,7 @@ export function ErrorReportingOnboarding({
                 </div>
 
                 <div className='flex items-start gap-3'>
-                  <div className='mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-600'>
+                  <div className='mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-600'>
                     <CheckCircle className='h-4 w-4 text-white' />
                   </div>
                   <div>

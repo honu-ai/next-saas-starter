@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import { getSession } from '@/lib/auth/session';
 import { randomUUID } from 'crypto';
 
+// Note: useErrorReporting is a client-side hook and should be imported directly from '@/lib/posthog/useErrorReporting'
+
 export default function PostHogClient() {
   const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;

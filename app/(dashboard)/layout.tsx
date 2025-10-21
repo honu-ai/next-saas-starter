@@ -8,9 +8,8 @@ import { signOut } from '@/app/(login)/actions';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/nav-bar';
 import UserAvatarMenu from '@/components/user-avatar-menu';
-import ErrorReportingWidget, {
-  AutoErrorCapture,
-} from '@/components/error-reporting-widget';
+import ErrorReportingWidget from '@/components/error-reporting-widget';
+import { AutoErrorCapture } from '@/components/auto-error-capture';
 import content from '@/content.json';
 
 function Header() {

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs';
 import CtaSection, { CtaSectionProps } from './CtaSection';
+import content from '../../content.json';
 
 const meta: Meta<typeof CtaSection> = {
-  title: 'Components/CtaSection',
+  title: 'Landing Page/Sections/CtaSection',
   component: CtaSection,
   parameters: {
     layout: 'fullscreen',
@@ -15,7 +16,13 @@ export default meta;
 type Story = StoryObj<typeof CtaSection>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    title: content.cta.title,
+    description: content.cta.description,
+    primaryButtonText: content.cta.primaryButtonText,
+    secondaryButtonText: content.cta.secondaryButtonText,
+    product: content.metadata.product,
+  },
 };
 
 export const CustomContent: Story = {

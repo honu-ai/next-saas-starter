@@ -1,9 +1,9 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import PricingCard, { PricingCardProps } from './PricingCard';
 
 export default {
-  title: 'Components/PricingCard',
+  title: 'Landing Page/Components/PricingCard',
   component: PricingCard,
   parameters: {
     layout: 'centered',

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import PricingSubmitButton, {
   PricingSubmitButtonProps,
 } from './PricingSubmitButton';
 
 export default {
-  title: 'Components/PricingSubmitButton',
+  title: 'Landing Page/Components/PricingSubmitButton',
   component: PricingSubmitButton,
   parameters: {
     layout: 'centered',

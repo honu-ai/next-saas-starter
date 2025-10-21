@@ -84,6 +84,7 @@
   --sidebar-ring: oklch(47% 0.451 173deg);
   --ring: oklch(70.8% 0 0deg);
   --radius: 0.625rem;
+  --sidebar: hsl(0 0% 98%);
 }
 
 .dark {
@@ -126,6 +127,7 @@
   --sidebar-ring: oklch(55.6% 0 0deg);
   --ring: oklch(55.6% 0 0deg);
   --radius: 0.625rem;
+  --sidebar: hsl(240 5.9% 10%);
 }
 
 @layer base {

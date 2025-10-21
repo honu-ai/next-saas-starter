@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import ProblemSection from './ProblemSection';
+import content from '../../content.json';
 
 const meta: Meta<typeof ProblemSection> = {
-  title: 'Components/ProblemSection',
+  title: 'Landing Page/Sections/ProblemSection',
   component: ProblemSection,
   parameters: {
     layout: 'fullscreen',
@@ -14,7 +15,13 @@ export default meta;
 type Story = StoryObj<typeof ProblemSection>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    title: content.problem.title,
+    subtitle: content.problem.subtitle,
+    result: content.problem.result,
+    resultSubtitle: content.problem.resultSubtitle,
+    cards: content.problem.cards,
+  },
 };
 
 export const CustomContent: Story = {

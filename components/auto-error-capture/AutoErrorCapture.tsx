@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useErrorReporting } from './useErrorReporting';
+import { useErrorReporting } from '@/lib/posthog/useErrorReporting';
 
 // Extend XMLHttpRequest interface to include our custom properties
 declare global {

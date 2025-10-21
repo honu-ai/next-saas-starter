@@ -2,7 +2,26 @@
 
 import { usePostHog } from 'posthog-js/react';
 import { useCallback } from 'react';
-import { ErrorReport, UseErrorReportingOptions } from './types';
+
+export interface ErrorReport {
+  title: string;
+  description: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  category: 'bug' | 'feature_request' | 'performance' | 'ui_ux' | 'other';
+  url?: string;
+  userAgent?: string;
+  timestamp?: string;
+  userId?: string;
+  sessionId?: string;
+  additionalContext?: Record<string, any>;
+}
+
+export interface UseErrorReportingOptions {
+  autoCapture?: boolean;
+  includeUserAgent?: boolean;
+  includeUrl?: boolean;
+  includeSessionData?: boolean;
+}
 
 export function useErrorReporting(options: UseErrorReportingOptions = {}) {
   const posthog = usePostHog();

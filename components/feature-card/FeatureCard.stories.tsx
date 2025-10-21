@@ -1,10 +1,10 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import FeatureCard, { FeatureCardProps } from './FeatureCard';
 import { Database, Server, Shield, Zap } from 'lucide-react';
 
 export default {
-  title: 'Components/FeatureCard',
+  title: 'Landing Page/Components/FeatureCard',
   component: FeatureCard,
   parameters: {
     layout: 'centered',
