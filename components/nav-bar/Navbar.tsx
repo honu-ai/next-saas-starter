@@ -19,7 +19,8 @@ const Navbar: React.FC<NavbarProps> = ({ links, children }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // const isDashboard = pathname?.startsWith('/dashboard') ?? false;
+  // HI
+  const isDashboard = pathname?.startsWith('/dashboard') ?? false;
 
   // Handle scroll event to change navbar appearance
   useEffect(() => {

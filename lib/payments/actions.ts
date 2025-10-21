@@ -2,20 +2,31 @@
 
 import { redirect } from 'next/navigation';
 import { createCheckoutSession, createCustomerPortalSession } from './stripe';
-import { withTeam } from '@/lib/auth/middleware';
+import { validatedActionWithUser } from '@/lib/auth/middleware';
+import { z } from 'zod';
 
-export const checkoutAction = withTeam(async (formData, team) => {
-  const priceId = formData.get('priceId') as string;
-  const trialPeriodDays = formData.get('trialPeriodDays') as string;
-
-  await createCheckoutSession({
-    team: team,
-    priceId,
-    trialPeriodDays: trialPeriodDays ? Number(trialPeriodDays) : undefined,
-  });
+const checkoutSchema = z.object({
+  priceId: z.string(),
+  trialPeriodDays: z.string().optional(),
 });
 
-export const customerPortalAction = withTeam(async (_, team) => {
-  const portalSession = await createCustomerPortalSession(team);
-  redirect(portalSession.url);
-});
+export const checkoutAction = validatedActionWithUser(
+  checkoutSchema,
+  async (data, _, user) => {
+    const { priceId, trialPeriodDays } = data;
+
+    await createCheckoutSession({
+      user,
+      priceId,
+      trialPeriodDays: trialPeriodDays ? Number(trialPeriodDays) : undefined,
+    });
+  },
+);
+
+export const customerPortalAction = validatedActionWithUser(
+  z.object({}),
+  async (_, __, user) => {
+    const portalSession = await createCustomerPortalSession(user);
+    redirect(portalSession.url);
+  },
+);

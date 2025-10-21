@@ -1,5 +1,6 @@
 import { stripe } from './stripe';
 import Stripe from 'stripe';
+import content from '@/content.json';
 
 // Define default products
 const defaultProducts = [
@@ -12,6 +13,10 @@ const defaultProducts = [
       interval: 'month',
       trial_period_days: 14,
     },
+    metadata: {
+      business_id: content.metadata.brandName,
+      credits_allowance: '10', // 10 blog posts per month
+    },
   },
   {
     name: 'Pro Plan',
@@ -22,6 +27,10 @@ const defaultProducts = [
       interval: 'month',
       trial_period_days: 7,
     },
+    metadata: {
+      business_id: content.metadata.brandName,
+      credits_allowance: '25', // 25 blog posts per month
+    },
   },
   {
     name: 'Enterprise Plan',
@@ -31,6 +40,10 @@ const defaultProducts = [
     recurring: {
       interval: 'month',
       trial_period_days: 7,
+    },
+    metadata: {
+      business_id: content.metadata.brandName,
+      credits_allowance: '100', // 100 blog posts per month
     },
   },
 ];
@@ -56,6 +69,7 @@ const createStripeProducts = async () => {
     const stripeProduct = await stripe.products.create({
       name: product.name,
       description: product.description,
+      metadata: product.metadata,
     });
 
     await stripe.prices.create({

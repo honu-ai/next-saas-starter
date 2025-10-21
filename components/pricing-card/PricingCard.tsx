@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useActionState } from 'react';
 import { motion } from 'framer-motion';
 
 import PricingFeature from '@/components/pricing-feature';
 import PricingSubmitButton from '@/components/pricing-submit-button';
+import { ActionState } from '@/lib/auth/middleware';
 
 import clsx from 'clsx';
 
@@ -26,7 +27,7 @@ export type PricingCardProps = {
   usageType?: string;
   trialPeriodDays?: string;
   description?: string;
-  checkoutAction?: (formData: FormData) => Promise<void>;
+  checkoutAction?: any;
 };
 
 const PricingCard: React.FC<PricingCardProps> = ({
@@ -50,6 +51,10 @@ const PricingCard: React.FC<PricingCardProps> = ({
   description,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [state, formAction] = useActionState(
+    checkoutAction || (async () => ({ error: 'No action provided' })),
+    { error: '' },
+  );
 
   const initialAnimation = featured
     ? { opacity: 0, x: 40 }
@@ -142,7 +147,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
           </ul>
 
           {/* Button Section */}
-          <form action={checkoutAction}>
+          <form action={formAction}>
             <input type='hidden' name='priceId' value={priceId} />
             <input type='hidden' name='usageType' value={usageType} />
             <input
@@ -150,6 +155,9 @@ const PricingCard: React.FC<PricingCardProps> = ({
               name='trialPeriodDays'
               value={trialPeriodDays}
             />
+            {state?.error && (
+              <div className='mb-4 text-sm text-red-600'>{state.error}</div>
+            )}
             <PricingSubmitButton
               label='Get Started'
               gradientFrom={gradientFrom}

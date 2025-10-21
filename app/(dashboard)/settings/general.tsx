@@ -9,10 +9,9 @@ import { Loader2 } from 'lucide-react';
 import { useUser } from '@/lib/auth';
 import { updateAccount } from '@/app/(login)/actions';
 import { customerPortalAction } from '@/lib/payments/actions';
-import { TeamDataWithMembers } from '@/lib/db/schema';
+import { User } from '@/lib/db/schema';
 import { SerializedSubscription } from '@/lib/payments/stripe';
 import Stripe from 'stripe';
-import { cn } from '@/lib/utils';
 
 type ActionState = {
   error?: string;
@@ -20,11 +19,11 @@ type ActionState = {
 };
 
 export default function GeneralPage({
-  teamData,
+  user: initialUser,
   products,
   subscription,
 }: {
-  teamData: TeamDataWithMembers;
+  user: User;
   products: Stripe.Product[];
   subscription?: SerializedSubscription;
 }) {
@@ -34,27 +33,51 @@ export default function GeneralPage({
     updateAccount,
     { error: '', success: '' },
   );
+  const [portalState, portalAction, isPortalPending] = useActionState<
+    ActionState,
+    FormData
+  >(customerPortalAction, { error: '', success: '' });
   const product = products.find(
-    (product) => product.id === teamData.stripeProductId,
+    (product) => product.id === initialUser.stripeProductId,
   );
-  const teamCredits = teamData.credits || 0;
+  const userCredits = initialUser.credits || 0;
   const creditAllowance =
-    teamData.subscriptionStatus === 'trialing'
+    initialUser.subscriptionStatus === 'trialing'
       ? parseInt(product?.metadata.trial_period_credits || '0')
       : parseInt(product?.metadata.credits_allowance || '0');
+
+  // Calculate next renewal date from billing_cycle_anchor and subscription interval
   const renewDate =
-    subscription?.current_period_end &&
-    new Date(subscription.current_period_end * 1000);
+    subscription?.billing_cycle_anchor && subscription.items.data[0]
+      ? (() => {
+          const anchor = new Date(subscription.billing_cycle_anchor * 1000);
+          const interval = subscription.items.data[0].price.interval;
+          const intervalCount = subscription.items.data[0].price.interval_count;
+
+          const nextRenewal = new Date(anchor);
+          const now = new Date();
+
+          // Keep adding intervals until we get a future date
+          while (nextRenewal <= now) {
+            if (interval === 'month') {
+              nextRenewal.setMonth(nextRenewal.getMonth() + intervalCount);
+            } else if (interval === 'year') {
+              nextRenewal.setFullYear(
+                nextRenewal.getFullYear() + intervalCount,
+              );
+            } else if (interval === 'week') {
+              nextRenewal.setDate(nextRenewal.getDate() + 7 * intervalCount);
+            } else if (interval === 'day') {
+              nextRenewal.setDate(nextRenewal.getDate() + intervalCount);
+            }
+          }
+
+          return nextRenewal;
+        })()
+      : undefined;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // If you call the Server Action directly, it will automatically
-    // reset the form. We don't want that here, because we want to keep the
-    // client-side values in the inputs. So instead, we use an event handler
-    // which calls the action. You must wrap direct calls with startTransition.
-    // When you use the `action` prop it automatically handles that for you.
-    // Another option here is to persist the values to local storage. I might
-    // explore alternative options.
     startTransition(() => {
       formAction(new FormData(event.currentTarget));
     });
@@ -122,14 +145,14 @@ export default function GeneralPage({
           <div className='space-y-4'>
             <div className='flex flex-col items-start justify-between sm:flex-row sm:items-center'>
               <div className='mb-4 sm:mb-0'>
-                {(teamData.subscriptionStatus === 'active' ||
-                  teamData.subscriptionStatus === 'trialing') && (
+                {(initialUser.subscriptionStatus === 'active' ||
+                  initialUser.subscriptionStatus === 'trialing') && (
                   <>
                     <p className='font-medium'>
-                      Current Plan: {teamData.planName}
+                      Current Plan: {initialUser.planName}
                     </p>
                     <p className='font-medium'>
-                      Available Credits: {teamCredits}/{creditAllowance}
+                      Available Credits: {userCredits}/{creditAllowance}
                     </p>
 
                     {renewDate && (
@@ -140,15 +163,19 @@ export default function GeneralPage({
                   </>
                 )}
                 <p className='text-muted-foreground text-sm'>
-                  {teamData.subscriptionStatus === 'active'
+                  {initialUser.subscriptionStatus === 'active'
                     ? 'Billed monthly'
-                    : teamData.subscriptionStatus === 'trialing'
+                    : initialUser.subscriptionStatus === 'trialing'
                       ? 'Trial period'
                       : 'No active subscription'}
                 </p>
               </div>
-              <form action={customerPortalAction}>
-                <Button type='submit' variant='outline'>
+              <form action={portalAction}>
+                <Button
+                  type='submit'
+                  variant='outline'
+                  disabled={isPortalPending}
+                >
                   Manage Subscription
                 </Button>
               </form>

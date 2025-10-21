@@ -1,39 +1,39 @@
 import Stripe from 'stripe';
 import { redirect } from 'next/navigation';
-import { Team } from '@/lib/db/schema';
+import { User } from '@/lib/db/schema';
 import {
-  getTeamByStripeCustomerId,
+  getUserByStripeCustomerId,
   getUser,
-  updateTeamSubscription,
-  setTeamCreditsByStripeCustomerId,
+  updateUserSubscription,
+  setUserCreditsByStripeCustomerId,
 } from '@/lib/db/queries';
 import content from '@/content.json';
 
 export const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
-  apiVersion: '2025-02-24.acacia',
+  apiVersion: '2025-09-30.clover',
 });
 
 export async function createCheckoutSession({
-  team,
+  user,
   priceId,
   usageType,
   trialPeriodDays,
 }: {
-  team: Team | null;
+  user: User | null;
   priceId: string;
   usageType?: string;
   trialPeriodDays?: number;
 }) {
-  const user = await getUser();
+  const currentUser = await getUser();
 
-  if (!team || !user) {
+  if (!user || !currentUser) {
     redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
   }
-  if (team.stripeCustomerId) {
+  if (user.stripeCustomerId) {
     const subscriptions = await stripe.subscriptions.list({
-      customer: team.stripeCustomerId || undefined,
+      customer: user.stripeCustomerId || undefined,
       status: 'all',
-      limit: 1, // We only need to check if at least one active subscription exists
+      limit: 1,
     });
 
     const relevantSubscription = subscriptions.data.find((sub) =>
@@ -41,7 +41,7 @@ export async function createCheckoutSession({
     );
 
     if (relevantSubscription) {
-      const portalSession = await createCustomerPortalSession(team);
+      const portalSession = await createCustomerPortalSession(user);
       redirect(portalSession.url);
     }
   }
@@ -57,8 +57,8 @@ export async function createCheckoutSession({
     mode: 'subscription',
     success_url: `${process.env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.BASE_URL}/pricing`,
-    customer: team.stripeCustomerId || undefined,
-    client_reference_id: user.id.toString(),
+    customer: user.stripeCustomerId || undefined,
+    client_reference_id: currentUser.id.toString(),
     allow_promotion_codes: true,
     ...(trialPeriodDays
       ? {
@@ -72,8 +72,8 @@ export async function createCheckoutSession({
   redirect(session.url!);
 }
 
-export async function createCustomerPortalSession(team: Team) {
-  if (!team.stripeCustomerId || !team.stripeProductId) {
+export async function createCustomerPortalSession(user: User) {
+  if (!user.stripeCustomerId || !user.stripeProductId) {
     redirect('/pricing');
   }
 
@@ -83,9 +83,9 @@ export async function createCustomerPortalSession(team: Team) {
   if (configurations.data.length > 0) {
     configuration = configurations.data[0];
   } else {
-    const product = await stripe.products.retrieve(team.stripeProductId);
+    const product = await stripe.products.retrieve(user.stripeProductId);
     if (!product.active) {
-      throw new Error("Team's product is not active in Stripe");
+      throw new Error("User's product is not active in Stripe");
     }
 
     const prices = await stripe.prices.list({
@@ -93,7 +93,7 @@ export async function createCustomerPortalSession(team: Team) {
       active: true,
     });
     if (prices.data.length === 0) {
-      throw new Error("No active prices found for the team's product");
+      throw new Error("No active prices found for the user's product");
     }
 
     configuration = await stripe.billingPortal.configurations.create({
@@ -101,6 +101,9 @@ export async function createCustomerPortalSession(team: Team) {
         headline: 'Manage your subscription',
       },
       features: {
+        payment_method_update: {
+          enabled: true,
+        },
         subscription_update: {
           enabled: true,
           default_allowed_updates: ['price', 'quantity', 'promotion_code'],
@@ -131,7 +134,7 @@ export async function createCustomerPortalSession(team: Team) {
   }
 
   return stripe.billingPortal.sessions.create({
-    customer: team.stripeCustomerId,
+    customer: user.stripeCustomerId,
     return_url: `${process.env.BASE_URL}/dashboard`,
     configuration: configuration.id,
   });
@@ -140,8 +143,7 @@ export async function createCustomerPortalSession(team: Team) {
 export interface SerializedSubscription {
   id: string;
   status: string;
-  current_period_end: number;
-  current_period_start: number;
+  billing_cycle_anchor: number;
   cancel_at_period_end: boolean;
   canceled_at: number | null;
   items: {
@@ -164,8 +166,7 @@ function serializeSubscription(
   return {
     id: subscription.id,
     status: subscription.status,
-    current_period_end: subscription.current_period_end,
-    current_period_start: subscription.current_period_start,
+    billing_cycle_anchor: subscription.billing_cycle_anchor,
     cancel_at_period_end: subscription.cancel_at_period_end,
     canceled_at: subscription.canceled_at,
     items: {
@@ -200,29 +201,28 @@ export async function handleSubscriptionChange(
   const subscriptionId = subscription.id;
   const status = subscription.status;
   console.log('status', status);
-  const team = await getTeamByStripeCustomerId(customerId);
+  const user = await getUserByStripeCustomerId(customerId);
 
-  if (!team) {
-    console.error('Team not found for Stripe customer:', customerId);
+  if (!user) {
+    console.error('User not found for Stripe customer:', customerId);
     return;
   }
 
   if (status === 'active' || status === 'trialing') {
     const plan = subscription.items.data[0]?.plan;
-    await updateTeamSubscription(team.id, {
+    await updateUserSubscription(user.id, {
       stripeSubscriptionId: subscriptionId,
       stripeProductId: plan?.product as string,
       planName: (plan?.product as Stripe.Product).name,
       subscriptionStatus: status,
     });
   } else if (status === 'canceled' || status === 'unpaid') {
-    await updateTeamSubscription(team.id, {
+    await updateUserSubscription(user.id, {
       stripeSubscriptionId: null,
       stripeProductId: null,
       planName: null,
       subscriptionStatus: status,
       credits: null,
-      subscriptionCreatedAt: null,
     });
   }
 }
@@ -237,11 +237,9 @@ export async function getStripePrices() {
     return [];
   }
 
-  // Then get prices for those specific products
   const productIds = products.data.map((p) => p.id);
   const allPrices: Stripe.Price[] = [];
 
-  // Get prices for each product
   for (const productId of productIds) {
     const prices = await stripe.prices.list({
       product: productId,
@@ -288,23 +286,17 @@ export async function getStripeProducts() {
   }));
 }
 
-export async function resetTeamCredits(
+export async function resetUserCredits(
   stripeCustomerId: string,
 ): Promise<void> {
   try {
-    // Assuming setTeamCreditsByStripeCustomerId is now available in '@/lib/db/queries'
-    const { setTeamCreditsByStripeCustomerId } = await import(
-      '@/lib/db/queries'
-    );
-    await setTeamCreditsByStripeCustomerId(stripeCustomerId, 0);
+    await setUserCreditsByStripeCustomerId(stripeCustomerId, 0);
     console.log(`Credits reset to 0 for Stripe customer ${stripeCustomerId}`);
   } catch (error) {
     console.error(
       `Error resetting credits for Stripe customer ${stripeCustomerId}:`,
       error,
     );
-    // Depending on error handling strategy, you might want to throw the error
-    // or handle it (e.g., by notifying an admin or setting up a retry)
   }
 }
 
@@ -320,18 +312,17 @@ export async function checkAvailableCredits(
   }
 
   try {
-    const team = await getTeamByStripeCustomerId(stripeCustomerId);
-    if (!team) {
+    const user = await getUserByStripeCustomerId(stripeCustomerId);
+    if (!user) {
       return {
         success: false,
-        message: `Team not found for Stripe customer ID: ${stripeCustomerId}`,
+        message: `User not found for Stripe customer ID: ${stripeCustomerId}`,
       };
     }
 
-    // Fetch active subscription to get product ID
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeCustomerId,
-      status: 'active', // Consider if 'trialing' should also be included
+      status: 'active',
       limit: 1,
     });
 
@@ -351,7 +342,6 @@ export async function checkAvailableCredits(
       };
     }
 
-    // Fetch product details to get credit allowance from metadata
     const product = await stripe.products.retrieve(productId);
     const creditAllowanceStr = product.metadata?.credits_allowance;
 
@@ -370,7 +360,7 @@ export async function checkAvailableCredits(
       };
     }
 
-    const currentCredits = team.credits || 0; // Treat null/undefined credits as 0
+    const currentCredits = user.credits || 0;
     const potentialNewTotalCredits = currentCredits + creditsToAdd;
     if (potentialNewTotalCredits > creditAllowance) {
       return {
@@ -398,7 +388,7 @@ export async function checkAvailableCredits(
   }
 }
 
-export async function addCreditsToTeam(
+export async function addCreditsToUser(
   stripeCustomerId: string,
   creditsToAdd: number,
 ): Promise<{ success: boolean; newBalance?: number; message: string }> {
@@ -410,18 +400,17 @@ export async function addCreditsToTeam(
   }
 
   try {
-    const team = await getTeamByStripeCustomerId(stripeCustomerId);
-    if (!team) {
+    const user = await getUserByStripeCustomerId(stripeCustomerId);
+    if (!user) {
       return {
         success: false,
-        message: `Team not found for Stripe customer ID: ${stripeCustomerId}`,
+        message: `User not found for Stripe customer ID: ${stripeCustomerId}`,
       };
     }
 
-    // Fetch active subscription to get product ID
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeCustomerId,
-      status: 'active', // Consider if 'trialing' should also be included
+      status: 'active',
       limit: 1,
     });
 
@@ -441,7 +430,6 @@ export async function addCreditsToTeam(
       };
     }
 
-    // Fetch product details to get credit allowance from metadata
     const product = await stripe.products.retrieve(productId);
     const creditAllowanceStr = product.metadata?.credits_allowance;
 
@@ -460,7 +448,7 @@ export async function addCreditsToTeam(
       };
     }
 
-    const currentCredits = team.credits || 0; // Treat null/undefined credits as 0
+    const currentCredits = user.credits || 0;
     const potentialNewTotalCredits = currentCredits + creditsToAdd;
 
     if (potentialNewTotalCredits > creditAllowance) {
@@ -470,8 +458,7 @@ export async function addCreditsToTeam(
       };
     }
 
-    // If all checks pass, update the credits
-    await setTeamCreditsByStripeCustomerId(
+    await setUserCreditsByStripeCustomerId(
       stripeCustomerId,
       potentialNewTotalCredits,
     );
@@ -495,7 +482,7 @@ export async function addCreditsToTeam(
   }
 }
 
-export async function deductCreditsFromTeam(
+export async function deductCreditsFromUser(
   stripeCustomerId: string,
   creditsToDeduct: number,
 ): Promise<{ success: boolean; newBalance?: number; message: string }> {
@@ -507,18 +494,15 @@ export async function deductCreditsFromTeam(
   }
 
   try {
-    const { getTeamByStripeCustomerId, setTeamCreditsByStripeCustomerId } =
-      await import('@/lib/db/queries'); // Using dynamic import as per existing pattern
-
-    const team = await getTeamByStripeCustomerId(stripeCustomerId);
-    if (!team) {
+    const user = await getUserByStripeCustomerId(stripeCustomerId);
+    if (!user) {
       return {
         success: false,
-        message: `Team not found for Stripe customer ID: ${stripeCustomerId}`,
+        message: `User not found for Stripe customer ID: ${stripeCustomerId}`,
       };
     }
 
-    const currentCredits = team.credits || 0; // Treat null/undefined credits as 0
+    const currentCredits = user.credits || 0;
 
     if (currentCredits < creditsToDeduct) {
       return {
@@ -528,7 +512,7 @@ export async function deductCreditsFromTeam(
     }
 
     const newBalance = currentCredits - creditsToDeduct;
-    await setTeamCreditsByStripeCustomerId(stripeCustomerId, newBalance);
+    await setUserCreditsByStripeCustomerId(stripeCustomerId, newBalance);
 
     return {
       success: true,
@@ -558,18 +542,14 @@ export async function updateSubscriptionAndResetCredits(
       `Updating subscription details and resetting credits for customer ${stripeCustomerId}`,
     );
 
-    // 1. Get the updated subscription details from Stripe
     const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
       expand: ['items.data.price.product'],
     });
 
-    // 2. Update subscription details (reuse existing function)
     await handleSubscriptionChange(subscription);
 
-    // 3. Get the product to determine the new credits allowance
     const plan = subscription.items.data[0]?.price;
     if (plan) {
-      // Check if product is already expanded (object) or just ID (string)
       const product =
         typeof plan.product === 'string'
           ? await stripe.products.retrieve(plan.product)
@@ -584,8 +564,7 @@ export async function updateSubscriptionAndResetCredits(
         `Setting credits for subscription renewal: ${creditsAllowance} credits for product ${product.id}`,
       );
 
-      // 4. Set credits to the plan allowance (reuse existing function)
-      await setTeamCreditsByStripeCustomerId(
+      await setUserCreditsByStripeCustomerId(
         stripeCustomerId,
         creditsAllowance,
       );
@@ -593,7 +572,7 @@ export async function updateSubscriptionAndResetCredits(
       console.warn(
         `No plan found for subscription ${subscriptionId}, setting credits to 0`,
       );
-      await setTeamCreditsByStripeCustomerId(stripeCustomerId, 0);
+      await setUserCreditsByStripeCustomerId(stripeCustomerId, 0);
     }
 
     console.log(
