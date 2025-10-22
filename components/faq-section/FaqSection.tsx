@@ -19,54 +19,43 @@ export type FaqSectionProps = {
 
 const FaqSection: React.FC<FaqSectionProps> = ({ faqs, title, subtitle }) => {
   return (
-    <section className='bg-muted px-4 py-16' id='faqs'>
+    <section className='px-4 py-16' id='faqs'>
       <div className='mx-auto max-w-3xl'>
         <div className='mb-12 text-center'>
-          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium md:text-lg'>
+          <span className='bg-primary/10 text-primary border-primary/20 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium'>
             FAQs
           </span>
           <h2 className='mt-4 mb-6 text-3xl font-bold md:text-4xl'>{title}</h2>
           <p className='text-muted-foreground'>{subtitle}</p>
         </div>
 
-        <Accordion type='single' collapsible className='w-full'>
+        <Accordion
+          type='single'
+          collapsible
+          defaultValue='item-0'
+          className='mb-16'
+        >
           {faqs?.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className='text-foreground text-left text-lg font-medium md:text-2xl'>
-                {faq.question}
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className='border-border/60 mb-4 rounded-4xl border-2 px-6 last:border-b'
+            >
+              <AccordionTrigger className='py-6 hover:no-underline'>
+                <div className='flex items-center gap-4 text-left'>
+                  <div>
+                    <h3 className='text-lg font-bold'>{faq.question}</h3>
+                  </div>
+                </div>
               </AccordionTrigger>
-              <AccordionContent className='text-muted-foreground text-sm md:text-lg'>
-                {faq.answer}
+              <AccordionContent className='pb-6'>
+                <div>
+                  <p className='text-muted-foreground'>{faq.answer}</p>
+                </div>
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
-        {/* Hide the support link for now */}
-        {/* <div className='mt-12 text-center'>
-          <p className='text-muted-foreground mb-4'>
-            Still have questions? We&apos;re here to help.
-          </p>
-          <a
-            href='#contact'
-            className='text-primary hover:text-primary/80 inline-flex items-center font-medium'
-          >
-            Contact our support team
-            <svg
-              className='ml-2 h-4 w-4'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M14 5l7 7m0 0l-7 7m7-7H3'
-              />
-            </svg>
-          </a>
-        </div> */}
       </div>
     </section>
   );

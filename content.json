@@ -18,15 +18,15 @@
   "hero": {
     "href": "https://currentsage.ai",
     "ctaText": "Generate Your First Post Free",
-    "heroText": "AI Blog Content That Ranks & Resonates, Powered by Real-Time Data.",
+    "heroText": "AI Blog Content That Ranks & Resonates",
     "heroDescriptionHeading": "Your Expert AI Content Partner",
-    "heroDescription": "CurrentSage AI empowers digital marketing agencies and e-commerce businesses to create high-quality, SEO-optimised blog posts by integrating real-time trends, consumer behavior, and local events. Streamline your workflow and accelerate organic growth.",
+    "heroDescription": "CurrentSage AI empowers digital marketing agencies and e-commerce businesses to create high-quality, SEO-optimised blog posts by integrating real-time trends, consumer behavior, and local events",
     "llmInstructions": "This is the hero section for the website."
   },
   "benefits": {
     "badge": "Unlock Your Content Potential",
-    "title": "Go Beyond Basic AI: Content That's Smart, Timely, and Optimized",
-    "description": "CurrentSage AI isn't just another AI writer. We're built to give you a competitive edge with content that leverages dynamic market insights and predictive SEO.",
+    "title": "Content That's Smart, Timely, and Optimized",
+    "description": "CurrentSage AI isn't just another AI writer.",
     "cards": [
       {
         "icon": "Clock",

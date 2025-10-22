@@ -1,5 +1,6 @@
 import React from 'react';
-import { Clock, TrendingUp, Rocket, LucideIcon } from 'lucide-react';
+import { Clock, TrendingUp, Rocket, LucideIcon, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Define a type for the benefit card
 type BenefitCard = {
@@ -46,124 +47,64 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
   };
 
   return (
-    <section className='bg-background px-4 py-16' id='features'>
+    <section className='px-4 py-16' id='features'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-16 text-center'>
-          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium md:text-lg'>
+          <span className='bg-primary/10 text-primary border-primary/20 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium'>
             {badge}
           </span>
           <h2
-            className='text-foreground mt-4 mb-6 text-3xl font-bold md:text-4xl'
+            className='text-foreground mx-auto mt-4 mb-6 text-3xl font-bold md:text-4xl lg:max-w-4xl'
             dangerouslySetInnerHTML={{ __html: title }}
           ></h2>
-          <p className='mx-auto max-w-2xl text-lg'>{description}</p>
+          <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
+            {description}
+          </p>
         </div>
 
-        <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
+        <div className='mb-16 grid grid-cols-1 gap-6 lg:mx-auto lg:max-w-6xl lg:grid-cols-2'>
           {cards.map((card, index) => {
             const IconComponent = getIcon(card.icon);
             return (
               <div
                 key={index}
-                className='hover:border-primary/50 border-border bg-card rounded-lg border p-6 shadow-lg transition duration-300'
+                className={cn(
+                  'bg-card border-border/30 h-full rounded-2xl border p-8 shadow-md transition-colors',
+                  index >= 2 && 'lg:col-span-2',
+                )}
               >
-                <div className='bg-primary/20 mb-6 flex h-14 w-14 items-center justify-center rounded-full'>
-                  <IconComponent className='text-primary h-6 w-6' />
-                </div>
-                <h3 className='text-foreground mb-3 text-xl font-semibold'>
-                  {card.title}
-                </h3>
-                <p className='text-foreground mb-4'>{card.description}</p>
-                <ul className='space-y-2'>
-                  {card.benefits.map((benefit, benefitIndex) => (
-                    <li
-                      key={benefitIndex}
-                      className='text-foreground flex items-center text-sm'
+                <div className='flex h-full items-start gap-6'>
+                  <div className='bg-primary/10 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl'>
+                    <IconComponent className='text-primary h-7 w-7' />
+                  </div>
+                  <div className='flex h-full flex-col'>
+                    <div className='mb-3 flex items-center gap-3'>
+                      <h3 className='text-2xl font-bold'>{card.title}</h3>
+                    </div>
+                    <p className='text-muted-foreground text-md mb-6 font-light'>
+                      {card.description}
+                    </p>
+                    <div
+                      className={cn(
+                        'mt-auto grid gap-4 self-end sm:grid-cols-3',
+                        index > 1 && 'self-start',
+                      )}
                     >
-                      <svg
-                        className='mr-2 h-4 w-4 text-green-500'
-                        fill='none'
-                        stroke='currentColor'
-                        viewBox='0 0 24 24'
-                        xmlns='http://www.w3.org/2000/svg'
-                      >
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth={2}
-                          d='M5 13l4 4L19 7'
-                        />
-                      </svg>
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
+                      {card.benefits.map((benefit, idx) => (
+                        <div
+                          key={idx}
+                          className='bg-muted/60 flex items-start gap-2 rounded-lg p-3'
+                        >
+                          <Check className='text-primary mt-0.5 h-4 w-4 shrink-0' />
+                          <span className='text-xs font-light'>{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}
-        </div>
-
-        <div className='bg-card hover:border-primary/50 border-border mt-16 rounded-lg border p-8'>
-          <div className='grid grid-cols-1 items-center gap-8 md:grid-cols-3'>
-            <div className='col-span-2'>
-              <h3 className='text-foreground mb-3 text-2xl font-semibold'>
-                {bottomSection.title}
-              </h3>
-              <p className='text-foreground'>{bottomSection.description}</p>
-            </div>
-            <div className='flex justify-center md:justify-end'>
-              <div className='flex items-center gap-2 md:gap-4'>
-                <div className='bg-card flex h-16 w-16 items-center justify-center rounded-lg shadow-md md:h-20 md:w-20'>
-                  <svg
-                    className='text-primary h-8 w-8 md:h-10 md:w-10'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'
-                    />
-                  </svg>
-                </div>
-                <div className='bg-card flex h-16 w-16 items-center justify-center rounded-lg shadow-md md:h-20 md:w-20'>
-                  <svg
-                    className='text-primary h-8 w-8 md:h-10 md:w-10'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'
-                    />
-                  </svg>
-                </div>
-                <div className='bg-card flex h-16 w-16 items-center justify-center rounded-lg shadow-md md:h-20 md:w-20'>
-                  <svg
-                    className='text-primary h-8 w-8 md:h-10 md:w-10'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

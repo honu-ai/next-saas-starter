@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ContactDialog } from '@/components/contact-form';
+import { cn } from '@/lib/utils';
 
 // Add interface to extend Window interface with dataLayer
 declare global {
@@ -42,16 +43,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           className='absolute inset-0 h-full w-full'
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(99, 102, 241, 0.08) 1px, transparent 1px), 
-              linear-gradient(to bottom, rgba(99, 102, 241, 0.08) 1px, transparent 1px)
+              linear-gradient(to right, rgba(99, 102, 241, 0.09) 1px, transparent 1px), 
+              linear-gradient(to bottom, rgba(99, 102, 241, 0.09) 1px, transparent 1px)
             `,
             backgroundSize: '80px 80px',
           }}
         ></div>
 
         {/* Accent sections */}
-        <div className='absolute top-0 left-0 h-full w-1/6 bg-blue-50/30 dark:bg-blue-900/5'></div>
-        <div className='absolute right-0 bottom-0 h-full w-1/6 bg-blue-50/30 dark:bg-blue-900/5'></div>
+
+        <div
+          className={cn(
+            'absolute top-0 left-0 h-full w-full',
+            'bg-radial from-transparent from-30% to-white',
+          )}
+        />
+
+        {/* <div className='absolute right-0 bottom-0 h-full w-1/6 bg-blue-50/30 dark:bg-blue-900/5'></div> */}
       </div>
 
       {/* Content */}
@@ -60,7 +68,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <p className='text-primary bg-primary/10 border-primary/15 m-auto mb-4 w-fit rounded-full border px-3 py-1.5 text-xs font-bold tracking-wide sm:px-4 sm:py-2 sm:text-sm'>
             {heroDescriptionHeading.toUpperCase()}
           </p>
-          <h1 className='text-bg dark:text-foreground mx-auto mb-6 max-w-4xl text-3xl leading-tight font-bold sm:mb-8 md:text-5xl lg:text-6xl xl:text-7xl'>
+          <h1 className='text-bg dark:text-foreground mx-auto mb-6 text-3xl leading-tight font-bold sm:mb-8 md:max-w-lg md:text-5xl lg:max-w-2xl lg:text-6xl xl:max-w-3xl xl:text-7xl'>
             {heroText}
           </h1>
           <p className='text-muted-foreground mx-auto mb-8 max-w-3xl text-base sm:mb-12 sm:text-lg md:text-xl'>
@@ -70,7 +78,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <div className='flex flex-col justify-center gap-4 sm:flex-row sm:gap-6'>
             <ContactDialog
               triggerText={ctaText}
-              className='border-primary/30 w-full sm:w-auto'
+              className='border-primary/30 md:text-md text-md w-auto px-12 py-8 md:px-14 md:py-8'
               product={product}
             />
 

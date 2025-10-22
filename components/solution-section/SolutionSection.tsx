@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { ContactDialog } from '@/components/contact-form';
+import { cn } from '@/lib/utils';
 
 export type Step = {
   number: number;
@@ -28,43 +28,61 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   product,
 }) => {
   return (
-    <section
-      className='bg-slate-500/20 px-4 py-16 dark:bg-slate-800/20'
-      id='how-it-works'
-    >
-      <div className='mx-auto max-w-7xl'>
+    <section className='px-4 py-16 dark:bg-slate-800/20' id='how-it-works'>
+      <div className='mx-auto max-w-6xl'>
+        {/* Header */}
         <div className='mb-16 text-center'>
-          <span className='bg-primary/10 text-primary rounded-full px-4 py-1 text-sm font-medium md:text-lg'>
+          <span className='bg-primary/10 text-primary border-primary/20 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium'>
             {badge}
           </span>
           <h2
-            className='text-primary-background mt-4 mb-6 text-3xl font-bold md:text-4xl'
+            className='mt-6 mb-4 text-3xl font-bold md:text-5xl'
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          <p className='mx-auto max-w-2xl text-lg'>{subtitle}</p>
+          <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
+            {subtitle}
+          </p>
         </div>
 
-        <div className='mb-16 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:grid-rows-2'>
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              className='bg-card relative flex h-full flex-col rounded-lg p-6 shadow-lg'
-            >
-              <div className='bg-primary text-primary-foreground absolute -top-3 -left-3 rounded px-3 py-1 text-sm font-medium'>
-                {step.number}
-              </div>
-              <h3 className='text-primary-background mb-3 text-xl font-semibold'>
-                {step.title}
-              </h3>
-              <p className='text-muted-foreground'>{step.description}</p>
-            </div>
-          ))}
+        {/* Steps Grid with Dividers */}
+        <div className='relative mb-16'>
+          {/* Vertical center divider */}
+          <div className='bg-border/70 border-border/50 absolute top-1/2 left-1/2 z-10 ml-[-0.05rem] hidden h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 lg:block' />
+
+          {/* Grid */}
+          <div className='grid grid-cols-1 lg:grid-cols-2'>
+            {steps.map((step, index) => {
+              return (
+                <div
+                  key={step.number}
+                  className={cn(
+                    'border-border/70 relative border-dotted p-8',
+                    'not-last:border-b-2',
+                    'lg:odd:border-r-2',
+                    'lg:nth-last-[-n+2]:border-b-0',
+                  )}
+                >
+                  {/* Step Number Badge */}
+                  <div className='bg-primary/10 text-primary mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold'>
+                    {step.number}
+                  </div>
+
+                  {/* Content */}
+                  <div>
+                    <h3 className='mb-2 text-xl font-bold'>{step.title}</h3>
+                    <p className='text-muted-foreground'>{step.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
+        {/* CTA */}
         <div className='text-center'>
           <ContactDialog
             triggerText={cta}
-            className='border-primary/30 w-full rounded-md px-6 py-6 text-lg sm:w-auto'
+            className='border-primary/30 w-full rounded-full px-8 py-6 text-lg shadow-lg transition-all duration-300 hover:shadow-xl sm:w-auto'
             product={product}
           />
         </div>

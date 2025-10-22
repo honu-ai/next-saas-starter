@@ -25,7 +25,7 @@ const Footer: React.FC<FooterProps> = ({ companyName, description }) => {
   ];
 
   return (
-    <footer className='border-muted bg-background border-t px-4 py-12'>
+    <footer className='px-4 py-12'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5'>
           <div className='lg:col-span-2'>

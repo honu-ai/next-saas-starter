@@ -23,40 +23,32 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   product,
 }) => {
   return (
-    <section className='relative overflow-hidden bg-slate-950 px-4 py-20'>
-      {/* Abstract shapes */}
-      <div className='pointer-events-none absolute top-0 left-0 h-full w-full overflow-hidden'>
-        <div className='bg-primary/10 absolute top-10 left-10 h-32 w-32 rounded-full blur-xl'></div>
-        <div className='bg-primary-300/10 absolute right-20 bottom-20 h-40 w-40 rounded-full blur-xl'></div>
-        <div className='bg-primary/5 absolute top-1/2 left-1/4 h-24 w-24 rounded-full blur-lg'></div>
-      </div>
+    <section className='overflow-hidden px-4 md:mb-14 lg:px-0'>
+      <div className='relative mx-auto max-w-7xl rounded-4xl bg-slate-950 px-4 py-20'>
+        {/* Abstract shapes */}
+        <div className='pointer-events-none absolute top-0 left-0 h-full w-full overflow-hidden'>
+          <div className='absolute top-10 left-10 h-32 w-32 rounded-full bg-blue-400/5 blur-xl'></div>
+          <div className='absolute right-20 bottom-20 h-40 w-40 rounded-full bg-blue-200/5 blur-xl'></div>
+          <div className='absolute top-1/2 left-1/4 h-24 w-24 rounded-full bg-blue-50/5 blur-lg'></div>
+        </div>
 
-      <div className='relative z-10 mx-auto max-w-4xl'>
-        <div className='text-center'>
-          <h2
-            className='font-poppins mb-6 text-3xl font-bold text-white md:text-5xl'
-            dangerouslySetInnerHTML={{ __html: title }}
-          ></h2>
-          <p className='mx-auto mb-10 max-w-2xl text-lg text-gray-300'>
-            {description}
-          </p>
+        <div className='relative z-10 mx-auto max-w-4xl'>
+          <div className='text-center'>
+            <h2
+              className='font-poppins mb-6 text-3xl font-bold text-white md:text-5xl'
+              dangerouslySetInnerHTML={{ __html: title }}
+            ></h2>
+            <p className='mx-auto mb-10 max-w-2xl text-lg text-gray-300'>
+              {description}
+            </p>
 
-          <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
-            <ContactDialog
-              triggerText={primaryButtonText}
-              className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md border-none px-6 py-6 text-lg sm:w-auto'
-              product={product}
-            />
-            {/* <Button className='bg-primary hover:bg-primary-600 flex w-full items-center gap-2 rounded-md px-6 py-6 text-lg text-white sm:w-auto'>
-              {primaryButtonText}
-              <ArrowRight className='h-5 w-5' />
-            </Button> */}
-            {/* <Button
-              variant='outline'
-              className='w-full rounded-md px-6 py-6 text-lg sm:w-auto'
-            >
-              {secondaryButtonText}
-            </Button> */}
+            <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
+              <ContactDialog
+                triggerText={primaryButtonText}
+                className='bg-primary hover:bg-primary-600 text-md flex w-auto items-center gap-2 rounded-4xl border-none px-14 py-8 sm:w-auto lg:px-14 lg:py-8'
+                product={product}
+              />
+            </div>
           </div>
         </div>
       </div>

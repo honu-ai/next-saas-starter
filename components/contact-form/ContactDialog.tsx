@@ -77,7 +77,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrors((prev) => ({ ...prev, [name]: error.errors[0].message }));
+        setErrors((prev) => ({ ...prev, [name]: error.issues[0].message }));
         return false;
       }
       return true;
@@ -132,7 +132,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Partial<Record<keyof ContactFormData, string>> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           if (err.path[0]) {
             newErrors[err.path[0] as keyof ContactFormData] = err.message;
           }
@@ -148,7 +148,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
         variant={variant}
         size='lg'
         className={cn(
-          `rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:px-8 sm:py-6 sm:text-base`,
+          `rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl`,
           className,
         )}
         asChild
@@ -156,7 +156,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
         <Link href='/pricing'>
           {triggerText}{' '}
           {showIcon && (
-            <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4 sm:h-5 sm:w-5' />
+            <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4' />
           )}
         </Link>
       </Button>
@@ -170,7 +170,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
           variant={variant}
           size='lg'
           className={cn(
-            `rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl sm:px-8 sm:py-6 sm:text-base`,
+            `rounded-full border-2 px-6 py-5 text-sm font-medium shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:scale-[1.02] hover:shadow-xl`,
             className,
           )}
           onClick={() => {
@@ -185,7 +185,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({
         >
           {triggerText}
           {showIcon && (
-            <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4 sm:h-5 sm:w-5' />
+            <ArrowRight className='animate-pulse-gentle ml-2 h-4 w-4' />
           )}
         </Button>
       </DialogTrigger>
