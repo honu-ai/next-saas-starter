@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 import {
   handleSubscriptionChange,
   stripe,
-  resetTeamCredits,
+  resetUserCredits,
   updateSubscriptionAndResetCredits,
 } from '@/lib/payments/stripe';
 import { NextRequest, NextResponse } from 'next/server';
@@ -72,14 +72,15 @@ export async function POST(request: NextRequest) {
     case 'invoice.paid': {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
-      const subscriptionId = invoice.subscription as string;
+      const subscriptionId = invoice?.parent?.subscription_details
+        ?.subscription as string;
 
       if (customerId) {
         console.log(
           `Invoice paid for customer ${customerId}. Resetting credits.`,
         );
         // Placeholder for resetting user credits
-        await resetTeamCredits(customerId);
+        await resetUserCredits(customerId);
 
         try {
           await updateSubscriptionAndResetCredits(customerId, subscriptionId);

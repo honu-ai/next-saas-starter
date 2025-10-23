@@ -39,7 +39,7 @@ const ProblemSection: React.FC<ProblemSectionProps> = ({
             return (
               <div
                 key={index}
-                className='hover:border-primary/50 border-border/10 bg-muted-foreground/5 rounded-lg border p-6 backdrop-blur-sm transition duration-300'
+                className='border-border/10 bg-muted-foreground/5 rounded-lg border p-6 backdrop-blur-sm transition duration-300'
               >
                 <div className='bg-primary/20 mb-4 flex h-12 w-12 items-center justify-center rounded-lg'>
                   <Icon className='text-primary h-6 w-6' />

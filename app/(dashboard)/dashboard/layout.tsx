@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ErrorReportingWidget from '@/components/error-reporting-widget';
 import { AutoErrorCapture } from '@/components/auto-error-capture';
+import DashboardNav from '@/components/dashboard-nav';
+import UserAvatarMenu from '@/components/user-avatar-menu';
+import { signOut } from '@/app/(login)/actions';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -55,6 +58,9 @@ export default async function DashboardLayout({
 
   return (
     <div className='flex min-h-screen flex-col'>
+      <DashboardNav>
+        <UserAvatarMenu user={user} handleSignOut={signOut} />
+      </DashboardNav>
       <main className='flex-1'>
         <div className='container py-6'>{children}</div>
       </main>

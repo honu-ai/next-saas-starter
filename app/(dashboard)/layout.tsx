@@ -1,16 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { use, useState } from 'react';
+import { use } from 'react';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/lib/auth';
 import { signOut } from '@/app/(login)/actions';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/nav-bar';
-import UserAvatarMenu from '@/components/user-avatar-menu';
-import ErrorReportingWidget from '@/components/error-reporting-widget';
-import { AutoErrorCapture } from '@/components/auto-error-capture';
 import content from '@/content.json';
+import { ArrowRight } from 'lucide-react';
 
 function Header() {
   const { userPromise } = useUser();
@@ -38,7 +36,17 @@ function Header() {
         >
           {content.metadata.product ? (
             user ? (
-              <UserAvatarMenu user={user} handleSignOut={handleSignOut} />
+              <div className='flex flex-col items-center md:flex-row'>
+                <Button
+                  asChild
+                  className='group bg-primary text-primary-foreground relative overflow-hidden rounded-full px-6 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg'
+                >
+                  <Link href='/dashboard'>
+                    Dashboard
+                    <ArrowRight className='h-4 w-4 transition-transform duration-300 group-hover:translate-x-1' />
+                  </Link>
+                </Button>
+              </div>
             ) : (
               <div className='flex items-center space-x-3'>
                 <Button
