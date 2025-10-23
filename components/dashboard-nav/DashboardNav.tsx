@@ -1,9 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ThemeToggle from '@/components/theme-toggle';
-import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import Logo from '@/components/logo';
 
@@ -40,33 +37,7 @@ const DashboardNav: React.FC<DashboardNavProps> = ({ children }) => {
         <Logo />
 
         {/* Desktop Navigation */}
-        <nav className='hidden items-center space-x-1 md:flex'>{children}</nav>
-        <div className='flex items-center md:hidden'>
-          <div className='hidden md:block'>{children}</div>
-          <Button
-            variant='ghost'
-            size='icon'
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label='Toggle menu'
-            className='ml-2'
-          >
-            {mobileMenuOpen ? (
-              <X className='h-6 w-6' />
-            ) : (
-              <Menu className='h-6 w-6' />
-            )}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`bg-background fixed inset-0 z-40 transform transition-transform duration-300 ease-in-out md:hidden ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        style={{ top: '60px' }}
-      >
-        <nav className='container mx-auto px-4 py-6'>{children}</nav>
+        <nav className='items-center space-x-1 md:flex'>{children}</nav>
       </div>
     </header>
   );
