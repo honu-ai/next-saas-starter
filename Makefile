@@ -7,6 +7,23 @@ export $(shell sed 's/=.*//' .env)
 db-up:
 	docker compose up -d --build
 
+# Check if database exists and create if it doesn't
+db-ensure:
+	@echo "Checking if database '$(POSTGRES_DB)' exists..."
+	@docker exec saas-starter-postgres psql -U postgres -c "SELECT 1 FROM pg_database WHERE datname='$(POSTGRES_DB)';" | grep -q 1 || \
+	(echo "Database '$(POSTGRES_DB)' does not exist. Creating it..." && \
+	docker exec saas-starter-postgres psql -U postgres -c "CREATE DATABASE $(POSTGRES_DB);" && \
+	echo "Database '$(POSTGRES_DB)' created successfully.")
+
+# Wait for database to be ready
+db-wait:
+	@echo "Waiting for database to be ready..."
+	@until docker exec saas-starter-postgres pg_isready -U postgres; do \
+		echo "Waiting for PostgreSQL..."; \
+		sleep 2; \
+	done
+	@echo "Database is ready!"
+
 db-seed:
 	pnpm install
 	pnpm db:migrate
@@ -41,5 +58,5 @@ db-info:
 	@echo "  Password: postgres"
 
 # start local copy
-run-dev: db-up db-seed
+run-dev: db-up db-wait db-ensure db-seed
 	pnpm dev

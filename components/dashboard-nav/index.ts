@@ -1,1 +1,1 @@
-export { default, type NavbarProps } from './DashboardNav';
+export { default, type DashboardNavProps } from './DashboardNav';

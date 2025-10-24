@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import ProblemSection from './ProblemSection';
+import { icons } from 'lucide-react';
+
 import content from '../../content.json';
 
 const meta: Meta<typeof ProblemSection> = {
@@ -20,7 +22,10 @@ export const Default: Story = {
     subtitle: content.problem.subtitle,
     result: content.problem.result,
     resultSubtitle: content.problem.resultSubtitle,
-    cards: content.problem.cards,
+    cards: content.problem.cards.map((card) => ({
+      ...card,
+      icon: card.icon as keyof typeof icons,
+    })),
   },
 };
 
