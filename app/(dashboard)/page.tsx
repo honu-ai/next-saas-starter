@@ -1,8 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight, CreditCard, Database, icons } from 'lucide-react';
-import { Terminal } from './terminal';
 import HeroSection from '@/components/hero-section';
-import FeatureCard from '@/components/feature-card';
 import content from '../../content.json';
 import ProblemSection from '@/components/problem-section';
 import SolutionSection from '@/components/solution-section';
@@ -10,9 +6,11 @@ import BenefitsSection from '@/components/benefits-section';
 import FaqSection from '@/components/faq-section';
 import CtaSection from '@/components/cta-section';
 import Footer from '@/components/footer';
+import { icons } from 'lucide-react';
+
 export default async function HomePage() {
   return (
-    <main>
+    <main className='light'>
       <section id='hero'>
         <HeroSection
           ctaText={content.hero.ctaText}

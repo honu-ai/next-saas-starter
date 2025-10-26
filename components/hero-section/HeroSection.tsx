@@ -35,7 +35,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   product,
 }) => {
   return (
-    <section className='dark:bg-background relative overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-28'>
+    <section className='dark:bg-background light relative overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-28'>
       {/* Grid background */}
       <div className='absolute inset-0 z-0 h-full w-full'>
         {/* Grid background with higher contrast */}

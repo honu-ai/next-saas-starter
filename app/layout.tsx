@@ -5,7 +5,6 @@ import { UserProvider } from '@/lib/auth';
 import { getUser } from '@/lib/db/queries';
 import Script from 'next/script';
 
-import ThemeProvider from '@/components/theme-provider';
 import PostHogProvider from '@/components/posthog-provider';
 import DynamicFavicon from '@/components/dynamic-favicon';
 import { getBootstrapData } from '@/lib/posthog';
@@ -70,21 +69,14 @@ export default async function RootLayout({
           />
         </noscript>
 
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <PostHogProvider bootstrap={bootstrap}>
-            <UserProvider userPromise={userPromise}>
-              <GlobalErrorBoundary>
-                {children}
-                <Toaster />
-              </GlobalErrorBoundary>
-            </UserProvider>
-          </PostHogProvider>
-        </ThemeProvider>
+        <PostHogProvider bootstrap={bootstrap}>
+          <UserProvider userPromise={userPromise}>
+            <GlobalErrorBoundary>
+              {children}
+              <Toaster />
+            </GlobalErrorBoundary>
+          </UserProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
