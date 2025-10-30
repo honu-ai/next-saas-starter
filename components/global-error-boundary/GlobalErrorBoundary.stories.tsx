@@ -1,10 +1,14 @@
+import { useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { GlobalErrorBoundary } from './GlobalErrorBoundary';
 import { Button } from '@/components/ui/button';
 
 // Component that throws an error for testing
 function ErrorThrowingComponent() {
-  throw new Error('This is a test error thrown from ErrorThrowingComponent');
+  useEffect(() => {
+    throw new Error('This is a test error thrown from ErrorThrowingComponent');
+  }, []);
+  return null;
 }
 
 // Component with a button that throws an error
