@@ -9,9 +9,37 @@ import {
 } from '@/lib/db/queries';
 import content from '@/content.json';
 
-export const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
-  apiVersion: '2025-09-30.clover',
-});
+// Lazy initialization of Stripe to avoid build-time errors when env var is not available
+let stripeInstance: Stripe | null = null;
+
+const getStripe = (): Stripe => {
+  if (!stripeInstance) {
+    const apiKey = process.env.STRIPE_API_KEY;
+    if (!apiKey) {
+      throw new Error(
+        'STRIPE_API_KEY is not set. Please configure it in your environment variables.',
+      );
+    }
+    stripeInstance = new Stripe(apiKey, {
+      apiVersion: '2025-09-30.clover',
+    });
+  }
+  return stripeInstance;
+};
+
+// Export a getter that initializes Stripe only when accessed at runtime
+// This prevents build-time errors when the env var is not available
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    const instance = getStripe();
+    const value = instance[prop as keyof Stripe];
+    // If it's a function, bind it to the instance to preserve 'this' context
+    if (typeof value === 'function') {
+      return value.bind(instance);
+    }
+    return value;
+  },
+}) as Stripe;
 
 export async function createCheckoutSession({
   user,
