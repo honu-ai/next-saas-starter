@@ -12,16 +12,20 @@ import * as mdx from 'eslint-plugin-mdx';
 
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'], ignores: ['node_modules'] },
-  { ignores: ['node_modules', '.next', '.vercel'] },
+  { ignores: ['node_modules', '.next', '.vercel', 'next-env.d.ts'] },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
-  reactHooks.configs['recommended-latest'],
+  // reactHooks.configs['recommended-latest'],
   ...tseslint.configs.recommended,
   { ...mdx.flat },
   prettierConfig,
   {
-    plugins: { prettier: prettierPlugin, '@next/next': nextEslint },
+    plugins: {
+      prettier: prettierPlugin,
+      '@next/next': nextEslint,
+      reactHooks: reactHooks.configs['recommended-latest'],
+    },
     rules: {
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',

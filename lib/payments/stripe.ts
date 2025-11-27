@@ -21,7 +21,7 @@ const getStripe = (): Stripe => {
       );
     }
     stripeInstance = new Stripe(apiKey, {
-      apiVersion: '2025-09-30.clover',
+      apiVersion: '2025-11-17.clover',
     });
   }
   return stripeInstance;

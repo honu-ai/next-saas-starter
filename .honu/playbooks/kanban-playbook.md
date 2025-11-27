@@ -46,8 +46,6 @@ Roles: Agent (executes), User (approves, clarifies, performs final QA sign-off).
 
 Conventions: We refer to Definition of Ready as DoR and Definition of Done as DoD after first mention. List names are written exactly as: "To Do", "In Progress", "Code Review", "QA", "Done", "On Hold".
 
-
-
 Kanban columns:
 
 | Column                  | Purpose                          | When to Use                                |
@@ -61,7 +59,6 @@ Kanban columns:
 | **Done**                | Completed and deployed           | Successfully finished work                 |
 | **On Hold**             | Temporarily paused work          | Blocked or deprioritized tasks             |
 
-
 ---
 
 Workflow:
@@ -73,6 +70,7 @@ To Do → In Progress → Code Review → QA → Done
 ```
 
 Rules:
+
 - WIP limit: 2–3 tasks in In Progress
 - One-task focus; finish before starting new
 - Manual tasks first when they unblock others
@@ -93,8 +91,10 @@ A card may enter the `To Do` list only if ALL are present:
 - Labels: exactly one Sprint label, one Type, one Priority, optional Stack.
 
 Rules:
+
 - Do not move items from `Backlog` to `To Do` unless they meet the above.
 - If information is missing or unclear, ask in chat AND comment on the card tagging its creator/owner.
+
 ### QA Gate (Ready for QA)
 
 Before moving a card to `QA`, the Agent MUST:
@@ -141,6 +141,7 @@ A card may only be moved to `Done` after it has passed QA and ALL are true. The 
 | **Priority Low**    | Nice to have, non-urgent       |
 
 ### Stack Labels
+
 | Label         | Team/Skill Focus           |
 | ------------- | -------------------------- |
 | **Frontend**  | UI/UX, client-side code    |
@@ -155,11 +156,13 @@ A card may only be moved to `Done` after it has passed QA and ALL are true. The 
 | **Needs Clarification** | Requires more information before starting |
 
 Applying labels:
+
 - Use: `[Sprint] + [Type] + [Priority] + [Stack]`.
 - Exactly one Sprint label is REQUIRED.
 - Add `Needs Clarification` when requirements are unclear.
 
 Sprint label creation:
+
 - For Feature Sprints: create a unique sprint label (e.g., `Sprint 2: User Profiles`) during Sprint Planning.
 - For Kanban Sprints: ensure a standing sprint label exists (e.g., `Q4-Bugs-Chores`). Create it if missing.
 - All cards MUST have exactly one sprint label before entering `To Do`.
@@ -168,12 +171,14 @@ Sprint label creation:
 
 To categorize all work while staying agile, use two sprint label styles:
 
-1) Feature Sprints
+1. Feature Sprints
+
 - Examples: `Sprint 1: Content Discovery`, `Sprint 2: User Profiles`
 - Use for large, planned initiatives delivering cohesive value
 - Always initiated via Sprint Planning and linked to a Sprint Description card
 
-2) Kanban Sprints
+2. Kanban Sprints
+
 - Examples: `Q4-Bugs-Chores`, `October-Maintenance`, `Ongoing-Improvements`
 - Use for one-off bugs, chores, tech debt, small improvements
 - No formal user journey or Sprint Planning required
@@ -368,12 +373,14 @@ Copy this into the card description when creating/refining a task:
 Title: [Description only]
 Description: Context + Scope/Out of Scope.
 Dependencies:
+
 - [ ] [Manual/Task/External] ...
-Acceptance Criteria:
+      Acceptance Criteria:
 - [ ] [verifiable criterion]
-QA Steps:
-1) [step 1]
-Labels: Sprint X; [Type]; [Priority]; [Stack]
+      QA Steps:
+
+1. [step 1]
+   Labels: Sprint X; [Type]; [Priority]; [Stack]
 ```
 
 ---
@@ -398,4 +405,3 @@ Labels: Sprint X; [Type]; [Priority]; [Stack]
 - On Hold contains only blocked cards with a comment explaining why and who is tagged to unblock.
 - Done is reviewed daily; dependencies updated; items older than 7 days are proposed for archive.
 - Backlog is coherent: large items are split into vertical slices; unclear items are tagged Needs Clarification; future improvements may exist but were added with user permission.
-
