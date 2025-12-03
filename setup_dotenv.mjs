@@ -82,10 +82,12 @@ async function requestStripeKey() {
  * @returns {Promise<string>} The PostHog API key.
  */
 async function requestPostHogKey() {
-  const apiKey = await question('Give me your PostHog API key: ');
+  const apiKey = await question(
+    'Give me your PostHog project key (starts with phc_): ',
+  );
   if (!apiKey.startsWith('phc_')) {
     console.error(
-      "This is not a valid PostHog API key. It should start with 'phc_'. Get your PostHog key from: https://app.posthog.com/project/settings",
+      "This is not a valid PostHog project key. It should start with 'phc_'. Get your PostHog project key from: https://app.posthog.com/project/settings",
     );
     process.exit(1);
   }
