@@ -2,6 +2,15 @@
 
 This is a starter template for building a SaaS application using **Next.js** with support for authentication, Stripe integration for payments, and a dashboard for logged-in users.
 
+## Running with or without Database
+
+This project can run in two modes:
+
+- **Static Mode**: Run as a static site without database, authentication, or payments (perfect for landing pages)
+- **Full Mode**: Full SaaS features with database, auth, and Stripe integration
+
+See [DATABASE_SETUP.md](./DATABASE_SETUP.md) for detailed configuration instructions.
+
 ## Prerequisites
 
 Before running the project locally, make sure you have the following installed:

@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getUser } from '@/lib/db/queries';
+import { getUser } from '@/lib/db';
 import GeneralPage from './general';
 import {
   getStripeProducts,

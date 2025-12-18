@@ -15,17 +15,21 @@ import { comparePasswords, hashPassword, setSession } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createCheckoutSession } from '@/lib/payments/stripe';
-import { getUser } from '@/lib/db/queries';
+import { getUser } from '@/lib/db';
 import {
   validatedAction,
   validatedActionWithUser,
 } from '@/lib/auth/middleware';
+import { features } from '@/lib/config/features';
 
 async function logActivity(
   userId: number,
   type: ActivityType,
   ipAddress?: string,
 ) {
+  if (!features.database || !db) {
+    return; // Skip logging when database is disabled
+  }
   const newActivity: NewActivityLog = {
     userId,
     action: type,
@@ -40,6 +44,10 @@ const signInSchema = z.object({
 });
 
 export const signIn = validatedAction(signInSchema, async (data, formData) => {
+  if (!features.database || !db) {
+    return { error: 'Authentication is not available in static mode.' };
+  }
+
   const { email, password } = data;
 
   const foundUser = await db
@@ -88,6 +96,10 @@ const signUpSchema = z.object({
 });
 
 export const signUp = validatedAction(signUpSchema, async (data, formData) => {
+  if (!features.database || !db) {
+    return { error: 'Authentication is not available in static mode.' };
+  }
+
   const { email, password } = data;
 
   const existingUser = await db

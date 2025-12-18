@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Poppins as poppinsFont } from 'next/font/google';
 import { UserProvider } from '@/lib/auth';
-import { getUser } from '@/lib/db/queries';
+import { getUser } from '@/lib/db';
 import Script from 'next/script';
 
 import PostHogProvider from '@/components/posthog-provider';

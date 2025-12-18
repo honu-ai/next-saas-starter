@@ -6,7 +6,7 @@ import {
   getUser,
   updateUserSubscription,
   setUserCreditsByStripeCustomerId,
-} from '@/lib/db/queries';
+} from '@/lib/db';
 import content from '@/content.json';
 
 // Lazy initialization of Stripe to avoid build-time errors when env var is not available
@@ -21,7 +21,7 @@ const getStripe = (): Stripe => {
       );
     }
     stripeInstance = new Stripe(apiKey, {
-      apiVersion: '2025-11-17.clover',
+      apiVersion: '2025-12-15.clover',
     });
   }
   return stripeInstance;

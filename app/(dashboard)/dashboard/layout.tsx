@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import { getUser, getUserActiveSubscriptionDetails } from '@/lib/db/queries';
+import { getUser, getUserActiveSubscriptionDetails } from '@/lib/db';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ErrorReportingWidget from '@/components/error-reporting-widget';

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
 import { User } from '@/lib/db/schema';
-import { getUser } from '@/lib/db/queries';
+import { getUser } from '@/lib/db';
 
 export type ActionState = {
   error?: string;

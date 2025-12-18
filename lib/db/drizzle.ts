@@ -5,9 +5,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-if (!process.env.POSTGRES_URL) {
-  throw new Error('POSTGRES_URL environment variable is not set');
+// Allow running without database in static mode
+let client: ReturnType<typeof postgres> | null = null;
+let dbInstance: ReturnType<typeof drizzle> | null = null;
+
+if (process.env.POSTGRES_URL) {
+  client = postgres(process.env.POSTGRES_URL);
+  dbInstance = drizzle(client, { schema });
 }
 
-export const client = postgres(process.env.POSTGRES_URL);
-export const db = drizzle(client, { schema });
+export { client };
+export const db = dbInstance as ReturnType<typeof drizzle>;
