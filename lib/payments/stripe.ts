@@ -22,6 +22,9 @@ const getStripe = (): Stripe => {
     }
     stripeInstance = new Stripe(apiKey, {
       apiVersion: '2025-12-15.clover',
+      ...(process.env.STRIPE_ACCOUNT_ID
+        ? { stripeAccount: process.env.STRIPE_ACCOUNT_ID }
+        : {}),
     });
   }
   return stripeInstance;
@@ -87,6 +90,9 @@ export async function createCheckoutSession({
     cancel_url: `${process.env.BASE_URL}/pricing`,
     customer: user.stripeCustomerId || undefined,
     client_reference_id: currentUser.id.toString(),
+    metadata: {
+      businessId: content.metadata.brandName,
+    },
     allow_promotion_codes: true,
     ...(trialPeriodDays
       ? {
@@ -109,7 +115,10 @@ export async function createCustomerPortalSession(user: User) {
   const configurations = await stripe.billingPortal.configurations.list();
 
   if (configurations.data.length > 0) {
-    configuration = configurations.data[0];
+    const honulabsConfig = configurations.data.find((config) =>
+      config?.name?.includes('HonuLabs'),
+    );
+    configuration = honulabsConfig || configurations.data[0];
   } else {
     const product = await stripe.products.retrieve(user.stripeProductId);
     if (!product.active) {
@@ -125,6 +134,9 @@ export async function createCustomerPortalSession(user: User) {
     }
 
     configuration = await stripe.billingPortal.configurations.create({
+      metadata: {
+        businessId: content.metadata.brandName,
+      },
       business_profile: {
         headline: 'Manage your subscription',
       },
@@ -134,7 +146,7 @@ export async function createCustomerPortalSession(user: User) {
         },
         subscription_update: {
           enabled: true,
-          default_allowed_updates: ['price', 'quantity', 'promotion_code'],
+          default_allowed_updates: ['price', 'promotion_code'],
           proration_behavior: 'create_prorations',
           products: [
             {
