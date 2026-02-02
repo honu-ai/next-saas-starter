@@ -28,6 +28,7 @@ function Header() {
           links={[
             { label: 'Features', path: '/#benefits' },
             { label: 'How it works', path: '/#solution' },
+            { label: 'Blog', path: '/blog' },
             { label: 'FAQ', path: '/#faq' },
             ...(content?.metadata?.product
               ? [{ label: 'Pricing', path: '/pricing' }]

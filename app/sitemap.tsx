@@ -1,39 +1,16 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-
-async function getBlogSlugs(dir: string) {
-  const entries = await fs.readdir(dir, {
-    recursive: true,
-    withFileTypes: true,
-  });
-  return entries
-    .filter((entry) => entry.isFile() && entry.name === 'page.mdx')
-    .map((entry) => {
-      const relativePath = path.relative(
-        dir,
-        path.join(entry.parentPath, entry.name),
-      );
-      return path.dirname(relativePath);
-    })
-    .map((slug) => slug.replace(/\\/g, '/'));
-}
+import { getAllPosts } from '@/lib/posts';
 
 export default async function sitemap() {
-  const blogPostsDirectory = path.join(
-    process.cwd(),
-    'app',
-    '(dashboard)',
-    'blog',
-  );
-  const slugs = await getBlogSlugs(blogPostsDirectory);
+  const posts = getAllPosts();
+  const baseUrl = process.env.BASE_URL || 'https://honu.ai';
 
-  const blogPosts = slugs.map((slug) => ({
-    url: `${process.env.BASE_URL}/blog/${slug}`,
-    lastModified: new Date().toISOString(),
+  const blogPosts = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date).toISOString(),
   }));
 
   const routes = ['', '/prices'].map((route) => ({
-    url: `${process.env.BASE_URL}${route}`,
+    url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
   }));
 

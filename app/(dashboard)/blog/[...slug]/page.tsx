@@ -1,62 +1,87 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
+import { getAllPosts } from '@/lib/posts';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
-import { getPost } from '@/lib/posts';
 
-type BlogPostProps = {
-  params: Promise<{
-    slug: string[];
-  }>;
-};
-
-const BlogPost: React.FC<BlogPostProps> = async ({ params }) => {
-  const { slug } = await params;
-  const { content, frontmatter } = await getPost(slug);
+const Blog = () => {
+  const allPosts = getAllPosts();
 
   return (
-    <div className='container mx-auto max-w-3xl px-4 py-12'>
-      <Link
-        href='/blog'
-        className='text-primary mb-6 inline-flex items-center text-sm font-medium hover:underline'
-      >
-        <ArrowLeft className='mr-2 h-4 w-4' /> Back to all posts
-      </Link>
-      <div className='mb-6'>
-        <span className='text-xs font-bold tracking-wider text-gray-500'>
-          {frontmatter.category}
-        </span>
+    <div className='max-w-7x container mx-auto px-4 py-12'>
+      <div className='mx-auto max-w-2xl text-center'>
+        <h1 className='mb-6 text-4xl font-bold tracking-tight sm:text-5xl'>
+          Welcome to Our Blog
+        </h1>
+        <p className='text-muted-foreground mb-8 text-xl'>
+          Discover the latest insights, tutorials, and news from our team of
+          experts.
+        </p>
       </div>
-      <h1 className='mb-4 text-4xl font-bold tracking-tight md:text-5xl'>
-        {frontmatter.title}
-      </h1>
-      <div className='mb-8 flex items-center gap-4 text-gray-500'>
-        <div className='flex items-center'>
-          <User className='mr-2 h-4 w-4' />
-          <span className='text-sm font-medium uppercase'>
-            {frontmatter.author}
-          </span>
+
+      {/* Recent Posts Section */}
+      <div className='mx-auto max-w-[980px] grid-cols-1 gap-8 lg:grid-cols-12'>
+        {/* Main Content */}
+        <div className='lg:col-span-12'>
+          <h2 className='mb-8 text-3xl font-bold'>Latest Articles</h2>
+          {allPosts.length === 0 ? (
+            <div className='flex flex-col items-center justify-center py-12 text-center'>
+              <div className='bg-primary/10 mb-4 rounded-full p-6'>
+                <Calendar className='text-primary h-10 w-10' />
+              </div>
+              <h3 className='mb-2 text-xl font-bold'>No articles yet</h3>
+              <p className='text-muted-foreground max-w-sm'>
+                We haven&apos;t published any articles yet. check back soon for
+                updates!
+              </p>
+            </div>
+          ) : (
+            <div className='grid gap-12'>
+              {allPosts.map((post, index) => (
+                <div
+                  key={index}
+                  className='grid grid-cols-1 gap-6 md:grid-cols-12'
+                >
+                  {post.image && (
+                    <div className='md:col-span-4'>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className='relative block aspect-[4/3] overflow-hidden'
+                      >
+                        <img
+                          src={post.image || '/placeholder.svg'}
+                          alt={post.title}
+                          className='object-cover transition-transform duration-300 hover:scale-105'
+                        />
+                      </Link>
+                    </div>
+                  )}
+                  <div
+                    className={post?.image ? 'md:col-span-8' : 'md:col-span-12'}
+                  >
+                    <div className='mb-2'>
+                      <span className='text-xs font-bold tracking-wider text-gray-500'>
+                        {post.category}
+                      </span>
+                    </div>
+                    <Link href={`/blog/${post.slug}`} className='group block'>
+                      <h3 className='group-hover:text-primary mb-2 text-2xl leading-tight font-bold'>
+                        {post.title}
+                      </h3>
+                    </Link>
+                    <p className='mb-2 text-gray-600'>{post.excerpt}</p>
+                    <p className='text-sm font-medium text-gray-500 uppercase'>
+                      {post?.author}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <div className='flex items-center'>
-          <Calendar className='mr-2 h-4 w-4' />
-          <span>{frontmatter.date}</span>
-        </div>
-        <div>{frontmatter.readTime}</div>
       </div>
-      {frontmatter.image && (
-        <div className='mb-10 overflow-hidden rounded-lg'>
-          <img
-            src={frontmatter.image || '/placeholder.svg'}
-            alt={frontmatter.title}
-            width={1200}
-            height={600}
-            className='h-auto w-full'
-          />
-        </div>
-      )}
-      <article className='prose lg:prose-xl prose-foreground dark:prose-invert max-w-none'>
-        {content}
-      </article>
     </div>
   );
 };
 
-export default BlogPost;
+export default Blog;
