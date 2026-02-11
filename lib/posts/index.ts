@@ -31,6 +31,10 @@ function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
 }
 
 export function getAllPosts() {
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+
   const filePaths = getAllFiles(postsDirectory);
 
   return filePaths
